@@ -1,0 +1,10 @@
+img {
+    max-width: 100%;
+    border-radius: $border-radius-sm;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.img-raised {
+    box-shadow: $box-shadow-raised;
+}
