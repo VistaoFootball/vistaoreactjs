@@ -40,7 +40,6 @@ import JoueurInfos from "views/ProfilsJoueur/JoueurInfos.js";
 import Login from "views/pages/Login.js";
 import Lock from "views/pages/Lock.js";
 import UserProfile from "views/UserProfile";
-import SettingsPage from "views/SettingsPage.js";
 import PasseOublie from "views/pages/PasseOublie.js";
 import EmailPasseOublie from "views/pages/EmailPasseOublie.js";
 
@@ -120,14 +119,6 @@ const routes = [
             rtlName: "التقويم",
             mini: "P",
             component: UserProfile,
-            layout: "/admin",
-          },
-          {
-            path: "/parametres",
-            name: "Paramètres",
-            rtlName: "التقويم",
-            mini: "P",
-            component: SettingsPage,
             layout: "/admin",
           },
           {

@@ -21,91 +21,26 @@ import React from "react";
 import {
   CustomInput,
   Button,
-  Card,
-  Row,
-  Col,
 } from "reactstrap";
 
 
-  const FixedPlugin = (props) => {
-    const [classes, setClasses] = React.useState("dropdown");
-    const [darkMode, setDarkMode] = React.useState(false);
-    const handleClick = () => {
-      if (classes === "dropdown") {
-        setClasses("dropdown show");
-      } else {
-        setClasses("dropdown");
-      }
-    };
-    const handleActiveMode = () => {
-      setDarkMode(!darkMode);
-      document.body.classList.toggle("white-content");
-    };
-    
+const FixedPlugin = (props) => {
+  const [classes, setClasses] = React.useState("dropdown");
+  const [darkMode, setDarkMode] = React.useState(false);
+  const handleClick = () => {
+    if (classes === "dropdown") {
+      setClasses("dropdown show");
+    } else {
+      setClasses("dropdown");
+    }
+  };
+  const handleActiveMode = () => {
+    setDarkMode(!darkMode);
+    document.body.classList.toggle("white-content");
+  };
+
   return (
     <div class="content">
-                  <div className="badge-colors text-center">
-              <span
-                className={
-                  props.activeColor === "primary"
-                    ? "badge filter badge-primary active"
-                    : "badge filter badge-primary"
-                }
-                data-color="primary"
-                onClick={() => {
-                  props.handleActiveClick("primary");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "blue"
-                    ? "badge filter badge-info active"
-                    : "badge filter badge-info"
-                }
-                data-color="info"
-                onClick={() => {
-                  props.handleActiveClick("blue");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "green"
-                    ? "badge filter badge-success active"
-                    : "badge filter badge-success"
-                }
-                data-color="success"
-                onClick={() => {
-                  props.handleActiveClick("green");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "orange"
-                    ? "badge filter badge-warning active"
-                    : "badge filter badge-warning"
-                }
-                data-color="warning"
-                onClick={() => {
-                  props.handleActiveClick("orange");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "red"
-                    ? "badge filter badge-danger active"
-                    : "badge filter badge-danger"
-                }
-                data-color="danger"
-                onClick={() => {
-                  props.handleActiveClick("red");
-                }}
-              />
-            </div>
-    <Card>
-      
-      <Row>
-        <Col>
-          <Card>
           <div className="fixed-plugin">
       <div className={classes}>
         <a
@@ -115,7 +50,6 @@ import {
             handleClick();
           }}
         >
-          <i className="fa fa-cog fa-2x" />
         </a>
         <ul className="dropdown-menu show">
           <li className="header-title">SIDEBAR BACKGROUND</li>
@@ -240,10 +174,6 @@ import {
         </ul>
       </div>
     </div>
-            </Card>
-          </Col>   
-        </Row>      
-      </Card>
     </div>
 
     

@@ -5,9 +5,9 @@
 =========================================================
 
 * Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 vistao.co (https://www.creative-tim.com)
+* Copyright 2020 Creative Tim (https://www.creative-tim.com)
 
-* Coded by vistao.co
+* Coded by Creative Tim
 
 =========================================================
 
@@ -42,10 +42,10 @@ const FixedPlugin = (props) => {
             handleClick();
           }}
         >
-
+          <i className="fa fa-cog fa-2x" />
         </a>
         <ul className="dropdown-menu show">
-          <li className="header-title">SIDEBAR BACKGROUND</li>
+          <li className="header-title">Sidebar thème</li>
           <li className="adjustments-line">
             <div className="badge-colors text-center">
               <span
@@ -105,10 +105,10 @@ const FixedPlugin = (props) => {
               />
             </div>
           </li>
-          <li className="header-title">SIDEBAR MINI</li>
+          <li className="header-title">Sidebar mini</li>
           <li className="adjustments-line">
             <div className="togglebutton switch-sidebar-mini d-flex align-items-center justify-content-center">
-              <span className="label-switch">OFF</span>
+              <span className="label-switch">Inactivé</span>
               <CustomInput
                 type="switch"
                 id="switch-1"
@@ -116,12 +116,12 @@ const FixedPlugin = (props) => {
                 value={props.sidebarMini}
                 className="mt-n4"
               />
-              <span className="label-switch ml-n3">ON</span>
+              <span className="label-switch ml-n3">Activé</span>
             </div>
           </li>
           <li className="adjustments-line">
             <div className="togglebutton switch-change-color mt-3 d-flex align-items-center justify-content-center">
-              <span className="label-switch">LIGHT MODE</span>
+              <span className="label-switch">Mode clair</span>
               <CustomInput
                 type="switch"
                 id="switch-2"
@@ -129,40 +129,9 @@ const FixedPlugin = (props) => {
                 value={darkMode}
                 className="mt-n4"
               />
-              <span className="label-switch ml-n3">DARK MODE</span>
+              <span className="label-switch ml-n3">Mode sombre</span>
             </div>
-          </li>
-          <li className="button-container">
-            <Button
-              href="https://www.creative-tim.com/product/black-dashboard-pro-react"
-              color="primary"
-              block
-              className="btn-round"
-            >
-              Buy now
-            </Button>
-          </li>
-          <li className="button-container">
-            <Button
-              color="default"
-              block
-              className="btn-round"
-              outline
-              href="https://demos.creative-tim.com/black-dashboard-pro-react/#/documentation/tutorial"
-              target="_blank"
-            >
-              <i className="nc-icon nc-paper" /> Documentation
-            </Button>
-          </li>
-          <li className="button-container">
-            <Button
-              href="https://www.creative-tim.com/product/black-dashboard-react"
-              color="info"
-              block
-              className="btn-round"
-            >
-              Get free version
-            </Button>
+            <br></br>
           </li>
         </ul>
       </div>
