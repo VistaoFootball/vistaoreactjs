@@ -45,8 +45,8 @@ const Login = () => {
           <Col className="ml-auto mr-auto" lg="4" md="6">
             <Form className="form">
 
-                  <CardTitle tag="h1">Se connecter</CardTitle>
-
+                  <CardTitle tag="h3">Retrouvez votre compte</CardTitle>
+                  <p>Veuillez entrer votre adresse e-mail pour rechercher votre compte.</p>
                 <CardBody>
                   <InputGroup
                     className={classnames({
@@ -59,27 +59,10 @@ const Login = () => {
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                      placeholder="Email"
+                      placeholder="Email de récupération"
                       type="text"
                       onFocus={(e) => setState({ ...state, emailFocus: true })}
                       onBlur={(e) => setState({ ...state, emailFocus: false })}
-                    />
-                  </InputGroup>
-                  <InputGroup
-                    className={classnames({
-                      "input-group-focus": state.passFocus,
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-lock-circle" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Mot de passe"
-                      type="password"
-                      onFocus={(e) => setState({ ...state, passFocus: true })}
-                      onBlur={(e) => setState({ ...state, passFocus: false })}
                     />
                   </InputGroup>
                 </CardBody>
@@ -92,31 +75,8 @@ const Login = () => {
                     onClick={(e) => e.preventDefault()}
                     size="lg"
                   >
-                    Démarrer
+                    Créer un nouveau passe
                   </Button>
-                  <div className="pull-left">
-                    <h6>
-                      <a
-                        className="link footer-link"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        Créer un compte
-                      </a>
-                    </h6>
-                  </div>
-                  <div className="pull-right">
-                    <h6>
-                      <a
-                        className="link footer-link"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        Mot de passe oublie ? 
-                      </a>
-                    </h6>
-                  </div>
-
             </Form>
           </Col>
         </Container>

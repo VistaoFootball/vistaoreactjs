@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "http://Vistaofootball.github.io/vistaoreactjs",
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.4.1",
+    "@stripe/stripe-js": "^1.16.0",
     "bootstrap": "4.5.3",
     "chart.js": "2.9.4",
     "classnames": "2.2.6",

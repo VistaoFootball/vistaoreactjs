@@ -17,7 +17,6 @@
 import React from "react";
 // react plugin used to create DropdownMenu for selecting items
 import Select from "react-select";
-
 // reactstrap components
 import {
   Card,
@@ -376,14 +375,11 @@ const Panels = () => {
           </Card>
                   </Card>
                   </TabPane>
-
-
                 </TabContent>
-
-
           </Col>
           <Col>
             <Card>
+            <div style={{overflowY:"scroll",height:"800px"}}>
               <CardBody>
                 <Nav className="nav-pills-info" pills>
                   <NavItem>
@@ -485,13 +481,13 @@ const Panels = () => {
                             title=""
                             type="button"
                           >
-                            <i className="tim-icons icon-settings" />
+                            <i className="tim-icons icon-simple-remove" />
                           </Button>
                           <UncontrolledTooltip
                             delay={0}
                             target="tooltip170482171"
                           >
-                            Modifier
+                            Effacer
                           </UncontrolledTooltip>
                         </td>
                       </tr>
@@ -1269,6 +1265,7 @@ const Panels = () => {
               </TabPane>
         </TabContent>
       </CardBody>
+   </div>
     </Card>
   </Col>
  </Row>

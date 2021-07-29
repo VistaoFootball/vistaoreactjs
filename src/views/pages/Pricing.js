@@ -48,7 +48,7 @@ const Pricing = () => {
           </Row>
           <Row>
             <Col lg="3" md="6">
-              <Card className="card-pricing card-primary">
+              <Card className="card-pricing card-primary"style={{"background":"transparent"}}>
                 <CardBody>
                 <br></br>
                 <Col>
@@ -72,7 +72,7 @@ const Pricing = () => {
                       <label>€ /mois</label>
                     </h1>
                   </div>
-                  <Button style={{"display":"block","margin":"auto"}}color="primary">
+                  <Button style={{"display":"block","margin-right":"15%","margin-left":"15%"}} color="primary" href="https://buy.stripe.com/aEUbLb5mV4JK7N628g">
                     Commencer
                   </Button>
                   <br></br>  
@@ -82,7 +82,7 @@ const Pricing = () => {
                       <label>€ /année</label>
                     </h1>
                   </div>
-                  <Button style={{"display":"block","margin":"auto"}}color="primary">
+                  <Button style={{"display":"block","margin-right":"15%","margin-left":"15%"}} color="primary"  href="https://buy.stripe.com/fZe02t7v3foo4AU5kt">
                     Commencer
                   </Button>
                 </CardBody>
@@ -115,7 +115,7 @@ const Pricing = () => {
                       <label>€ /mois</label>
                     </h1>
                   </div>
-                  <Button style={{"display":"block","margin":"auto"}}color="primary">
+                  <Button style={{"display":"block","margin-right":"15%","margin-left":"15%"}} color="primary"  href="https://buy.stripe.com/5kAcPf3eNccc4AU4gh">
                     Commencer
                   </Button>
                   <br></br>  
@@ -125,7 +125,7 @@ const Pricing = () => {
                       <label>€ /année</label>
                     </h1>
                   </div>
-                  <Button style={{"display":"block","margin":"auto"}}color="primary">
+                  <Button style={{"display":"block","margin-right":"15%","margin-left":"15%"}}color="primary" href="https://buy.stripe.com/bIY16xdTrgss1oI9AA">
                     Commencer
                   </Button>
                 </CardBody>
@@ -134,7 +134,7 @@ const Pricing = () => {
               </Card>
             </Col>
             <Col lg="3" md="6">
-              <Card className="card-pricing card-primary">
+              <Card className="card-pricing card-primary" style={{"background":"transparent"}}>
                 <CardBody>
                 <br></br>
                 <Col>
@@ -159,7 +159,7 @@ const Pricing = () => {
                       <label>€ /mois</label>
                     </h1>
                   </div>
-                  <Button style={{"display":"block","margin":"auto"}}color="primary">
+                  <Button style={{"display":"block","margin-right":"15%","margin-left":"15%"}} color="primary" href="https://buy.stripe.com/28o9D34iRgss9Ve005">
                     Commencer
                   </Button>
                   <br></br>  
@@ -169,7 +169,7 @@ const Pricing = () => {
                       <label>€ /année</label>
                     </h1>
                   </div>
-                  <Button style={{"display":"block","margin":"auto"}}color="primary">
+                  <Button style={{"display":"block","margin-right":"15%","margin-left":"15%"}}color="primary" href="https://buy.stripe.com/aEUcPf6qZgss6J200b">
                     Commencer
                   </Button>
                 </CardBody>
@@ -202,7 +202,7 @@ const Pricing = () => {
                       <label>€ /mois</label>
                     </h1>
                   </div>
-                  <Button style={{"display":"block","margin":"auto"}}color="primary">
+                  <Button style={{"display":"block","margin-right":"15%","margin-left":"15%"}} color="primary" href="https://buy.stripe.com/6oE3eF4iRfoo4AUeV1">
                     Commencer
                   </Button>
                   <br></br>  
@@ -212,7 +212,7 @@ const Pricing = () => {
                       <label>€ /année</label>
                     </h1>
                   </div>
-                  <Button style={{"display":"block","margin":"auto"}}color="primary">
+                  <Button style={{"display":"block","margin-right":"15%","margin-left":"15%"}}color="primary" href="https://buy.stripe.com/cN2eXndTrb882sM5ku">
                     Commencer
                   </Button>
                 </CardBody>

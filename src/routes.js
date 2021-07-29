@@ -41,6 +41,9 @@ import Login from "views/pages/Login.js";
 import Lock from "views/pages/Lock.js";
 import UserProfile from "views/UserProfile";
 import SettingsPage from "views/SettingsPage.js";
+import PasseOublie from "views/pages/PasseOublie.js";
+import EmailPasseOublie from "views/pages/EmailPasseOublie.js";
+
 const routes = [
   {
     collapse: true,
@@ -91,6 +94,24 @@ const routes = [
             mini: "L",
             rtlMini: "هعذا",
             component: Login,
+            layout: "/auth",
+          },
+          {
+            path: "/email-mot-de-passe-oublie",
+            name: "Email passe oublié",
+            rtlName: "هعذاتسجيل الدخول",
+            mini: "ERP",
+            rtlMini: "هعذا",
+            component: EmailPasseOublie,
+            layout: "/auth",
+          },
+          {
+            path: "/mot-de-passe-oublie",
+            name: "Mot de passe oublié",
+            rtlName: "هعذاتسجيل الدخول",
+            mini: "MPO",
+            rtlMini: "هعذا",
+            component: PasseOublie,
             layout: "/auth",
           },
           {
@@ -255,6 +276,7 @@ const routes = [
         {
           path: "/studio",
           name: "Studio",
+          icon: "tim-icons icon-video-66",
           rtlName: "تسجيل",
           mini: "S",
           rtlMini: "صع",

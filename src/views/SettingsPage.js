@@ -41,6 +41,7 @@ import {
       setDarkMode(!darkMode);
       document.body.classList.toggle("white-content");
     };
+    
   return (
     <div class="content">
                   <div className="badge-colors text-center">

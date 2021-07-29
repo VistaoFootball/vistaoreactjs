@@ -45,24 +45,24 @@ const Login = () => {
           <Col className="ml-auto mr-auto" lg="4" md="6">
             <Form className="form">
 
-                  <CardTitle tag="h1">Se connecter</CardTitle>
-
+                  <CardTitle tag="h3">Mot de passe oublié</CardTitle>
+                  <p>Veuillez créer et confirmer votre nouveau mot de passe.</p>
                 <CardBody>
                   <InputGroup
                     className={classnames({
-                      "input-group-focus": state.emailFocus,
+                      "input-group-focus": state.passFocus,
                     })}
                   >
                     <InputGroupAddon addonType="prepend">
                       <InputGroupText>
-                        <i className="tim-icons icon-email-85" />
+                        <i className="tim-icons icon-lock-circle" />
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                      placeholder="Email"
-                      type="text"
-                      onFocus={(e) => setState({ ...state, emailFocus: true })}
-                      onBlur={(e) => setState({ ...state, emailFocus: false })}
+                      placeholder="Nouveau mot de passe"
+                      type="password"
+                      onFocus={(e) => setState({ ...state, passFocus: true })}
+                      onBlur={(e) => setState({ ...state, passFocus: false })}
                     />
                   </InputGroup>
                   <InputGroup
@@ -76,7 +76,7 @@ const Login = () => {
                       </InputGroupText>
                     </InputGroupAddon>
                     <Input
-                      placeholder="Mot de passe"
+                      placeholder="Confirmez le nouveau mot de passe"
                       type="password"
                       onFocus={(e) => setState({ ...state, passFocus: true })}
                       onBlur={(e) => setState({ ...state, passFocus: false })}
@@ -92,31 +92,8 @@ const Login = () => {
                     onClick={(e) => e.preventDefault()}
                     size="lg"
                   >
-                    Démarrer
+                    Changer le mot de passe
                   </Button>
-                  <div className="pull-left">
-                    <h6>
-                      <a
-                        className="link footer-link"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        Créer un compte
-                      </a>
-                    </h6>
-                  </div>
-                  <div className="pull-right">
-                    <h6>
-                      <a
-                        className="link footer-link"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        Mot de passe oublie ? 
-                      </a>
-                    </h6>
-                  </div>
-
             </Form>
           </Col>
         </Container>

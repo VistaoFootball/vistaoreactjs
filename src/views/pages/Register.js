@@ -298,7 +298,7 @@ const Register = () => {
                       </InputGroupAddon>
                       <Input
                         placeholder="password"
-                        type="text"
+                        type="password"
                         onFocus={(e) => setState({ ...state, passFocus: true })}
                         onBlur={(e) => setState({ ...state, passFocus: false })}
                       />
@@ -315,7 +315,7 @@ const Register = () => {
                       </InputGroupAddon>
                       <Input
                         placeholder="password"
-                        type="text"
+                        type="password"
                         onFocus={(e) => setState({ ...state, ConfirmpassFocus: true })}
                         onBlur={(e) => setState({ ...state, ConfirmpassFocus: false })}
                       />
