@@ -362,31 +362,68 @@
         }
     }
 
-    &[data="blue"]{
-      @include linear-gradient($info-states, $info);
-      &:before{
-        border-bottom-color: $info;
-      }
-    }
-    &[data="green"]{
-      @include linear-gradient($success-states, $success);
-      &:before{
-        border-bottom-color: $success;
-      }
-    }
-    &[data="orange"]{
-      @include linear-gradient($warning-states, $warning);
-      &:before{
-        border-bottom-color: $warning;
-      }
-    }
     &[data="red"]{
-      @include linear-gradient($danger-states, $danger);
+      @include linear-gradient($red-states, $red);
       &:before{
-        border-bottom-color: $danger;
+        border-bottom-color: $red;
       }
     }
 
+    &[data="orange"]{
+      @include linear-gradient($orange-states, $orange);
+      &:before{
+        border-bottom-color: $orange;
+      }
+    }
+
+    &[data="yellow"]{
+      @include linear-gradient($yellow-states, $yellow);
+      &:before{
+        border-bottom-color: $yellow;
+      }
+    }
+
+    &[data="green"]{
+      @include linear-gradient($green-states, $green);
+      &:before{
+        border-bottom-color: $green;
+      }
+    }
+
+    &[data="blue"]{
+      @include linear-gradient($blue-states, $blue);
+      &:before{
+        border-bottom-color: $blue;
+      }
+    }
+
+    &[data="cyan"]{
+      @include linear-gradient($cyan-states, $cyan);
+      &:before{
+        border-bottom-color: $cyan;
+      }
+    }
+
+    &[data="purple"]{
+      @include linear-gradient($purple-states, $purple);
+      &:before{
+        border-bottom-color: $purple;
+      }
+    }
+
+    &[data="gray"]{
+      @include linear-gradient($gray-states, $gray-600);
+      &:before{
+        border-bottom-color: $gray-600;
+      }
+    }
+
+    &[data="black"]{
+      @include linear-gradient($black-states, $black);
+      &:before{
+        border-bottom-color: $black;
+      }
+    }
 
     .user{
         padding-bottom: 20px;
@@ -511,6 +548,46 @@
 
     &[data="primary"]{
       border-top: 2px solid $primary;
+    }
+
+    &[data="yellow"]{
+      border-top: 2px solid $yellow;
+    }
+
+    &[data="red"]{
+      border-top: 2px solid $red;
+    }
+
+    &[data="orange"]{
+      border-top: 2px solid $orange;
+    }
+
+    &[data="yellow"]{
+      border-top: 2px solid $yellow;
+    }
+
+    &[data="green"]{
+      border-top: 2px solid $green;
+    }
+
+    &[data="blue"]{
+      border-top: 2px solid $blue;
+    }
+
+    &[data="cyan"]{
+      border-top: 2px solid $cyan;
+    }
+
+    &[data="purple"]{
+      border-top: 2px solid $purple;
+    }
+
+    &[data="gray"]{
+      border-top: 2px solid $white;
+    }
+
+    &[data="black"]{
+      border-top: 2px solid $white;
     }
 
     > .content {

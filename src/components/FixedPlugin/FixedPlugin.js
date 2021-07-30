@@ -50,59 +50,112 @@ const FixedPlugin = (props) => {
             <div className="badge-colors text-center">
               <span
                 className={
-                  props.activeColor === "primary"
-                    ? "badge filter badge-primary active"
-                    : "badge filter badge-primary"
+                  props.activeColor === "red"
+                    ? "badge filter badge-red active"
+                    : "badge filter badge-red"
                 }
-                data-color="primary"
+                data-color="red"
+                style = {{"background-color":"red"}}
                 onClick={() => {
-                  props.handleActiveClick("primary");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "blue"
-                    ? "badge filter badge-info active"
-                    : "badge filter badge-info"
-                }
-                data-color="info"
-                onClick={() => {
-                  props.handleActiveClick("blue");
-                }}
-              />
-              <span
-                className={
-                  props.activeColor === "green"
-                    ? "badge filter badge-success active"
-                    : "badge filter badge-success"
-                }
-                data-color="success"
-                onClick={() => {
-                  props.handleActiveClick("green");
+                  props.handleActiveClick("red");
                 }}
               />
               <span
                 className={
                   props.activeColor === "orange"
-                    ? "badge filter badge-warning active"
-                    : "badge filter badge-warning"
+                    ? "badge filter badge-orange active"
+                    : "badge filter badge-orange"
                 }
-                data-color="warning"
+                data-color="orange"
+                style = {{"background-color":"orange"}}
                 onClick={() => {
                   props.handleActiveClick("orange");
                 }}
-              />
+              />   
               <span
                 className={
-                  props.activeColor === "red"
-                    ? "badge filter badge-danger active"
-                    : "badge filter badge-danger"
+                  props.activeColor === "yellow"
+                    ? "badge filter badge-yellow active"
+                    : "badge filter badge-yellow"
                 }
-                data-color="danger"
+                data-color="yellow"
+                style = {{"background-color":"yellow"}}
                 onClick={() => {
-                  props.handleActiveClick("red");
+                  props.handleActiveClick("yellow");
                 }}
-              />
+              />   
+              <span
+                className={
+                  props.activeColor === "green"
+                    ? "badge filter badge-green active"
+                    : "badge filter badge-green"
+                }
+                data-color="green"
+                style = {{"background-color":"green"}}
+                onClick={() => {
+                  props.handleActiveClick("green");
+                }}
+              />   
+              <span
+                className={
+                  props.activeColor === "blue"
+                    ? "badge filter badge-blue active"
+                    : "badge filter badge-blue"
+                }
+                data-color="blue"
+                style = {{"background-color":"blue"}}
+                onClick={() => {
+                  props.handleActiveClick("blue");
+                }}
+              />   
+              <span
+                className={
+                  props.activeColor === "cyan"
+                    ? "badge filter badge-cyan active"
+                    : "badge filter badge-cyan"
+                }
+                data-color="cyan"
+                style = {{"background-color":"cyan"}}
+                onClick={() => {
+                  props.handleActiveClick("cyan");
+                }}
+              />    
+              <span
+                className={
+                  props.activeColor === "purple"
+                    ? "badge filter badge-purple active"
+                    : "badge filter badge-purple"
+                }
+                data-color="purple"
+                style = {{"background-color":"purple"}}
+                onClick={() => {
+                  props.handleActiveClick("purple");
+                }}
+              /> 
+              <span
+                className={
+                  props.activeColor === "gray"
+                    ? "badge filter badge-gray active"
+                    : "badge filter badge-gray"
+                }
+                data-color="gray"
+                style = {{"background-color":"gray"}}
+                onClick={() => {
+                  props.handleActiveClick("gray");
+                }}
+              /> 
+              <span
+                className={
+                  props.activeColor === "black"
+                    ? "badge filter badge-black active"
+                    : "badge filter badge-black"
+                }
+                data-color="black"
+                style = {{"background-color":"black"}}
+                onClick={() => {
+                  props.handleActiveClick("black");
+                }}
+              />                                                                                  
             </div>
           </li>
           <li className="header-title">Sidebar mini</li>
