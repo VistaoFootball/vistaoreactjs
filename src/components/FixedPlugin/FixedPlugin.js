@@ -161,7 +161,7 @@ const FixedPlugin = (props) => {
           <li className="header-title">Sidebar mini</li>
           <li className="adjustments-line">
             <div className="togglebutton switch-sidebar-mini d-flex align-items-center justify-content-center">
-              <span className="label-switch">Inactivé</span>
+              <span className="label-switch">on</span>
               <CustomInput
                 type="switch"
                 id="switch-1"
@@ -169,7 +169,7 @@ const FixedPlugin = (props) => {
                 value={props.sidebarMini}
                 className="mt-n4"
               />
-              <span className="label-switch ml-n3">Activé</span>
+              <span className="label-switch ml-n3">off</span>
             </div>
           </li>
           <li className="adjustments-line">
