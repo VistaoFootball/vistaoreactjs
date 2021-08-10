@@ -1,11 +1,9 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: process.env.VISTAO_API_ENDPOINT,
+export const api = axios.create({
+  baseURL: `${process.env.VISTAO_API_ENDPOINT}/api/v1/`,
 });
 
-export const registerUser = (userRegister) => {
-  api.post("/api/v1/profile/users/register", {
-    ...userRegister,
-  });
-};
+export const auth_api = axios.create({
+  baseURL: `${process.env.VISTAO_API_ENDPOINT}/auth/token/`,
+});
