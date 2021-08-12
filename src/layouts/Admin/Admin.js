@@ -30,6 +30,7 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
+import { PrivateRoute } from "routes/PrivateRouter";
 
 var ps;
 
@@ -98,11 +99,9 @@ const Admin = (props) => {
       }
       if (prop.layout === "/admin") {
         return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
+          <PrivateRoute path={prop.layout + prop.path} key={key}>
+            {prop.component}
+          </PrivateRoute>
         );
       } else {
         return null;

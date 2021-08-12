@@ -14,7 +14,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useContext } from "react";
 import classnames from "classnames";
 // reactstrap components
 import {
@@ -30,11 +30,15 @@ import {
   Col,
 } from "reactstrap";
 import { login } from "apis/routes/auth";
+import { UserContext } from "providers/UserProvider";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [state, setState] = React.useState({});
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const userState = useContext(UserContext);
+  const history = useHistory();
 
   React.useEffect(() => {
     document.body.classList.toggle("login-page");
@@ -100,9 +104,11 @@ const Login = () => {
                 className="mb-3"
                 color="primary"
                 href="#pablo"
-                onClick={(e) => {
+                onClick={async (e) => {
                   e.preventDefault();
-                  login(email, password);
+                  const response = await login(email, password);
+                  userState.setUser(response);
+                  history.replace("/admin");
                 }}
                 size="lg"
               >

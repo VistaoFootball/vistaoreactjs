@@ -40,6 +40,7 @@ import { getCategories } from "apis/routes/common";
 import { getSubCategories } from "apis/routes/common";
 import { register } from "apis/routes/profile";
 import { UserRegister } from "Models/UserRegister";
+import { useHistory } from "react-router-dom";
 
 const Register = () => {
   const [state, setState] = React.useState({});
@@ -51,6 +52,7 @@ const Register = () => {
   const [singleSelectUserType, setSingleSelectUserType] = React.useState(null);
   const [userCategoryOptions, setUserCategoryOptions] = React.useState([]);
   const [userTypeOptions, setUserTypeOptions] = React.useState([]);
+  const history = useHistory();
 
   React.useEffect(() => {
     document.body.classList.toggle("register-page");
@@ -239,7 +241,7 @@ const Register = () => {
                     className="btn-round"
                     color="primary"
                     href="#pablo"
-                    onClick={(e) => {
+                    onClick={async (e) => {
                       e.preventDefault();
                       if (
                         email &&
@@ -248,7 +250,7 @@ const Register = () => {
                         singleSelectUserType &&
                         singleSelectUserCategory
                       ) {
-                        register(
+                        await register(
                           new UserRegister(
                             email,
                             password,
@@ -257,6 +259,7 @@ const Register = () => {
                             singleSelectUserType.value
                           )
                         );
+                        history.replace("/auth/login");
                       }
                     }}
                     size="lg"
