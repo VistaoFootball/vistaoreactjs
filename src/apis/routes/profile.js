@@ -2,7 +2,6 @@ import { api } from "apis";
 
 const url = "/profile/users";
 
-// Set Function Paramaters and Pass it to API Call
 export const register = async (data) => {
   try {
     await api.post(`${url}/register`, { ...data });
@@ -10,6 +9,8 @@ export const register = async (data) => {
     console.log(err);
   }
 };
+
+// Set Function Paramaters and Pass it to API Call
 
 // export const emailVerification = async () => {
 //   await api.get(`${url}/email-verify`, {});

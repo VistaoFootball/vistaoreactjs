@@ -44,7 +44,7 @@ const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [modalSearch, setModalSearch] = React.useState(false);
   const [color, setColor] = React.useState("navbar-transparent");
-  const userState = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
@@ -210,8 +210,8 @@ const AdminNavbar = (props) => {
                     <DropdownItem
                       className="nav-item"
                       onClick={() => {
-                        logout(userState.user.auth_token);
-                        userState.setUser(null);
+                        logout(user.auth_token);
+                        setUser(null);
                       }}
                     >
                       Se déconnecter

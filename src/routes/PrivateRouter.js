@@ -4,13 +4,13 @@ import { UserContext } from "../providers/UserProvider";
 
 export function PrivateRoute({ children, path, exact }) {
   const history = useHistory();
-  const userState = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (!userState.user) {
+    if (!user) {
       history.replace("/auth/login");
     }
-  }, [userState.user]);
+  }, [user]);
 
   return (
     <Route path={path} exact={exact}>

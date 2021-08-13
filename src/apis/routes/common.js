@@ -15,6 +15,8 @@ export const getSubCategories = async (user_category) => {
   return response.data;
 };
 
+// Set Function Paramaters and Pass it to API Call
+
 // export const getPostCategories = async () => {
 //   await api.get(`${url}/get-post-categories`, {});
 // };

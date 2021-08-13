@@ -5,10 +5,10 @@ import { Button } from "reactstrap";
 
 export function PrivateButton({ children, style, color, href }) {
   const history = useHistory();
-  const userState = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const onClick = () => {
-    if (!userState.user) {
+    if (!user) {
       history.replace("/auth/login");
     } else {
       window.location = href;

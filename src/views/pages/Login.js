@@ -37,7 +37,7 @@ const Login = () => {
   const [state, setState] = React.useState({});
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const userState = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   React.useEffect(() => {
@@ -107,7 +107,7 @@ const Login = () => {
                 onClick={async (e) => {
                   e.preventDefault();
                   const response = await login(email, password);
-                  userState.setUser(response);
+                  setUser(response);
                   history.replace("/admin");
                 }}
                 size="lg"
