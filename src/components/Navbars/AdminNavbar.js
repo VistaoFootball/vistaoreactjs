@@ -36,11 +36,16 @@ import {
   Modal,
   UncontrolledTooltip,
 } from "reactstrap";
+import { logout } from "apis/routes/auth";
+import { UserContext } from "providers/UserProvider";
+import { useContext } from "react";
 
 const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [modalSearch, setModalSearch] = React.useState(false);
   const [color, setColor] = React.useState("navbar-transparent");
+  const userState = useContext(UserContext);
+
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
     return function cleanup() {
@@ -190,7 +195,9 @@ const AdminNavbar = (props) => {
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item" href="profil">Profil</DropdownItem>
+                    <DropdownItem className="nav-item" href="profil">
+                      Profil
+                    </DropdownItem>
                   </NavLink>
                   <NavLink tag="li">
                     <DropdownItem className="nav-item">Paramètres</DropdownItem>
@@ -200,7 +207,15 @@ const AdminNavbar = (props) => {
                   </NavLink>
                   <DropdownItem divider tag="li" />
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item">Se déconnecter</DropdownItem>
+                    <DropdownItem
+                      className="nav-item"
+                      onClick={() => {
+                        logout(userState.user.auth_token);
+                        userState.setUser(null);
+                      }}
+                    >
+                      Se déconnecter
+                    </DropdownItem>
                   </NavLink>
                 </DropdownMenu>
               </UncontrolledDropdown>

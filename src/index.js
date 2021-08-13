@@ -26,15 +26,18 @@ import "assets/css/nucleo-icons.css";
 import "react-notification-alert/dist/animate.css";
 import "assets/scss/black-dashboard-pro-react.scss?v=1.2.0";
 import "assets/demo/demo.css";
+import { UserProvider } from "providers/UserProvider";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
-      <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
-      <Redirect from="/" to="/admin/videos" />
-    </Switch>
-  </BrowserRouter>,
+  <UserProvider>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
+        <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+        <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
+        <Redirect from="/" to="/admin/videos" />
+      </Switch>
+    </BrowserRouter>
+  </UserProvider>,
   document.getElementById("root")
 );

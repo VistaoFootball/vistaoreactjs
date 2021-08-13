@@ -4,7 +4,11 @@ const url = "/profile/users";
 
 // Set Function Paramaters and Pass it to API Call
 export const register = async (data) => {
-  await api.post(`${url}/register`, { ...data });
+  try {
+    await api.post(`${url}/register`, { ...data });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 // export const emailVerification = async () => {
