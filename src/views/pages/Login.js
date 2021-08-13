@@ -119,7 +119,10 @@ const Login = () => {
                   <a
                     className="link footer-link"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.replace("/auth/register");
+                    }}
                   >
                     Créer un compte
                   </a>
