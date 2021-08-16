@@ -29,11 +29,22 @@ import {
   Container,
   Col,
 } from "reactstrap";
+import { UserContext } from "providers/UserProvider";
+import { useHistory } from "react-router-dom";
+import { changeUserPassword } from "apis/routes/profile";
 
 const Login = () => {
   const [state, setState] = React.useState({});
+  const [password, setPassword] = React.useState("");
+  const [changePassword, setChangePassword] = React.useState("");
+  const { user } = React.useContext(UserContext);
+  const history = useHistory();
+
   React.useEffect(() => {
     document.body.classList.toggle("login-page");
+    if (!user) {
+      history.push("/auth/login");
+    }
     return function cleanup() {
       document.body.classList.toggle("login-page");
     };
@@ -44,56 +55,69 @@ const Login = () => {
         <Container>
           <Col className="ml-auto mr-auto" lg="4" md="6">
             <Form className="form">
+              <CardTitle tag="h3">Mot de passe oublié</CardTitle>
+              <p>Veuillez créer et confirmer votre nouveau mot de passe.</p>
+              <CardBody>
+                <InputGroup
+                  className={classnames({
+                    "input-group-focus": state.passFocus,
+                  })}
+                >
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="tim-icons icon-lock-circle" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    placeholder="Nouveau mot de passe"
+                    type="password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
+                    onFocus={(e) => setState({ ...state, passFocus: true })}
+                    onBlur={(e) => setState({ ...state, passFocus: false })}
+                  />
+                </InputGroup>
+                <InputGroup
+                  className={classnames({
+                    "input-group-focus": state.passFocus,
+                  })}
+                >
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="tim-icons icon-lock-circle" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    placeholder="Confirmez le nouveau mot de passe"
+                    type="password"
+                    value={changePassword}
+                    onChange={(e) => setChangePassword(e.target.value)}
+                    onFocus={(e) => setState({ ...state, passFocus: true })}
+                    onBlur={(e) => setState({ ...state, passFocus: false })}
+                  />
+                </InputGroup>
+              </CardBody>
 
-                  <CardTitle tag="h3">Mot de passe oublié</CardTitle>
-                  <p>Veuillez créer et confirmer votre nouveau mot de passe.</p>
-                <CardBody>
-                  <InputGroup
-                    className={classnames({
-                      "input-group-focus": state.passFocus,
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-lock-circle" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Nouveau mot de passe"
-                      type="password"
-                      onFocus={(e) => setState({ ...state, passFocus: true })}
-                      onBlur={(e) => setState({ ...state, passFocus: false })}
-                    />
-                  </InputGroup>
-                  <InputGroup
-                    className={classnames({
-                      "input-group-focus": state.passFocus,
-                    })}
-                  >
-                    <InputGroupAddon addonType="prepend">
-                      <InputGroupText>
-                        <i className="tim-icons icon-lock-circle" />
-                      </InputGroupText>
-                    </InputGroupAddon>
-                    <Input
-                      placeholder="Confirmez le nouveau mot de passe"
-                      type="password"
-                      onFocus={(e) => setState({ ...state, passFocus: true })}
-                      onBlur={(e) => setState({ ...state, passFocus: false })}
-                    />
-                  </InputGroup>
-                </CardBody>
-
-                  <Button
-                    block
-                    className="mb-3"
-                    color="primary"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                    size="lg"
-                  >
-                    Changer le mot de passe
-                  </Button>
+              <Button
+                block
+                className="mb-3"
+                color="primary"
+                href="#pablo"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (password && changePassword) {
+                    changeUserPassword(user.auth_token, {
+                      new_password: password,
+                      confirm_password: changePassword,
+                    });
+                  }
+                }}
+                size="lg"
+              >
+                Changer le mot de passe
+              </Button>
             </Form>
           </Col>
         </Container>
