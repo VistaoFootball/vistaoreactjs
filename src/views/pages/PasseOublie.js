@@ -29,26 +29,28 @@ import {
   Container,
   Col,
 } from "reactstrap";
-import { UserContext } from "providers/UserProvider";
+import { resetPassword } from "apis/routes/profile";
 import { useHistory } from "react-router-dom";
-import { changeUserPassword } from "apis/routes/profile";
 
-const Login = () => {
+const Login = (props) => {
   const [state, setState] = React.useState({});
   const [password, setPassword] = React.useState("");
-  const [changePassword, setChangePassword] = React.useState("");
-  const { user } = React.useContext(UserContext);
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const { uuid } = props.match.params;
   const history = useHistory();
 
   React.useEffect(() => {
     document.body.classList.toggle("login-page");
-    if (!user) {
-      history.push("/auth/login");
-    }
+
     return function cleanup() {
       document.body.classList.toggle("login-page");
     };
   });
+
+  if (!uuid) {
+    history.push("/auth/login");
+  }
+
   return (
     <>
       <div className="content">
@@ -92,8 +94,8 @@ const Login = () => {
                   <Input
                     placeholder="Confirmez le nouveau mot de passe"
                     type="password"
-                    value={changePassword}
-                    onChange={(e) => setChangePassword(e.target.value)}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     onFocus={(e) => setState({ ...state, passFocus: true })}
                     onBlur={(e) => setState({ ...state, passFocus: false })}
                   />
@@ -107,11 +109,13 @@ const Login = () => {
                 href="#pablo"
                 onClick={(e) => {
                   e.preventDefault();
-                  if (password && changePassword) {
-                    changeUserPassword(user.auth_token, {
+                  if (password && confirmPassword) {
+                    resetPassword({
                       new_password: password,
-                      confirm_password: changePassword,
+                      confirm_password: confirmPassword,
+                      uuid,
                     });
+                    history.push("/auth/login");
                   }
                 }}
                 size="lg"

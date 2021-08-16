@@ -20,6 +20,10 @@ export const changeUserPassword = async (auth_token, data) => {
   });
 };
 
+export const resetPassword = async (data) => {
+  await api.post(`${url}/reset-password`, data);
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const emailVerification = async () => {
@@ -28,10 +32,6 @@ export const changeUserPassword = async (auth_token, data) => {
 
 // export const getResetPassword = async () => {
 //   await api.get(`${url}/reset-password`, {});
-// };
-
-// export const postResetPassword = async () => {
-//   await api.post(`${url}/reset-password`, {});
 // };
 
 // export const setPlayerTeamInfo = async () => {
