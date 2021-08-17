@@ -39,12 +39,14 @@ import {
 import { logout } from "apis/routes/auth";
 import { UserContext } from "providers/UserProvider";
 import { useContext } from "react";
+import { useHistory } from "react-router-dom";
 
 const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [modalSearch, setModalSearch] = React.useState(false);
   const [color, setColor] = React.useState("navbar-transparent");
   const { user, setUser } = useContext(UserContext);
+  const history = useHistory();
 
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
@@ -195,7 +197,12 @@ const AdminNavbar = (props) => {
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-navbar" right tag="ul">
                   <NavLink tag="li">
-                    <DropdownItem className="nav-item" href="profil">
+                    <DropdownItem
+                      className="nav-item"
+                      onClick={() => {
+                        history.push("/admin/profil/");
+                      }}
+                    >
                       Profil
                     </DropdownItem>
                   </NavLink>

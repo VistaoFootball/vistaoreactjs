@@ -24,6 +24,26 @@ export const resetPassword = async (data) => {
   await api.post(`${url}/reset-password`, data);
 };
 
+export const getProfileDetails = async (auth_token) => {
+  const response = await api.get(`${url}/profile-details`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const setPlayerTeamInfo = async (auth_token, data) => {
+  await api.put(`${url}/player-team-info`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+export const getPlayerTeamInfo = async (auth_token) => {
+  const response = await api.get(`${url}/player-team-info`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const emailVerification = async () => {
@@ -32,18 +52,6 @@ export const resetPassword = async (data) => {
 
 // export const getResetPassword = async () => {
 //   await api.get(`${url}/reset-password`, {});
-// };
-
-// export const setPlayerTeamInfo = async () => {
-//   await api.put(`${url}/player-team-info`, {});
-// };
-
-// export const getPlayerTeamInfo = async () => {
-//   await api.get(`${url}/player-team-info`, {});
-// };
-
-// export const getProfileDetails = async () => {
-//   await api.get(`${url}/profile-details`, {});
 // };
 
 // export const setProfileDetails = async () => {

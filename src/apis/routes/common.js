@@ -15,6 +15,23 @@ export const getSubCategories = async (user_category) => {
   return response.data;
 };
 
+export const getClubDetails = async (auth_token) => {
+  const response = await api.get(`${url}/club-details`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const postClubDetails = async (auth_token, name) => {
+  await api.post(
+    `${url}/club-details`,
+    { name },
+    {
+      headers: { Authorization: `Token ${auth_token}` },
+    }
+  );
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const getPostCategories = async () => {
@@ -27,14 +44,6 @@ export const getSubCategories = async (user_category) => {
 
 // export const getClipFilters = async () => {
 //   await api.get(`${url}/get-clip-filters`, {});
-// };
-
-// export const getClubDetails = async () => {
-//   await api.get(`${url}/club-details`, {});
-// };
-
-// export const postClubDetails = async () => {
-//   await api.post(`${url}/club-details`, {});
 // };
 
 // export const getJerseyColours = async () => {

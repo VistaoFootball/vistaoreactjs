@@ -15,7 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import { getProfileDetails } from "apis/routes/profile";
+import { UserContext } from "providers/UserProvider";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -32,10 +35,25 @@ import {
   TabPane,
 } from "reactstrap";
 
-
 function Profile() {
-
   const [horizontalTabs, sethorizontalTabs] = React.useState("Global");
+  const [userProfile, setUserProfile] = React.useState(null);
+  const { user } = React.useContext(UserContext);
+  const history = useHistory();
+
+  React.useEffect(() => {
+    if (user) {
+      getProfileDetails(user.auth_token).then((result) => {
+        console.log(result);
+        setUserProfile(result);
+      });
+    }
+  }, [user]);
+
+  if (!user) {
+    history.push("/auth/login");
+  }
+
   // with this function we change the active tab for all the tabs in this page
   const changeActiveTab = (e, tabState, tabName) => {
     e.preventDefault();
@@ -47,17 +65,21 @@ function Profile() {
         break;
     }
   };
+  if (!userProfile) {
+    return <></>;
+  }
 
+  const { nick_name, first_name, last_name } = userProfile.profile_details;
   return (
     <div class="content">
-    <Card>
-      <Row>
-        <Col>
-          <Card>
-            <CardBody>
-                  {/* subcategories begin*/}
-                    <Card>
-                    <Nav className="nav-pills-info" pills>
+      <Card>
+        <Row>
+          <Col>
+            <Card>
+              <CardBody>
+                {/* subcategories begin*/}
+                <Card>
+                  <Nav className="nav-pills-info" pills>
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
@@ -74,7 +96,9 @@ function Profile() {
                       <NavLink
                         data-toggle="tab"
                         href="#pablo"
-                        className={horizontalTabs === "Spécifique" ? "active" : ""}
+                        className={
+                          horizontalTabs === "Spécifique" ? "active" : ""
+                        }
                         onClick={(e) =>
                           changeActiveTab(e, "horizontalTabs", "Spécifique")
                         }
@@ -83,132 +107,118 @@ function Profile() {
                       </NavLink>
                     </NavItem>
                   </Nav>
-                <Col>
-            <Card className="card-user">
-                <div className="author">
-                  <div className="block block-one" />
-                  <div className="block block-two" />
-                  <div className="block block-three" />
-                  <div className="block block-four" />
-                  <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                    <img
-                      alt="..."
-                      className="avatar"
-                      src={require("assets/img/emilyz.jpg").default}
-                    />
-                    <h5 className="title">Nickname</h5>
-                  </a>
-                </div>
-            </Card>
-          </Col>
+                  <Col>
+                    <Card className="card-user">
+                      <div className="author">
+                        <div className="block block-one" />
+                        <div className="block block-two" />
+                        <div className="block block-three" />
+                        <div className="block block-four" />
+                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                          <img
+                            alt="..."
+                            className="avatar"
+                            src={require("assets/img/emilyz.jpg").default}
+                          />
+                          <h5 className="title">{nick_name}</h5>
+                        </a>
+                      </div>
+                    </Card>
+                  </Col>
 
-          
                   <TabContent activeTab={horizontalTabs}>
                     <TabPane tabId="Global">
-                    <Row>
-                    <Col className="pr-md-1" md="6">
-                      <FormGroup>
-                        <label>Prénom</label>
-                        <Input
-                          defaultValue=""
-                          placeholder=""
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="6">
-                      <FormGroup>
-                        <label>Nom</label>
-                        <Input
-                          defaultValue=""
-                          placeholder=""
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                  <Col className="pr-md-1" md="6">
-                      <FormGroup>
-                        <label for="Catégorie">Fonction au club</label>
-                          <select class="form-control" id="Catégorie">
-                          <option>1</option>
-                          <option>2</option>
-                          </select>
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="6">
-                      <FormGroup >
-                      <label for="Catégorie_âge">Catégorie d'âge</label>
-                          <select class="form-control" id="Catégorie_âge">
-                          <option>1</option>
-                          <option>2</option>
-                          </select>
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label>Prénom</label>
+                            <Input
+                              defaultValue={first_name}
+                              placeholder=""
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>Nom</label>
+                            <Input
+                              defaultValue={last_name}
+                              placeholder=""
+                              type="text"
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label for="Catégorie">Fonction au club</label>
+                            <select class="form-control" id="Catégorie">
+                              <option>1</option>
+                              <option>2</option>
+                            </select>
+                          </FormGroup>
+                        </Col>
+                        <Col className="px-md-1" md="6">
+                          <FormGroup>
+                            <label for="Catégorie_âge">Catégorie d'âge</label>
+                            <select class="form-control" id="Catégorie_âge">
+                              <option>1</option>
+                              <option>2</option>
+                            </select>
+                          </FormGroup>
+                        </Col>
+                      </Row>
                     </TabPane>
-                    </TabContent>
+                  </TabContent>
 
-
-                 <TabContent activeTab={horizontalTabs}>
+                  <TabContent activeTab={horizontalTabs}>
                     <TabPane tabId="Spécifique">
-                    <Row>
-                    <Col className="pr-md-1" md="6">
-                      <FormGroup>
-                        <label>Prénom</label>
-                        <Input
-                          defaultValue=""
-                          placeholder=""
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="6">
-                      <FormGroup>
-                        <label>Nom</label>
-                        <Input
-                          defaultValue=""
-                          placeholder=""
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                  <Col className="pr-md-1" md="6">
-                      <FormGroup>
-                        <label for="Catégorie">Fonction au club</label>
-                          <select class="form-control" id="Catégorie">
-                          <option>1</option>
-                          <option>2</option>
-                          </select>
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="6">
-                      <FormGroup >
-                      <label for="Catégorie_âge">Catégorie d'âge</label>
-                          <select class="form-control" id="Catégorie_âge">
-                          <option>1</option>
-                          <option>2</option>
-                          </select>
-                      </FormGroup>
-                    </Col>
-                  </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label>Prénom</label>
+                            <Input defaultValue="" placeholder="" type="text" />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <FormGroup>
+                            <label>Nom</label>
+                            <Input defaultValue="" placeholder="" type="text" />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <FormGroup>
+                            <label for="Catégorie">Fonction au club</label>
+                            <select class="form-control" id="Catégorie">
+                              <option>1</option>
+                              <option>2</option>
+                            </select>
+                          </FormGroup>
+                        </Col>
+                        <Col className="px-md-1" md="6">
+                          <FormGroup>
+                            <label for="Catégorie_âge">Catégorie d'âge</label>
+                            <select class="form-control" id="Catégorie_âge">
+                              <option>1</option>
+                              <option>2</option>
+                            </select>
+                          </FormGroup>
+                        </Col>
+                      </Row>
                     </TabPane>
-                    </TabContent>  
-
-
+                  </TabContent>
                 </Card>
               </CardBody>
             </Card>
-          </Col>   
-        </Row>      
+          </Col>
+        </Row>
       </Card>
     </div>
-
-    
   );
-};
+}
 
 export default Profile;

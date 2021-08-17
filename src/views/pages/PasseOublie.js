@@ -53,7 +53,10 @@ const Login = (props) => {
 
   return (
     <>
-      <div className="content">
+      <div
+        className="content"
+        style={{ display: "flex", height: "100vh", alignItems: "center" }}
+      >
         <Container>
           <Col className="ml-auto mr-auto" lg="4" md="6">
             <Form className="form">
