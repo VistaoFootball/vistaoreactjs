@@ -39,7 +39,8 @@ import ClubInfos from "views/ProfilsClub/ClubInfos.js";
 import JoueurInfos from "views/ProfilsJoueur/JoueurInfos.js";
 import Login from "views/pages/Login.js";
 import Lock from "views/pages/Lock.js";
-import UserProfile from "views/UserProfile";
+import PlayerProfile from "views/PlayerProfile.js";
+import CoachProfile from "views/CoachProfile.js";
 import PasseOublie from "views/pages/PasseOublie.js";
 import EmailPasseOublie from "views/pages/EmailPasseOublie.js";
 
@@ -114,11 +115,19 @@ const routes = [
             layout: "/auth",
           },
           {
-            path: "/profil",
-            name: "Profil",
+            path: "/profil-joueur",
+            name: "Profil joueur",
             rtlName: "التقويم",
             mini: "P",
-            component: UserProfile,
+            component: PlayerProfile,
+            layout: "/admin",
+          },
+          {
+            path: "/profil-coach",
+            name: "Profil coach",
+            rtlName: "التقويم",
+            mini: "P",
+            component: CoachProfile,
             layout: "/admin",
           },
           {
@@ -254,7 +263,7 @@ const routes = [
           layout: "/admin",
         },
         {
-          path: "/create-video",
+          path: "/creer-video",
           name: "Nouvelle vidéo",
           icon: "tim-icons icon-simple-add",
           rtlName: "تسجيل",
