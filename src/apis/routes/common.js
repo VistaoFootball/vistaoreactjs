@@ -22,7 +22,7 @@ export const getClubDetails = async (auth_token) => {
   return response.data;
 };
 
-export const postClubDetails = async (auth_token, name) => {
+export const createClub = async (auth_token, name) => {
   await api.post(
     `${url}/club-details`,
     { name },

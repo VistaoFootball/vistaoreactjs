@@ -15,6 +15,13 @@ export const createVideoFiles = async (auth_token, data) => {
   });
 };
 
+export const getClubUsers = async (auth_token, id) => {
+  const response = await api.get(`${url}/get-club-users/${id}`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const getVideoFiles = async () => {
@@ -23,10 +30,6 @@ export const createVideoFiles = async (auth_token, data) => {
 
 // export const updateVideoProfile = async () => {
 //   await api.put(`${url}/update-video-profile`, {});
-// };
-
-// export const getClubUsers = async () => {
-//   await api.get(`${url}/get-club-users`, {});
 // };
 
 // export const postCreateVideoClip = async () => {

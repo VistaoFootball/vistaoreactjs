@@ -133,7 +133,10 @@ const Login = () => {
                   <a
                     className="link footer-link"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.replace("/auth/email-mot-de-passe-oublie");
+                    }}
                   >
                     Mot de passe oublie ?
                   </a>

@@ -34,7 +34,7 @@ import { getVideoGallery } from "apis/routes/videos";
 
 function Dashboard(props) {
   const { user } = React.useContext(UserContext);
-  const [videos, setVideos] = React.useState(null);
+  const [videos, setVideos] = React.useState([]);
 
   React.useEffect(() => {
     if (user) {
@@ -48,88 +48,103 @@ function Dashboard(props) {
     <>
       <div className="content">
         <Row>
-          <Col lg="3">
-            <Card className="card-chart">
-              <Row>
-                <img src={logo} width="350" height="200" alt="Thumbnail" />
-              </Row>
-              <CardBody>
-                <div style={{ display: "flex", justifyContent: "right" }}>
-                  <UncontrolledDropdown>
-                    <DropdownToggle
-                      caret
-                      className="btn-link btn-icon"
-                      color="default"
-                      data-toggle="dropdown"
-                      type="button"
-                    >
-                      <i className="tim-icons icon-settings-gear-63" />
-                    </DropdownToggle>
-                    <DropdownMenu right>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        Télécharger en HD
-                      </DropdownItem>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        Télécharger en SD
-                      </DropdownItem>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        Supprimer la vidéo
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
-                </div>
-                <Col>
-                  <CardTitle tag="h4">
-                    <i className="tim-icons icon-video-66" /> HomeTeam v
-                    AwayTeam
-                  </CardTitle>
-                  <div class="galleryItem">
-                    <div class="vistao-thumbnail"></div>
-                    <span>
-                      <i className="tim-icons icon-double-right" /> Video
-                      Context
-                    </span>
-                    <br></br>
-                    <span>
-                      <i className="tim-icons icon-check-2" /> Result -
-                      MatchOverType
-                    </span>
-                    <br></br>
-                    <span>
-                      <i className="tim-icons icon-pin" /> HomeScore - AwayScore
-                    </span>
-                    <br></br>
-                    <span>
-                      <i className="tim-icons icon-calendar-60" /> DateTime -
-                      VideoDuration
-                    </span>
-                    <br></br>
-                    <span>
-                      <i className="tim-icons icon-user-run" /> Pitch Ground
-                    </span>
-                    <br></br>
-                    <span>
-                      <i className="tim-icons icon-video-66" /> Creator -
-                      CountViews
-                    </span>
-                    <br></br>
-                    <span>
-                      <i className="tim-icons icon-lock-circle" /> Privacy
-                    </span>
-                  </div>
-                </Col>
-              </CardBody>
-            </Card>
-          </Col>
+          {videos.map((video) => {
+            const {
+              id,
+              video_files,
+              context_type,
+              clip_duration,
+              pitch_ground,
+              is_private,
+            } = video;
+            return (
+              <Col lg="3" key={id}>
+                <Card className="card-chart">
+                  <Row>
+                    <img src={logo} width="350" height="200" alt="Thumbnail" />
+                  </Row>
+                  <CardBody>
+                    <div style={{ display: "flex", justifyContent: "right" }}>
+                      <UncontrolledDropdown>
+                        <DropdownToggle
+                          caret
+                          className="btn-link btn-icon"
+                          color="default"
+                          data-toggle="dropdown"
+                          type="button"
+                        >
+                          <i className="tim-icons icon-settings-gear-63" />
+                        </DropdownToggle>
+                        <DropdownMenu right>
+                          <DropdownItem
+                            href={video_files[0].video_link}
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            Télécharger en HD
+                          </DropdownItem>
+                          <DropdownItem
+                            href={video_files[1].video_link}
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            Télécharger en SD
+                          </DropdownItem>
+                          <DropdownItem
+                            href="#pablo"
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            Supprimer la vidéo
+                          </DropdownItem>
+                        </DropdownMenu>
+                      </UncontrolledDropdown>
+                    </div>
+                    <Col>
+                      <CardTitle tag="h4">
+                        <i className="tim-icons icon-video-66" /> HomeTeam v
+                        AwayTeam
+                      </CardTitle>
+                      <div class="galleryItem">
+                        <div class="vistao-thumbnail"></div>
+                        <span>
+                          <i className="tim-icons icon-double-right" /> Video
+                          Context - {context_type}
+                        </span>
+                        <br></br>
+                        <span>
+                          <i className="tim-icons icon-check-2" /> Result -
+                          MatchOverType
+                        </span>
+                        <br></br>
+                        <span>
+                          <i className="tim-icons icon-pin" /> HomeScore -
+                          AwayScore
+                        </span>
+                        <br></br>
+                        <span>
+                          <i className="tim-icons icon-calendar-60" /> DateTime
+                          - VideoDuration - {clip_duration}
+                        </span>
+                        <br></br>
+                        <span>
+                          <i className="tim-icons icon-user-run" /> Pitch Ground
+                          - {pitch_ground}
+                        </span>
+                        <br></br>
+                        <span>
+                          <i className="tim-icons icon-video-66" /> Creator -
+                          CountViews
+                        </span>
+                        <br></br>
+                        <span>
+                          <i className="tim-icons icon-lock-circle" /> Privacy -
+                          {is_private ? "Private" : "Public"}
+                        </span>
+                      </div>
+                    </Col>
+                  </CardBody>
+                </Card>
+              </Col>
+            );
+          })}
         </Row>
       </div>
     </>

@@ -44,7 +44,6 @@ function Profile() {
   React.useEffect(() => {
     if (user) {
       getProfileDetails(user.auth_token).then((result) => {
-        console.log(result);
         setUserProfile(result);
       });
     }
