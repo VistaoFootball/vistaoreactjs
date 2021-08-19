@@ -637,7 +637,16 @@ function Profile() {
                     </Col>
                     <Col className="pl-md-1" md="6">
                       <FormGroup>
-                      <label>Développer coucher max (kg)</label> <i className="tim-icons icon-bulb-63" id="tooltip170482121"/> 
+                      <label>Développer coucher max (kg)</label>
+                      <Button
+                          className="btn-link btn-icon"
+                          style={{"height":"1rem","min-width":"1rem","width":"2rem"}} 
+                          color="success"
+                          id="tooltip170482121"
+                          size="lg"
+                        >
+                          <i className="tim-icons icon-bulb-63" />
+                        </Button> 
                       <UncontrolledTooltip
                             delay={0}
                             target="tooltip170482121"
@@ -655,7 +664,16 @@ function Profile() {
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
-                      <label>Souplesse (cm)</label> <i className="tim-icons icon-bulb-63" id="tooltip17048212"/> 
+                      <label >Souplesse (cm)</label>
+                      <Button
+                          className="btn-link btn-icon"
+                          style={{"height":"1rem","min-width":"1rem","width":"2rem"}} 
+                          color="success"
+                          id="tooltip17048212"
+                          size="lg"
+                        >
+                          <i className="tim-icons icon-bulb-63" />
+                        </Button>
                       <UncontrolledTooltip
                             delay={0}
                             target="tooltip17048212"
@@ -671,12 +689,21 @@ function Profile() {
                     </Col>
                     <Col className="pl-md-1" md="6">
                       <FormGroup>
-                        <label>Coordination</label> <i className="tim-icons icon-bulb-63" id="tooltip170482171"/> 
+                        <label>Coordination</label> 
+                        <Button
+                          className="btn-link btn-icon"
+                          style={{"height":"1rem","min-width":"1rem","width":"2rem"}} 
+                          color="success"
+                          id="tooltip1704821714"
+                          size="lg"
+                        >
+                          <i className="tim-icons icon-bulb-63" />
+                        </Button>
                         <UncontrolledTooltip
                             delay={0}
-                            target="tooltip170482171"
+                            target="tooltip1704821714"
                           >
-                          Test de la navette 10 x 5m. A mettre à jour pour le suivi.
+                          Temps sur la navette 10 x 5m. A mettre à jour pour le suivi.
                           </UncontrolledTooltip>
                         <Input
                           defaultValue=""
@@ -689,12 +716,21 @@ function Profile() {
                   <Row>
                     <Col className="pr-md-1" md="6">
                     <FormGroup>
-                        <label>Vitesse</label> <i className="tim-icons icon-bulb-63" id="tooltip170482171"/> 
+                        <label>Vitesse</label>
+                        <Button
+                          className="btn-link btn-icon"
+                          style={{"height":"1rem","min-width":"1rem","width":"2rem"}} 
+                          color="success"
+                          id="tooltip1704821713"
+                          size="lg"
+                        >
+                          <i className="tim-icons icon-bulb-63" />
+                        </Button>
                         <UncontrolledTooltip
                             delay={0}
-                            target="tooltip170482171"
+                            target="tooltip1704821713"
                           >
-                          Sprint de 60m. A mettre à jour pour le suivi.
+                          Temps sur 60m. A mettre à jour pour le suivi.
                           </UncontrolledTooltip>
                         <Input
                           defaultValue=""
@@ -1202,14 +1238,14 @@ function Profile() {
                 <Table responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th className="text-center">Club</th>
+                      <th className="text-center">Sélection</th>
                       <th className="text-center">Saison</th>
                       <th className="text-center">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="text-center">Club</td>
+                      <td className="text-center">Sélection</td>
                       <td className="text-center">2020-2021</td>
                       <td className="text-center">
                         <Button

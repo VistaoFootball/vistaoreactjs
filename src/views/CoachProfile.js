@@ -956,14 +956,14 @@ function Profile() {
                 <Table responsive>
                   <thead className="text-primary">
                     <tr>
-                      <th className="text-center">Club</th>
+                      <th className="text-center">Sélection</th>
                       <th className="text-center">Saison</th>
                       <th className="text-center">Actions</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="text-center">Club</td>
+                      <td className="text-center">Sélection</td>
                       <td className="text-center">2020-2021</td>
                       <td className="text-center">
                         <Button
