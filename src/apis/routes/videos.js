@@ -22,6 +22,12 @@ export const getClubUsers = async (auth_token, id) => {
   return response.data;
 };
 
+export const deleteVideoProfile = async (auth_token, id) => {
+  await api.get(`${url}/delete-video-profile/${id}`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const getVideoFiles = async () => {
@@ -50,9 +56,6 @@ export const getClubUsers = async (auth_token, id) => {
 
 // export const deleteVideoClip = async () => {
 //   await api.get(`${url}/delete-video-clip`, {});
-// };
-// export const deleteVideoProfile = async () => {
-//   await api.get(`${url}/delete-video-profile`, {});
 // };
 
 // export const getVideoClipStatistics = async () => {

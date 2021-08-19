@@ -31,18 +31,21 @@ import {
 } from "reactstrap";
 import { UserContext } from "providers/UserProvider";
 import { getVideoGallery } from "apis/routes/videos";
+import { deleteVideoProfile } from "apis/routes/videos";
 
 function Dashboard(props) {
   const { user } = React.useContext(UserContext);
   const [videos, setVideos] = React.useState([]);
+  const [updateGallery, setUpdateGallery] = React.useState(true);
 
   React.useEffect(() => {
     if (user) {
       getVideoGallery(user.auth_token).then((result) => {
+        setVideos([]);
         setVideos(result);
       });
     }
-  }, [user]);
+  }, [user, updateGallery]);
 
   return (
     <>
@@ -90,7 +93,11 @@ function Dashboard(props) {
                           </DropdownItem>
                           <DropdownItem
                             href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={async (e) => {
+                              e.preventDefault();
+                              await deleteVideoProfile(user.auth_token, id);
+                              setUpdateGallery(!updateGallery);
+                            }}
                           >
                             Supprimer la vidéo
                           </DropdownItem>
@@ -105,37 +112,22 @@ function Dashboard(props) {
                       <div class="galleryItem">
                         <div class="vistao-thumbnail"></div>
                         <span>
-                          <i className="tim-icons icon-double-right" /> Video
-                          Context - {context_type}
+                          <i className="tim-icons icon-double-right" />{" "}
+                          {context_type}
                         </span>
                         <br></br>
                         <span>
-                          <i className="tim-icons icon-check-2" /> Result -
-                          MatchOverType
+                          <i className="tim-icons icon-calendar-60" />{" "}
+                          {clip_duration}
                         </span>
                         <br></br>
                         <span>
-                          <i className="tim-icons icon-pin" /> HomeScore -
-                          AwayScore
+                          <i className="tim-icons icon-user-run" />{" "}
+                          {pitch_ground}
                         </span>
                         <br></br>
                         <span>
-                          <i className="tim-icons icon-calendar-60" /> DateTime
-                          - VideoDuration - {clip_duration}
-                        </span>
-                        <br></br>
-                        <span>
-                          <i className="tim-icons icon-user-run" /> Pitch Ground
-                          - {pitch_ground}
-                        </span>
-                        <br></br>
-                        <span>
-                          <i className="tim-icons icon-video-66" /> Creator -
-                          CountViews
-                        </span>
-                        <br></br>
-                        <span>
-                          <i className="tim-icons icon-lock-circle" /> Privacy -
+                          <i className="tim-icons icon-lock-circle" />{" "}
                           {is_private ? "Private" : "Public"}
                         </span>
                       </div>
