@@ -59,6 +59,8 @@ function Dashboard(props) {
               clip_duration,
               pitch_ground,
               is_private,
+              home_team,
+              away_team,
             } = video;
             return (
               <Col lg="3" key={id}>
@@ -106,8 +108,8 @@ function Dashboard(props) {
                     </div>
                     <Col>
                       <CardTitle tag="h4">
-                        <i className="tim-icons icon-video-66" /> HomeTeam v
-                        AwayTeam
+                        <i className="tim-icons icon-video-66" />{" "}
+                        {home_team.club_name} v{away_team.club_name}
                       </CardTitle>
                       <div class="galleryItem">
                         <div class="vistao-thumbnail"></div>

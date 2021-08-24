@@ -200,7 +200,7 @@ const AdminNavbar = (props) => {
                     <DropdownItem
                       className="nav-item"
                       onClick={() => {
-                        history.push("/admin/profil/");
+                        history.push("/admin/profil-joueur");
                       }}
                     >
                       Profil

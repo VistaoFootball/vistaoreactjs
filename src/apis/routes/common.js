@@ -32,6 +32,22 @@ export const createClub = async (auth_token, name) => {
   );
 };
 
+export const addSummaryTag = async (auth_token, name) => {
+  await api.post(
+    `${url}/summary-details`,
+    { name },
+    {
+      headers: { Authorization: `Token ${auth_token}` },
+    }
+  );
+};
+
+export const getSummaryTags = async (auth_token) => {
+  await api.get(`${url}/summary-details`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const getPostCategories = async () => {
@@ -52,12 +68,4 @@ export const createClub = async (auth_token, name) => {
 
 // export const getTeamNumbers = async () => {
 //   await api.get(`${url}/get-team-numbers`, {});
-// };
-
-// export const postSummaryDetails = async () => {
-//   await api.post(`${url}/summary-details`, {});
-// };
-
-// export const getSummaryDetails = async () => {
-//   await api.get(`${url}/summary-details`, {});
 // };

@@ -28,6 +28,13 @@ export const deleteVideoProfile = async (auth_token, id) => {
   });
 };
 
+export const getGallerySummary = async (auth_token) => {
+  const response = await api.get(`${url}/gallery-summary`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const getVideoFiles = async () => {
@@ -76,8 +83,4 @@ export const deleteVideoProfile = async (auth_token, id) => {
 
 // export const deleteSummary = async () => {
 //   await api.get(`${url}/delete-summary`, {});
-// };
-
-// export const getGallerySummary = async () => {
-//   await api.get(`${url}/gallery-summary`, {});
 // };

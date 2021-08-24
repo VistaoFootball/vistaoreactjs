@@ -31,6 +31,14 @@ export const getProfileDetails = async (auth_token) => {
   return response.data;
 };
 
+export const setProfileDetails = async (auth_token, data) => {
+  await api.put(`${url}/profile-details`, data, {
+    headers: {
+      Authorization: `Token ${auth_token}`,
+    },
+  });
+};
+
 export const setPlayerTeamInfo = async (auth_token, data) => {
   await api.put(`${url}/player-team-info`, data, {
     headers: { Authorization: `Token ${auth_token}` },
@@ -52,10 +60,6 @@ export const getPlayerTeamInfo = async (auth_token) => {
 
 // export const getResetPassword = async () => {
 //   await api.get(`${url}/reset-password`, {});
-// };
-
-// export const setProfileDetails = async () => {
-//   await api.put(`${url}/profile-details`, {});
 // };
 
 // export const getScreenSettingsData = async () => {
