@@ -55,6 +55,20 @@ export const getClipFilters = async (auth_token) => {
   return response.data;
 };
 
+export const getJerseyColours = async (auth_token) => {
+  const response = await api.get(`${url}/get-jersey-colours`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const getTeamNumbers = async (auth_token) => {
+  const response = await api.get(`${url}/get-team-numbers`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const getPostCategories = async () => {
@@ -63,12 +77,4 @@ export const getClipFilters = async (auth_token) => {
 
 // export const getPostSubCategories = async () => {
 //   await api.get(`${url}/get-post-subcategories`, {});
-// };
-
-// export const getJerseyColours = async () => {
-//   await api.get(`${url}/get-jersey-colours`, {});
-// };
-
-// export const getTeamNumbers = async () => {
-//   await api.get(`${url}/get-team-numbers`, {});
 // };

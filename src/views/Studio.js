@@ -78,6 +78,10 @@ const Panels = () => {
   const location = useLocation();
   const { user } = React.useContext(UserContext);
 
+  const convertSecondsToTime = (seconds) => {
+    return new Date(seconds * 1000).toISOString().substr(11, 8);
+  };
+
   const convertArrayToObject = (arr) => {
     const result = {};
     arr.forEach((item) => {
@@ -916,7 +920,10 @@ const Panels = () => {
                                         }
                                       }}
                                     >
-                                      Joueur - hh:mm:ss{" "}
+                                      Joueur -{" "}
+                                      {convertSecondsToTime(
+                                        videoClip.start_time
+                                      )}{" "}
                                     </a>
                                   </td>
                                 </CardHeader>
