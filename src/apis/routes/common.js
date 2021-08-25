@@ -48,6 +48,13 @@ export const getSummaryTags = async (auth_token) => {
   });
 };
 
+export const getClipFilters = async (auth_token) => {
+  const response = await api.get(`${url}/get-clip-filters`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const getPostCategories = async () => {
@@ -56,10 +63,6 @@ export const getSummaryTags = async (auth_token) => {
 
 // export const getPostSubCategories = async () => {
 //   await api.get(`${url}/get-post-subcategories`, {});
-// };
-
-// export const getClipFilters = async () => {
-//   await api.get(`${url}/get-clip-filters`, {});
 // };
 
 // export const getJerseyColours = async () => {

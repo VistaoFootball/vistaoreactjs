@@ -32,9 +32,11 @@ import {
 import { UserContext } from "providers/UserProvider";
 import { getVideoGallery } from "apis/routes/videos";
 import { deleteVideoProfile } from "apis/routes/videos";
+import { useHistory } from "react-router-dom";
 
 function Dashboard(props) {
   const { user } = React.useContext(UserContext);
+  const history = useHistory();
   const [videos, setVideos] = React.useState([]);
   const [updateGallery, setUpdateGallery] = React.useState(true);
 
@@ -66,7 +68,15 @@ function Dashboard(props) {
               <Col lg="3" key={id}>
                 <Card className="card-chart">
                   <Row>
-                    <img src={logo} width="350" height="200" alt="Thumbnail" />
+                    <img
+                      src={logo}
+                      width="350"
+                      height="200"
+                      alt="Thumbnail"
+                      onClick={() => {
+                        history.replace("/admin/studio", { video_id: id });
+                      }}
+                    />
                   </Row>
                   <CardBody>
                     <div style={{ display: "flex", justifyContent: "right" }}>

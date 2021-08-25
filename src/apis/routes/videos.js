@@ -35,34 +35,47 @@ export const getGallerySummary = async (auth_token) => {
   return response.data;
 };
 
-// Set Function Paramaters and Pass it to API Call
+export const createVideoClip = async (auth_token, data) => {
+  await api.post(`${url}/create-video-clip`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
 
-// export const getVideoFiles = async () => {
-//   await api.get(`${url}/video-files`, {});
-// };
+export const getVideoClips = async (auth_token, video_id) => {
+  const response = await api.get(`${url}/get-video-clips/${video_id}`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const getVideoFiles = async (auth_token) => {
+  const response = await api.get(`${url}/video-files`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const deleteVideoClip = async (auth_token, video_id) => {
+  await api.get(`${url}/delete-video-clip/${video_id}`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+export const updateVideoClip = async (auth_token, data) => {
+  console.log(data);
+  await api.put(`${url}/create-video-clip`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+// Set Function Paramaters and Pass it to API Call
 
 // export const updateVideoProfile = async () => {
 //   await api.put(`${url}/update-video-profile`, {});
 // };
 
-// export const postCreateVideoClip = async () => {
-//   await api.post(`${url}/create-video-clip`, {});
-// };
-
-// export const putCreateVideoClip = async () => {
-//   await api.put(`${url}/create-video-clip`, {});
-// };
-
 // export const searchVideoClip = async () => {
 //   await api.post(`${url}/search-video-clip`, {});
-// };
-
-// export const getVideoClips = async () => {
-//   await api.get(`${url}/get-video-clips`, {});
-// };
-
-// export const deleteVideoClip = async () => {
-//   await api.get(`${url}/delete-video-clip`, {});
 // };
 
 // export const getVideoClipStatistics = async () => {
