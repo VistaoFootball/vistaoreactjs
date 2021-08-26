@@ -27,14 +27,20 @@ import "react-notification-alert/dist/animate.css";
 import "assets/scss/black-dashboard-pro-react.scss?v=1.2.0";
 import "assets/demo/demo.css";
 import { UserProvider } from "providers/UserProvider";
+import Login from "views/pages/PasseOublie";
 
 ReactDOM.render(
   <UserProvider>
     <BrowserRouter>
       <Switch>
+        <Route
+          path="/reset-password/:uuid"
+          render={(props) => <Login {...props} />}
+        />
         <Route path="/auth" render={(props) => <AuthLayout {...props} />} />
         <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
         <Route path="/rtl" render={(props) => <RTLLayout {...props} />} />
+
         <Redirect from="/" to="/admin/videos" />
       </Switch>
     </BrowserRouter>

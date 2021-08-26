@@ -15,38 +15,66 @@ export const getSubCategories = async (user_category) => {
   return response.data;
 };
 
+export const getClubDetails = async (auth_token) => {
+  const response = await api.get(`${url}/club-details`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const createClub = async (auth_token, name) => {
+  await api.post(
+    `${url}/club-details`,
+    { name },
+    {
+      headers: { Authorization: `Token ${auth_token}` },
+    }
+  );
+};
+
+export const addSummaryTag = async (auth_token, name) => {
+  await api.post(
+    `${url}/summary-details`,
+    { name },
+    {
+      headers: { Authorization: `Token ${auth_token}` },
+    }
+  );
+};
+
+export const getSummaryTags = async (auth_token) => {
+  await api.get(`${url}/summary-details`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+export const getClipFilters = async (auth_token) => {
+  const response = await api.get(`${url}/get-clip-filters`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const getJerseyColours = async (auth_token) => {
+  const response = await api.get(`${url}/get-jersey-colours`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const getTeamNumbers = async (auth_token) => {
+  const response = await api.get(`${url}/get-team-numbers`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+// Set Function Paramaters and Pass it to API Call
+
 // export const getPostCategories = async () => {
 //   await api.get(`${url}/get-post-categories`, {});
 // };
 
 // export const getPostSubCategories = async () => {
 //   await api.get(`${url}/get-post-subcategories`, {});
-// };
-
-// export const getClipFilters = async () => {
-//   await api.get(`${url}/get-clip-filters`, {});
-// };
-
-// export const getClubDetails = async () => {
-//   await api.get(`${url}/club-details`, {});
-// };
-
-// export const postClubDetails = async () => {
-//   await api.post(`${url}/club-details`, {});
-// };
-
-// export const getJerseyColours = async () => {
-//   await api.get(`${url}/get-jersey-colours`, {});
-// };
-
-// export const getTeamNumbers = async () => {
-//   await api.get(`${url}/get-team-numbers`, {});
-// };
-
-// export const postSummaryDetails = async () => {
-//   await api.post(`${url}/summary-details`, {});
-// };
-
-// export const getSummaryDetails = async () => {
-//   await api.get(`${url}/summary-details`, {});
 // };

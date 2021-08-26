@@ -37,7 +37,7 @@ const Login = () => {
   const [state, setState] = React.useState({});
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const userState = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const history = useHistory();
 
   React.useEffect(() => {
@@ -107,7 +107,7 @@ const Login = () => {
                 onClick={async (e) => {
                   e.preventDefault();
                   const response = await login(email, password);
-                  userState.setUser(response);
+                  setUser(response);
                   history.replace("/admin");
                 }}
                 size="lg"
@@ -119,7 +119,10 @@ const Login = () => {
                   <a
                     className="link footer-link"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.replace("/auth/register");
+                    }}
                   >
                     Créer un compte
                   </a>
@@ -130,7 +133,10 @@ const Login = () => {
                   <a
                     className="link footer-link"
                     href="#pablo"
-                    onClick={(e) => e.preventDefault()}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      history.replace("/auth/email-mot-de-passe-oublie");
+                    }}
                   >
                     Mot de passe oublie ?
                   </a>

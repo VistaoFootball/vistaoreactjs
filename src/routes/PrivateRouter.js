@@ -2,19 +2,15 @@ import React, { useContext, useEffect } from "react";
 import { Route, useHistory } from "react-router-dom";
 import { UserContext } from "../providers/UserProvider";
 
-export function PrivateRoute({ children, path, exact }) {
+export function PrivateRoute({ children, path, key }) {
   const history = useHistory();
-  const userState = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (!userState.user) {
+    if (!user) {
       history.replace("/auth/login");
     }
-  }, [userState.user]);
+  }, [user]);
 
-  return (
-    <Route path={path} exact={exact}>
-      {children}
-    </Route>
-  );
+  return <Route path={path} component={children} key={key} />;
 }

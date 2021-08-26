@@ -23,6 +23,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 
 // reactstrap components
 import { Nav, Collapse } from "reactstrap";
+import { UserContext } from "providers/UserProvider";
 
 var ps;
 
@@ -30,6 +31,8 @@ const Sidebar = (props) => {
   const [state, setState] = React.useState({});
   const sidebarRef = React.useRef(null);
   const location = useLocation();
+  const { user } = React.useContext(UserContext);
+
   React.useEffect(() => {
     setState(getCollapseStates(props.routes));
   }, []);
@@ -81,10 +84,19 @@ const Sidebar = (props) => {
   // this function creates the links and collapses that appear in the sidebar (left menu)
   const createLinks = (routes) => {
     const { rtlActive } = props;
+
     return routes.map((prop, key) => {
       if (prop.redirect) {
         return null;
       }
+      if (user) {
+        if (
+          ["S'inscrire", "Login", "Mot de passe oublié"].includes(prop.name)
+        ) {
+          return <></>;
+        }
+      }
+
       if (prop.collapse) {
         var st = {};
         st[prop["state"]] = !state[prop.state];

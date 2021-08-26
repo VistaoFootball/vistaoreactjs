@@ -2,14 +2,57 @@ import { api } from "apis";
 
 const url = "/profile/users";
 
-// Set Function Paramaters and Pass it to API Call
 export const register = async (data) => {
   try {
-    await api.post(`${url}/register`, { ...data });
+    await api.post(`${url}/register`, data);
   } catch (err) {
     console.log(err);
   }
 };
+
+export const forgotPasswordLink = async (email) => {
+  await api.post(`${url}/forgot-password-link`, { email });
+};
+
+export const changeUserPassword = async (auth_token, data) => {
+  await api.post(`${url}/change-password`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+export const resetPassword = async (data) => {
+  await api.post(`${url}/reset-password`, data);
+};
+
+export const getProfileDetails = async (auth_token) => {
+  const response = await api.get(`${url}/profile-details`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const setProfileDetails = async (auth_token, data) => {
+  await api.put(`${url}/profile-details`, data, {
+    headers: {
+      Authorization: `Token ${auth_token}`,
+    },
+  });
+};
+
+export const setPlayerTeamInfo = async (auth_token, data) => {
+  await api.put(`${url}/player-team-info`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+export const getPlayerTeamInfo = async (auth_token) => {
+  const response = await api.get(`${url}/player-team-info`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+// Set Function Paramaters and Pass it to API Call
 
 // export const emailVerification = async () => {
 //   await api.get(`${url}/email-verify`, {});
@@ -17,34 +60,6 @@ export const register = async (data) => {
 
 // export const getResetPassword = async () => {
 //   await api.get(`${url}/reset-password`, {});
-// };
-
-// export const postResetPassword = async () => {
-//   await api.post(`${url}/reset-password`, {});
-// };
-
-// export const changePassword = async () => {
-//   await api.post(`${url}/change-password`, {});
-// };
-
-// export const forgotPasswordLink = async () => {
-//   await api.post(`${url}/forgot-password-link`, {});
-// };
-
-// export const setPlayerTeamInfo = async () => {
-//   await api.put(`${url}/player-team-info`, {});
-// };
-
-// export const getPlayerTeamInfo = async () => {
-//   await api.get(`${url}/player-team-info`, {});
-// };
-
-// export const getProfileDetails = async () => {
-//   await api.get(`${url}/profile-details`, {});
-// };
-
-// export const setProfileDetails = async () => {
-//   await api.put(`${url}/profile-details`, {});
 // };
 
 // export const getScreenSettingsData = async () => {
