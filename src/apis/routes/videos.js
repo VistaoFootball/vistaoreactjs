@@ -68,6 +68,19 @@ export const updateVideoClip = async (auth_token, data) => {
   });
 };
 
+export const getSummary = async (auth_token) => {
+  const response = await api.get(`${url}/summary`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const createSummary = async (auth_token, data) => {
+  await api.post(`${url}/summary`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const updateVideoProfile = async () => {
@@ -80,14 +93,6 @@ export const updateVideoClip = async (auth_token, data) => {
 
 // export const getVideoClipStatistics = async () => {
 //   await api.get(`${url}/get-video-clip-statistics`, {});
-// };
-
-// export const postSummary = async () => {
-//   await api.post(`${url}/summary`, {});
-// };
-
-// export const getSummary = async () => {
-//   await api.get(`${url}/summary`, {});
 // };
 
 // export const setSummary = async () => {
