@@ -1,14 +1,16 @@
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useState} from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import BookmarkIcon from "@material-ui/icons/Bookmark";
 import FastRewindIcon from "@material-ui/icons/FastRewind";
 import FastForwardIcon from "@material-ui/icons/FastForward";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
+import CircleIcon from "@material-ui/icons/Lens";
+import CanvasIcon from "@material-ui/icons/AddCircleSharp";
+import TextureIcon from '@material-ui/icons/Texture';
 import Slider from "@material-ui/core/Slider";
 import Tooltip from "@material-ui/core/Tooltip";
 import Grid from "@material-ui/core/Grid";
@@ -17,6 +19,25 @@ import VolumeDown from "@material-ui/icons/VolumeDown";
 import VolumeMute from "@material-ui/icons/VolumeOff";
 import FullScreen from "@material-ui/icons/Fullscreen";
 import Popover from "@material-ui/core/Popover";
+import PanoramaFishEyeIcon from '@material-ui/icons/PanoramaFishEye';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import CropPortraitIcon from '@material-ui/icons/CropPortrait';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import RemoveIcon from '@material-ui/icons/Remove';
+import DeleteIcon from '@material-ui/icons/Delete';
+import TouchAppIcon from '@material-ui/icons/TouchApp';
+import CreateIcon from '@material-ui/icons/Create';
+import TextFieldsIcon from '@material-ui/icons/TextFields';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
+import AddIcon from '@material-ui/icons/Add';
+
+import {
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+} from "reactstrap";
+
 
 const useStyles = makeStyles((theme) => ({
   controlsWrapper: {
@@ -64,11 +85,10 @@ const PrettoSlider = withStyles({
     height: 8,
   },
   thumb: {
-    height: 24,
-    width: 24,
+    height: 15,
+    width: 15,
     backgroundColor: "#fff",
-    border: "2px solid currentColor",
-    marginTop: -8,
+    marginTop: -5,
     marginLeft: -12,
     "&:focus, &:hover, &$active": {
       boxShadow: "inherit",
@@ -79,11 +99,11 @@ const PrettoSlider = withStyles({
     left: "calc(-50% + 4px)",
   },
   track: {
-    height: 8,
+    height: 5,
     borderRadius: 4,
   },
   rail: {
-    height: 8,
+    height: 5,
     borderRadius: 4,
   },
 })(Slider);
@@ -138,8 +158,10 @@ const Controls = forwardRef(
     const open = Boolean(anchorEl);
     const id = open ? "simple-popover" : undefined;
 
+
     return (
       <div ref={ref} className={classes.controlsWrapper}>
+
         <Grid
           container
           direction="column"
@@ -155,19 +177,11 @@ const Controls = forwardRef(
             style={{ padding: 16 }}
           >
             <Grid item>
-              <Typography variant="h5" style={{ color: "#fff" }}>
+              <Typography  style={{ color: "#fff" }}>
                 Video Title
               </Typography>
             </Grid>
             <Grid item>
-              <Button
-                onClick={onBookmark}
-                variant="contained"
-                color="primary"
-                startIcon={<BookmarkIcon />}
-              >
-                Bookmark
-              </Button>
             </Grid>
           </Grid>
           <Grid container direction="row" alignItems="center" justify="center">
@@ -206,7 +220,7 @@ const Controls = forwardRef(
             direction="row"
             justify="space-between"
             alignItems="center"
-            style={{ padding: 16 }}
+            style={{ padding: 0 }}
           >
             <Grid item xs={12}>
               <PrettoSlider
@@ -231,9 +245,9 @@ const Controls = forwardRef(
                   className={classes.bottomIcons}
                 >
                   {playing ? (
-                    <PauseIcon fontSize="large" />
+                    <PauseIcon fontSize="small" />
                   ) : (
-                    <PlayArrowIcon fontSize="large" />
+                    <PlayArrowIcon fontSize="small" />
                   )}
                 </IconButton>
 
@@ -243,11 +257,11 @@ const Controls = forwardRef(
                   className={`${classes.bottomIcons} ${classes.volumeButton}`}
                 >
                   {muted ? (
-                    <VolumeMute fontSize="large" />
+                    <VolumeMute fontSize="small" />
                   ) : volume > 0.5 ? (
-                    <VolumeUp fontSize="large" />
+                    <VolumeUp fontSize="small" />
                   ) : (
-                    <VolumeDown fontSize="large" />
+                    <VolumeDown fontSize="small" />
                   )}
                 </IconButton>
 
@@ -278,9 +292,164 @@ const Controls = forwardRef(
                     {elapsedTime}/{totalDuration}
                   </Typography>
                 </Button>
+                <UncontrolledDropdown direction="up">
+                  <DropdownToggle
+                    aria-expanded={false}
+                    aria-haspopup={true}
+                    color="link"
+                    data-toggle="drop"
+                    id="dropdownMenuLink"
+                   
+                  >
+                   <TextureIcon style={{ fill: "grey"}}></TextureIcon>
+                  </DropdownToggle>
+                  <DropdownMenu style={{"padding-top":"0rem","padding-bottom":"0rem","margin":"5px","background-color":"black"}}  aria-labelledby="dropdownMenuLink" right >
+                    <tr>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <CircleIcon style={{color:"orange"}}></CircleIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <CircleIcon style={{color:"yellow"}}></CircleIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <CircleIcon style={{color:"green"}}></CircleIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <CircleIcon style={{color:"red"}}></CircleIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <CircleIcon style={{color:"blue"}}></CircleIcon>
+                    </DropdownItem>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <PanoramaFishEyeIcon style={{"fill":"white"}}></PanoramaFishEyeIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <CropPortraitIcon style={{"fill":"white"}}></CropPortraitIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <KeyboardBackspaceIcon style={{"fill":"white"}}></KeyboardBackspaceIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                      href="javascript:void(0);" class='tool' id="tool-dashed"
+                    >
+                     <MoreVertIcon style={{"fill":"white"}}></MoreVertIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <RemoveIcon style={{"fill":"white"}}></RemoveIcon>
+                    </DropdownItem>
+                    </td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <StarOutlineIcon style={{"fill":"white"}}></StarOutlineIcon>
+                    </DropdownItem>
+                    </td>
+                                        <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <TextFieldsIcon style={{"fill":"white"}}></TextFieldsIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <CreateIcon style={{"fill":"white"}}></CreateIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <TouchAppIcon style={{"fill":"white"}}></TouchAppIcon>
+                    </DropdownItem>
+                    </td>
+                    <td>
+                    <DropdownItem
+                      href="#pablo"
+                      onClick={(e) => e.preventDefault()}
+                      style={{"padding":"0.5rem 0.5rem"}}
+                    >
+                     <DeleteIcon style={{"fill":"red"}}></DeleteIcon>
+                    </DropdownItem>
+                    </td>
+                    </tr>
+                  </DropdownMenu>
+                </UncontrolledDropdown>
+                <AddIcon style={{ fill: "green"}}></AddIcon>
               </Grid>
             </Grid>
-
             <Grid item>
               <Button
                 onClick={handleClick}
@@ -327,7 +496,7 @@ const Controls = forwardRef(
                 onClick={onToggleFullScreen}
                 className={classes.bottomIcons}
               >
-                <FullScreen fontSize="large" />
+                <FullScreen fontSize="small" />
               </IconButton>
             </Grid>
           </Grid>
