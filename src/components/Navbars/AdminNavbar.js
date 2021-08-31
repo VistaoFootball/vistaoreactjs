@@ -40,12 +40,14 @@ import { logout } from "apis/routes/auth";
 import { UserContext } from "providers/UserProvider";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { SearchContext } from "providers/SearchProvider";
 
 const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
   const [modalSearch, setModalSearch] = React.useState(false);
   const [color, setColor] = React.useState("navbar-transparent");
   const { user, setUser } = useContext(UserContext);
+  const { search, setSearch } = useContext(SearchContext);
   const history = useHistory();
 
   React.useEffect(() => {
@@ -237,7 +239,15 @@ const AdminNavbar = (props) => {
         toggle={toggleModalSearch}
       >
         <div className="modal-header">
-          <Input id="inlineFormInputGroup" placeholder="SEARCH" type="text" />
+          <Input
+            id="inlineFormInputGroup"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            placeholder="SEARCH"
+            type="text"
+          />
           <button
             aria-label="Close"
             className="close"

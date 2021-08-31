@@ -21,6 +21,7 @@ import { getClubUsers } from "apis/routes/videos";
 import { deleteVideoClip } from "apis/routes/videos";
 import { updateVideoClip } from "apis/routes/videos";
 import { getVideoFiles } from "apis/routes/videos";
+import { SearchContext } from "providers/SearchProvider";
 import { UserContext } from "providers/UserProvider";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
@@ -77,6 +78,11 @@ const Panels = () => {
   const history = useHistory();
   const location = useLocation();
   const { user } = React.useContext(UserContext);
+  const { search, setSearch } = React.useContext(SearchContext);
+
+  React.useEffect(() => {
+    setSearch("");
+  }, []);
 
   const convertSecondsToTime = (seconds) => {
     return new Date(seconds * 1000).toISOString().substr(11, 8);
