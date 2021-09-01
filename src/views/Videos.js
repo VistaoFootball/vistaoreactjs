@@ -46,6 +46,28 @@ function Dashboard(props) {
     setSearch("");
   }, []);
 
+  const videoContextType = {
+    1: "Opposition à l'entrainement",
+    2: "Match amical",
+    3: "Match de championnat",
+    4: "Match de coupe",
+    5: "Match de tournoi",
+  };
+
+  const videoDuration = {
+    1: "7 secondes",
+    2: "10 secondes",
+    3: "15 secondes",
+    4: "20 secondes",
+  };
+
+  const pitchGroundType = {
+    1: "Surface naturelle",
+    2: "Surface synthétique",
+    3: "Surface hybride",
+    4: "Surface stabilisée",
+  };
+
   React.useEffect(() => {
     if (user) {
       getVideoGallery(user.auth_token).then((result) => {
@@ -135,27 +157,27 @@ function Dashboard(props) {
                     <Col>
                       <CardTitle tag="h4">
                         <i className="tim-icons icon-video-66" />{" "}
-                        {home_team.club_name} v{away_team.club_name}
+                        {home_team.club_name} v {away_team.club_name}
                       </CardTitle>
                       <div class="galleryItem">
                         <div class="vistao-thumbnail"></div>
                         <span>
-                          <i className="tim-icons icon-double-right" />{" "}
-                          {context_type}
+                          <i className="tim-icons icon-double-right" /> Video
+                          Context - {videoContextType[context_type]}
                         </span>
                         <br></br>
                         <span>
                           <i className="tim-icons icon-calendar-60" />{" "}
-                          {clip_duration}
+                          VideoDuration - {videoDuration[clip_duration]}
                         </span>
                         <br></br>
                         <span>
-                          <i className="tim-icons icon-user-run" />{" "}
-                          {pitch_ground}
+                          <i className="tim-icons icon-user-run" /> Pitch Ground
+                          - {pitchGroundType[pitch_ground]}
                         </span>
                         <br></br>
                         <span>
-                          <i className="tim-icons icon-lock-circle" />{" "}
+                          <i className="tim-icons icon-lock-circle" /> Privacy -{" "}
                           {is_private ? "Private" : "Public"}
                         </span>
                       </div>

@@ -47,12 +47,41 @@ function Dashboard(props) {
   }, []);
 
   const summaryTitle = ["", "Résumé temps forts", "Résumé tactique"];
-
   const summaryType = ["", "Joueur", "Équipe", "Équipe adverse"];
+  const videoContextType = {
+    1: "Opposition à l'entrainement",
+    2: "Match amical",
+    3: "Match de championnat",
+    4: "Match de coupe",
+    5: "Match de tournoi",
+  };
+  const videoDuration = {
+    1: "7 secondes",
+    2: "10 secondes",
+    3: "15 secondes",
+    4: "20 secondes",
+  };
+  const pitchGroundType = {
+    1: "Surface naturelle",
+    2: "Surface synthétique",
+    3: "Surface hybride",
+    4: "Surface stabilisée",
+  };
 
   const getData = async () => {
     const { summary_gallery } = await getGallerySummary(user.auth_token);
-    setSummaries(summary_gallery);
+    if (search) {
+      const filteredResults = summary_gallery.filter((summary) => {
+        const { video_details } = summary;
+        const { home_team, away_team } = video_details;
+
+        return (
+          home_team.club_name.toLowerCase().includes(search.toLowerCase()) ||
+          away_team.club_name.toLowerCase().includes(search.toLowerCase())
+        );
+      });
+      setSummaries(filteredResults);
+    } else setSummaries(summary_gallery);
   };
 
   React.useEffect(() => {
@@ -61,7 +90,7 @@ function Dashboard(props) {
     } else {
       getData();
     }
-  }, [updateData]);
+  }, [user, updateData, search]);
 
   if (!user) return <></>;
 
@@ -70,7 +99,16 @@ function Dashboard(props) {
       <div className="content">
         <Row>
           {summaries.map((summary) => {
-            const { id, summary_title_id, summary_type_id } = summary;
+            const { id, summary_title_id, summary_type_id, video_details } =
+              summary;
+            const {
+              context_type,
+              clip_duration,
+              pitch_ground,
+              is_private,
+              home_team,
+              away_team,
+            } = video_details;
             return (
               <Col lg="3" key={id}>
                 <Card className="card-chart">
@@ -118,41 +156,34 @@ function Dashboard(props) {
                     <Col>
                       <CardTitle tag="h4">
                         <i className="tim-icons icon-triangle-right-17" />{" "}
-                        HomeTeam v AwayTeam
+                        {home_team.club_name} v {away_team.club_name}
                       </CardTitle>
                       <div class="galleryItem">
                         <div class="vistao-thumbnail"></div>
                         <span>
                           <i className="tim-icons icon-check-2" />{" "}
-                          {summaryTitle[summary_title_id]}-{" "}
+                          {summaryTitle[summary_title_id]} -{" "}
                           {summaryType[summary_type_id]}
                         </span>
                         <br></br>
                         <span>
-                          <i className="tim-icons icon-check-2" /> Video Context
+                          <i className="tim-icons icon-double-right" /> Video
+                          Context - {videoContextType[context_type]}
                         </span>
                         <br></br>
                         <span>
-                          <i className="tim-icons icon-pin" /> HomeScore -
-                          AwayScore
-                        </span>
-                        <br></br>
-                        <span>
-                          <i className="tim-icons icon-calendar-60" /> DateTime
-                          - VideoDuration
+                          <i className="tim-icons icon-calendar-60" />{" "}
+                          VideoDuration - {videoDuration[clip_duration]}
                         </span>
                         <br></br>
                         <span>
                           <i className="tim-icons icon-user-run" /> Pitch Ground
+                          - {pitchGroundType[pitch_ground]}
                         </span>
                         <br></br>
                         <span>
-                          <i className="tim-icons icon-video-66" /> Creator -
-                          CountViews
-                        </span>
-                        <br></br>
-                        <span>
-                          <i className="tim-icons icon-lock-circle" /> Privacy
+                          <i className="tim-icons icon-lock-circle" /> Privacy -{" "}
+                          {is_private ? "Private" : "Public"}
                         </span>
                       </div>
                     </Col>
