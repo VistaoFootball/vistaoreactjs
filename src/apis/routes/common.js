@@ -70,12 +70,16 @@ export const getTeamNumbers = async (auth_token) => {
   return response.data;
 };
 
-// Set Function Paramaters and Pass it to API Call
+export const getPostCategories = async (auth_token) => {
+  const response = await api.get(`${url}/get-post-categories`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
 
-// export const getPostCategories = async () => {
-//   await api.get(`${url}/get-post-categories`, {});
-// };
-
-// export const getPostSubCategories = async () => {
-//   await api.get(`${url}/get-post-subcategories`, {});
-// };
+export const getPostSubCategories = async (auth_token, id) => {
+  const response = await api.get(`${url}/get-post-subcategories/${id}`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};

@@ -53,13 +53,15 @@ import {
 } from "reactstrap";
 import { setPlayerTeamInfo } from "apis/routes/profile";
 import { createClub } from "apis/routes/common";
+import { getPostCategories } from "apis/routes/common";
+import { getPostSubCategories } from "apis/routes/common";
+import { getPlayerCommonCharacteristic } from "apis/routes/profile";
+import { setPlayerCommonCharacteristic } from "apis/routes/profile";
 
 function Profile() {
   const [horizontalTabs, sethorizontalTabs] = React.useState("Général");
   // with this function we change the active tab for all the tabs in this page
-  const [singleSelectStrongFoot, setsingleSelectStrongFoot] =
-    React.useState(null);
-  const [singleSelectMBTI, setsingleSelectMBTI] = React.useState(null);
+
   const [singleSelectCategory, setsingleSelectCategory] = React.useState(null);
   const [singleSelectCountry, setsingleSelectCountry] = React.useState(null);
   const [singleSelectTeamSection, setsingleSelectTeamSection] =
@@ -67,9 +69,6 @@ function Profile() {
   const [singleSelectGender, setsingleSelectGender] = React.useState(null);
   const [singleSelectClub, setSingleSelectClub] = React.useState(null);
   const [multipleSelectNationality, setmultipleSelectNationality] =
-    React.useState(null);
-  const [multipleSelectPost, setmultipleSelectPost] = React.useState(null);
-  const [multipleSelectPlacement, setmultipleSelectPlacement] =
     React.useState(null);
 
   const [avatar, setAvatar] = React.useState("");
@@ -84,17 +83,37 @@ function Profile() {
   const [ageCategoryOptions, setAgeCategoryOptions] = React.useState([]);
   const [clubOptions, setClubOptions] = React.useState([]);
 
+  const [primaryPostCategory, setPrimaryPostCategory] = React.useState(null);
+  const [primaryPostSubCategory, setPrimaryPostSubCategory] =
+    React.useState(null);
+  const [primaryPlacement, setPrimaryPlacement] = React.useState(null);
+  const [secondaryPostCategory, setSecondaryPostCategory] =
+    React.useState(null);
+  const [secondaryPostSubCategory, setSecondaryPostSubCategory] =
+    React.useState(null);
+  const [secondaryPlacement, setSecondaryPlacement] = React.useState(null);
+  const [postCategoryOptions, setPostCategoryOptions] = React.useState([]);
+  const [primaryPostSubCategoryOptions, setPrimaryPostSubCategoryOptions] =
+    React.useState([]);
+  const [secondaryPostSubCategoryOptions, setSecondaryPostSubCategoryOptions] =
+    React.useState([]);
+  const [playerCommonId, setPlayerCommonId] = React.useState(null);
+
   const [newClubName, setNewClubName] = React.useState("");
   const [playerTeamId, setPlayerTeamId] = React.useState("");
   const [teamNumber, setTeamNumber] = React.useState(null);
   const [city, setCity] = React.useState("");
   const [zipcode, setZipcode] = React.useState("");
 
-  const [updateData, setUpdateData] = React.useState(true);
-
   const { user } = React.useContext(UserContext);
   const history = useHistory();
 
+  const placementOptions = [
+    { value: 5, label: "Gauche" },
+    { value: 6, label: "Droite" },
+    { value: 7, label: "Axial" },
+    { value: 8, label: "Libre" },
+  ];
   const getData = async () => {
     const userProfile = await getProfileDetails(user.auth_token);
     const {
@@ -168,13 +187,66 @@ function Profile() {
         setSingleSelectClub(element);
       }
     });
+
+    const { player_common_characteristic } =
+      await getPlayerCommonCharacteristic(user.auth_token);
+    setPlayerCommonId({
+      primary_id: player_common_characteristic[0].id,
+      secondary_id: player_common_characteristic[1].id,
+    });
+    const postCategories = await getPostCategories(user.auth_token);
+    setPostCategoryOptions(postCategories);
+
+    const primaryPostSubCategories = await getPostSubCategories(
+      user.auth_token,
+      player_common_characteristic[0].post_category
+    );
+    setPrimaryPostSubCategoryOptions(primaryPostSubCategories);
+
+    const secondaryPostSubCategories = await getPostSubCategories(
+      user.auth_token,
+      player_common_characteristic[1].post_category
+    );
+    setSecondaryPostSubCategoryOptions(secondaryPostSubCategories);
+    console.log(primaryPostSubCategories, secondaryPostSubCategories);
+
+    setPrimaryPostCategory(
+      postCategories.find(
+        (ele) => ele.value === player_common_characteristic[0].post_category
+      )
+    );
+    setPrimaryPostSubCategory(
+      primaryPostSubCategories.find(
+        (ele) => ele.value === player_common_characteristic[0].post_sub_category
+      )
+    );
+    setPrimaryPlacement(
+      placementOptions.find(
+        (ele) => ele.value === player_common_characteristic[0].placement_type
+      )
+    );
+    setSecondaryPostCategory(
+      postCategories.find(
+        (ele) => ele.value === player_common_characteristic[1].post_category
+      )
+    );
+    setSecondaryPostSubCategory(
+      secondaryPostSubCategories.find(
+        (ele) => ele.value === player_common_characteristic[1].post_sub_category
+      )
+    );
+    setSecondaryPlacement(
+      placementOptions.find(
+        (ele) => ele.value === player_common_characteristic[1].placement_type
+      )
+    );
   };
 
   React.useEffect(() => {
     if (user) {
       getData();
     }
-  }, [user, updateData]);
+  }, [user]);
 
   if (!user) {
     history.push("/auth/login");
@@ -401,237 +473,122 @@ function Profile() {
                     <TabPane tabId="Spécifique">
                       <Row>
                         <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>Taille (cm)</label>
-                            <Input
-                              defaultValue=""
-                              placeholder=""
-                              type="number"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <FormGroup>
-                            <label>Poids (kg)</label>
-                            <Input
-                              defaultValue=""
-                              placeholder=""
-                              type="number"
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>Numéro de licence</label>
-                            <Input defaultValue="" placeholder="" type="text" />
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <label>Poste(s)</label>
+                          <label>Primaire Poste</label>
                           <FormGroup>
                             <Select
                               className="react-select info"
                               classNamePrefix="react-select"
                               placeholder=""
-                              name="multipleSelect"
+                              name="singleSelect"
                               closeMenuOnSelect={false}
-                              isMulti
-                              value={multipleSelectPost}
-                              onChange={(value) => setmultipleSelectPost(value)}
-                              options={[
-                                {
-                                  value: "",
-                                  label: "Poste(s)",
-                                  isDisabled: true,
-                                },
-                                { value: "1", label: "Gardien" },
-                                { value: "2", label: "Défenseur latéral" },
-                                { value: "3", label: "Ailier défensif" },
-                                { value: "4", label: "Défenseur central" },
-                                { value: "5", label: "Milieu défensif" },
-                                { value: "6", label: "Milieu offensif" },
-                                { value: "7", label: "Milieu relayeur" },
-                                { value: "8", label: "Milieu excentré" },
-                                { value: "9", label: "Ailier " },
-                                { value: "10", label: "9 et demi" },
-                                { value: "11", label: "Raumedeuter" },
-                                { value: "12", label: "Faux avant-centre" },
-                                { value: "13", label: "Avant-centre" },
-                              ]}
+                              value={primaryPostCategory}
+                              onChange={async (value) => {
+                                setPrimaryPostCategory(value);
+                                const postSubCategory =
+                                  await getPostSubCategories(
+                                    user.auth_token,
+                                    value.value
+                                  );
+                                setPrimaryPostSubCategoryOptions(
+                                  postSubCategory
+                                );
+                              }}
+                              options={postCategoryOptions}
                             />
                           </FormGroup>
                         </Col>
-                      </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="6">
-                          <label for="Pied_fort">Placement(s)</label>
+                        <Col className="pl-md-1" md="6">
+                          <label for="Pied_fort">Primaire Sous-poste</label>
                           <FormGroup>
                             <Select
                               className="react-select info"
                               classNamePrefix="react-select"
                               placeholder=""
-                              name="multipleSelect"
+                              name="singleeSelect"
                               closeMenuOnSelect={false}
-                              isMulti
-                              value={multipleSelectPlacement}
+                              value={primaryPostSubCategory}
                               onChange={(value) =>
-                                setmultipleSelectPlacement(value)
+                                setPrimaryPostSubCategory(value)
                               }
-                              options={[
-                                {
-                                  value: "",
-                                  label: "Placement(s)",
-                                  isDisabled: true,
-                                },
-                                { value: "1", label: "Gauche" },
-                                { value: "2", label: "Droite" },
-                                { value: "3", label: "Axial" },
-                                { value: "4", label: "Libre" },
-                              ]}
+                              options={primaryPostSubCategoryOptions}
                             />
                           </FormGroup>
                         </Col>
-                        <Col className="pl-md-1" md="6">
+                      </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <label for="Pied_fort">Primaire Placement</label>
                           <FormGroup>
-                            <label for="Pied_fort">Pied(s) fort(s)</label>
                             <Select
                               className="react-select info"
                               classNamePrefix="react-select"
-                              name="Choix_pied_fort"
-                              value={singleSelectStrongFoot}
-                              onChange={(value) =>
-                                setsingleSelectStrongFoot(value)
-                              }
-                              options={[
-                                { value: "1", label: "Droitier" },
-                                { value: "2", label: "Gaucher" },
-                                { value: "3", label: "Ambidextre" },
-                              ]}
                               placeholder=""
+                              name="singleSelect"
+                              closeMenuOnSelect={false}
+                              value={primaryPlacement}
+                              onChange={(value) => setPrimaryPlacement(value)}
+                              options={placementOptions}
                             />
                           </FormGroup>
                         </Col>
                       </Row>
                       <Row>
                         <Col className="pr-md-1" md="6">
+                          <label>Secondaire Poste</label>
                           <FormGroup>
-                            <label>Vitesse max. aérobie (km/h)</label>
-                            <Input
-                              defaultValue=""
-                              placeholder=""
-                              type="number"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <FormGroup>
-                            <label>Développer coucher max (kg)</label>{" "}
-                            <i
-                              className="tim-icons icon-bulb-63"
-                              id="tooltip170482121"
-                            />
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip170482121"
-                            >
-                              A mettre à jour pour le suivi.
-                            </UncontrolledTooltip>
-                            <Input
-                              defaultValue=""
-                              placeholder=""
-                              type="number"
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>Souplesse (cm)</label>{" "}
-                            <i
-                              className="tim-icons icon-bulb-63"
-                              id="tooltip17048212"
-                            />
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip17048212"
-                            >
-                              Test de souplesse ABC. A mettre à jour pour le
-                              suivi.
-                            </UncontrolledTooltip>
-                            <Input
-                              defaultValue=""
-                              placeholder=""
-                              type="number"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <FormGroup>
-                            <label>Coordination</label>{" "}
-                            <i
-                              className="tim-icons icon-bulb-63"
-                              id="tooltip170482171"
-                            />
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip170482171"
-                            >
-                              Test de la navette 10 x 5m. A mettre à jour pour
-                              le suivi.
-                            </UncontrolledTooltip>
-                            <Input defaultValue="" placeholder="" type="time" />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>Vitesse</label>{" "}
-                            <i
-                              className="tim-icons icon-bulb-63"
-                              id="tooltip170482171"
-                            />
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip170482171"
-                            >
-                              Sprint de 60m. A mettre à jour pour le suivi.
-                            </UncontrolledTooltip>
-                            <Input defaultValue="" placeholder="" type="time" />
-                          </FormGroup>
-                        </Col>
-                        <Col className="pl-md-1" md="6">
-                          <FormGroup>
-                            <label for="MBTI">Profil MBTI</label>
                             <Select
                               className="react-select info"
                               classNamePrefix="react-select"
-                              name="Choix_pied_fort"
-                              value={singleSelectMBTI}
-                              onChange={(value) => setsingleSelectMBTI(value)}
-                              options={[
-                                { value: "1", label: "Ne pas définir" },
-                                { value: "2", label: "INTJ – Architecte" },
-                                { value: "3", label: "INTP – Logicien" },
-                                { value: "4", label: "ENTJ – Commandant" },
-                                { value: "5", label: "ENTP – Innovateur" },
-                                { value: "6", label: "INFJ – Avocat" },
-                                { value: "7", label: "INFP – Médiateur" },
-                                { value: "8", label: "ENFJ – Protagoniste" },
-                                { value: "9", label: "ENFP – Inspirateur" },
-                                { value: "10", label: "ISTJ – Logisticien" },
-                                { value: "11", label: "ISFJ – Défenseur" },
-                                { value: "12", label: "ESTJ – Directeur" },
-                                { value: "13", label: "ESFJ – Consul" },
-                                { value: "14", label: "ISTP – Virtuose" },
-                                { value: "15", label: "ISFP – Aventurier" },
-                                { value: "16", label: "ESTP – Entrepreuneur" },
-                                { value: "17", label: "ESFP – Amuseur" },
-                              ]}
                               placeholder=""
+                              name="singleSelect"
+                              closeMenuOnSelect={false}
+                              value={secondaryPostCategory}
+                              onChange={async (value) => {
+                                setSecondaryPostCategory(value);
+                                const postSubCategory =
+                                  await getPostSubCategories(
+                                    user.auth_token,
+                                    value.value
+                                  );
+                                setSecondaryPostSubCategoryOptions(
+                                  postSubCategory
+                                );
+                              }}
+                              options={postCategoryOptions}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col className="pl-md-1" md="6">
+                          <label for="Pied_fort">Secondaire Sous-poste</label>
+                          <FormGroup>
+                            <Select
+                              className="react-select info"
+                              classNamePrefix="react-select"
+                              placeholder=""
+                              name="singleSelect"
+                              closeMenuOnSelect={false}
+                              value={secondaryPostSubCategory}
+                              onChange={(value) =>
+                                setSecondaryPostSubCategory(value)
+                              }
+                              options={secondaryPostSubCategoryOptions}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="pr-md-1" md="6">
+                          <label for="Pied_fort">Secondaire Placement</label>
+                          <FormGroup>
+                            <Select
+                              className="react-select info"
+                              classNamePrefix="react-select"
+                              placeholder=""
+                              name="singleSelect"
+                              closeMenuOnSelect={false}
+                              value={secondaryPlacement}
+                              onChange={(value) => setSecondaryPlacement(value)}
+                              options={placementOptions}
                             />
                           </FormGroup>
                         </Col>
@@ -928,7 +885,6 @@ function Profile() {
                             user.auth_token,
                             bodyFormData
                           );
-                          setUpdateData(!updateData);
                         } else if (horizontalTabs === "Équipe") {
                           if (newClubName) {
                             await createClub(user.auth_token, newClubName);
@@ -962,7 +918,30 @@ function Profile() {
                               zipcode,
                             });
                           }
-                          setUpdateData(!updateData);
+                        } else if (horizontalTabs === "Spécifique") {
+                          if (playerCommonId) {
+                            await setPlayerCommonCharacteristic(
+                              user.auth_token,
+                              [
+                                {
+                                  id: playerCommonId.primary_id,
+                                  post_category: primaryPostCategory.value,
+                                  post_sub_category:
+                                    primaryPostSubCategory.value,
+                                  placement_type: primaryPlacement.value,
+                                  post_type: "primary",
+                                },
+                                {
+                                  id: playerCommonId.secondary_id,
+                                  post_category: secondaryPostCategory.value,
+                                  post_sub_category:
+                                    secondaryPostSubCategory.value,
+                                  placement_type: secondaryPlacement.value,
+                                  post_type: "secondary",
+                                },
+                              ]
+                            );
+                          }
                         }
                       }}
                     >
