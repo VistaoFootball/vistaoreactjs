@@ -35,7 +35,7 @@ import {
   Col,
 } from "reactstrap";
 import { UserContext } from "providers/UserProvider";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { getSummaryTags } from "apis/routes/common";
 import { getVideoFiles } from "apis/routes/videos";
 import { getClubUsers } from "apis/routes/videos";
@@ -51,13 +51,13 @@ const RegularForms = () => {
     React.useState(null);
   const [tagsinputThemes, settagsinputThemes] = React.useState([]);
 
-  // VideoID is Hard Coded
   const [videoId, setVideoId] = React.useState(null);
   const [clipList, setClipList] = React.useState([]);
   const [homeTeamPlayerList, setHomeTeamPlayerList] = React.useState([]);
   const [awayTeamPlayerList, setAwayTeamPlayerList] = React.useState([]);
   const { user } = React.useContext(UserContext);
   const history = useHistory();
+  const location = useLocation();
 
   const handleTagsinputThemes = (tagsinputThemes) => {
     settagsinputThemes(tagsinputThemes);
@@ -94,8 +94,12 @@ const RegularForms = () => {
   React.useEffect(() => {
     if (!user) {
       history.replace("/auth/login");
+    } else if (!location.state) {
+      history.replace("/admin/videos");
     } else {
-      getData(12);
+      const { video_id, clip_list } = location.state;
+      getData(video_id);
+      setClipList(clip_list);
     }
   }, []);
 
