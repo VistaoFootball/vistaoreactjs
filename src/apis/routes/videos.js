@@ -62,8 +62,26 @@ export const deleteVideoClip = async (auth_token, video_id) => {
 };
 
 export const updateVideoClip = async (auth_token, data) => {
-  console.log(data);
   await api.put(`${url}/create-video-clip`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+export const getSummary = async (auth_token, video_id) => {
+  const response = await api.get(`${url}/get-summary/${video_id}`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const createSummary = async (auth_token, data) => {
+  await api.post(`${url}/summary`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+export const deleteSummary = async (auth_token, id) => {
+  await api.get(`${url}/delete-summary/${id}`, {
     headers: { Authorization: `Token ${auth_token}` },
   });
 };
@@ -82,18 +100,6 @@ export const updateVideoClip = async (auth_token, data) => {
 //   await api.get(`${url}/get-video-clip-statistics`, {});
 // };
 
-// export const postSummary = async () => {
-//   await api.post(`${url}/summary`, {});
-// };
-
-// export const getSummary = async () => {
-//   await api.get(`${url}/summary`, {});
-// };
-
 // export const setSummary = async () => {
 //   await api.put(`${url}/summary`, {});
-// };
-
-// export const deleteSummary = async () => {
-//   await api.get(`${url}/delete-summary`, {});
 // };

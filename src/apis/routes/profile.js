@@ -52,6 +52,26 @@ export const getPlayerTeamInfo = async (auth_token) => {
   return response.data;
 };
 
+export const getScreenSettingsData = async (auth_token) => {
+  const response = await api.get(`${url}/get-screen-settings-data`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const setUserScreenSettings = async (auth_token, data) => {
+  await api.put(`${url}/user-screen-settings`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
+export const getUserScreenSettings = async (auth_token) => {
+  const response = await api.get(`${url}/user-screen-settings`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const emailVerification = async () => {
@@ -60,18 +80,6 @@ export const getPlayerTeamInfo = async (auth_token) => {
 
 // export const getResetPassword = async () => {
 //   await api.get(`${url}/reset-password`, {});
-// };
-
-// export const getScreenSettingsData = async () => {
-//   await api.put(`${url}/get-screen-settings-data`, {});
-// };
-
-// export const setUserScreenSettings = async () => {
-//   await api.put(`${url}/user-screen-settings`, {});
-// };
-
-// export const getUserScreenSettings = async () => {
-//   await api.get(`${url}/user-screen-settings`, {});
 // };
 
 // export const getPlayerCommonCharacteristic = async () => {

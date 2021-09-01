@@ -131,25 +131,34 @@ const Admin = (props) => {
   const handleActiveClick = (color) => {
     setActiveColor(color);
   };
-  const handleMiniClick = () => {
-    let notifyMessage = "Menu latéral réduit ";
-    if (document.body.classList.contains("sidebar-mini")) {
-      setSidebarMini(false);
-      notifyMessage += "désactivé...";
-    } else {
+
+  const handleMiniClick = (defaultValue = null) => {
+    if (defaultValue === "on") {
+      document.body.classList.add("sidebar-mini");
       setSidebarMini(true);
-      notifyMessage += "activé...";
+    } else if (defaultValue === "off") {
+      document.body.classList.remove("sidebar-mini");
+      setSidebarMini(false);
+    } else {
+      let notifyMessage = "Menu latéral réduit ";
+      if (document.body.classList.contains("sidebar-mini")) {
+        setSidebarMini(false);
+        notifyMessage += "désactivé...";
+      } else {
+        setSidebarMini(true);
+        notifyMessage += "activé...";
+      }
+      let options = {};
+      options = {
+        place: "tr",
+        message: notifyMessage,
+        type: "primary",
+        icon: "tim-icons icon-bell-55",
+        autoDismiss: 7,
+      };
+      notificationAlertRef.current.notificationAlert(options);
+      document.body.classList.toggle("sidebar-mini");
     }
-    let options = {};
-    options = {
-      place: "tr",
-      message: notifyMessage,
-      type: "primary",
-      icon: "tim-icons icon-bell-55",
-      autoDismiss: 7,
-    };
-    notificationAlertRef.current.notificationAlert(options);
-    document.body.classList.toggle("sidebar-mini");
   };
   const toggleSidebar = () => {
     setSidebarOpened(!sidebarOpened);

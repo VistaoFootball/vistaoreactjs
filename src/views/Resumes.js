@@ -29,16 +29,50 @@ import {
   Row,
   Col,
 } from "reactstrap";
+import { UserContext } from "providers/UserProvider";
+import { useHistory } from "react-router-dom";
+import { getGallerySummary } from "apis/routes/videos";
+import { deleteSummary } from "apis/routes/videos";
+import { SearchContext } from "providers/SearchProvider";
 
 function Dashboard(props) {
-  const [summaries, setSummaries] = React.useState([{}, {}, {}]);
+  const [summaries, setSummaries] = React.useState([]);
+  const [updateData, setUpdateData] = React.useState(true);
+  const { user } = React.useContext(UserContext);
+  const history = useHistory();
+  const { search, setSearch } = React.useContext(SearchContext);
+
+  React.useEffect(() => {
+    setSearch("");
+  }, []);
+
+  const summaryTitle = ["", "Résumé temps forts", "Résumé tactique"];
+
+  const summaryType = ["", "Joueur", "Équipe", "Équipe adverse"];
+
+  const getData = async () => {
+    const { summary_gallery } = await getGallerySummary(user.auth_token);
+    setSummaries(summary_gallery);
+  };
+
+  React.useEffect(() => {
+    if (!user) {
+      history.replace("/auth/login");
+    } else {
+      getData();
+    }
+  }, [updateData]);
+
+  if (!user) return <></>;
+
   return (
     <>
       <div className="content">
         <Row>
           {summaries.map((summary) => {
+            const { id, summary_title_id, summary_type_id } = summary;
             return (
-              <Col lg="3">
+              <Col lg="3" key={id}>
                 <Card className="card-chart">
                   <Row>
                     <img src={logo} width="350" height="200" alt="thumbnail" />
@@ -70,7 +104,11 @@ function Dashboard(props) {
                           </DropdownItem>
                           <DropdownItem
                             href="#pablo"
-                            onClick={(e) => e.preventDefault()}
+                            onClick={async (e) => {
+                              e.preventDefault();
+                              await deleteSummary(user.auth_token, id);
+                              setUpdateData(!updateData);
+                            }}
                           >
                             Supprimer le résumé
                           </DropdownItem>
@@ -85,8 +123,9 @@ function Dashboard(props) {
                       <div class="galleryItem">
                         <div class="vistao-thumbnail"></div>
                         <span>
-                          <i className="tim-icons icon-check-2" /> Summary title
-                          - type
+                          <i className="tim-icons icon-check-2" />{" "}
+                          {summaryTitle[summary_title_id]}-{" "}
+                          {summaryType[summary_type_id]}
                         </span>
                         <br></br>
                         <span>

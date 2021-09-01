@@ -33,21 +33,37 @@ import { UserContext } from "providers/UserProvider";
 import { getVideoGallery } from "apis/routes/videos";
 import { deleteVideoProfile } from "apis/routes/videos";
 import { useHistory } from "react-router-dom";
+import { SearchContext } from "providers/SearchProvider";
 
 function Dashboard(props) {
   const { user } = React.useContext(UserContext);
+  const { search, setSearch } = React.useContext(SearchContext);
   const history = useHistory();
   const [videos, setVideos] = React.useState([]);
   const [updateGallery, setUpdateGallery] = React.useState(true);
 
   React.useEffect(() => {
+    setSearch("");
+  }, []);
+
+  React.useEffect(() => {
     if (user) {
       getVideoGallery(user.auth_token).then((result) => {
-        setVideos([]);
-        setVideos(result);
+        if (search) {
+          const filteredResults = result.filter((video) => {
+            const { home_team, away_team } = video;
+            return (
+              home_team.club_name
+                .toLowerCase()
+                .includes(search.toLowerCase()) ||
+              away_team.club_name.toLowerCase().includes(search.toLowerCase())
+            );
+          });
+          setVideos(filteredResults);
+        } else setVideos(result);
       });
     }
-  }, [user, updateGallery]);
+  }, [user, updateGallery, search]);
 
   return (
     <>
