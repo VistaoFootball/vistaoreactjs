@@ -46,6 +46,9 @@ import {
   UncontrolledTooltip,
   CustomInput,
   Table,
+  Label,
+  Form,
+  CardFooter,
 } from "reactstrap";
 
 const Panels = () => {
@@ -74,6 +77,7 @@ const Panels = () => {
   const [axisList, setAxisList] = React.useState([]);
   const [playerList, setPlayerList] = React.useState([]);
   const [updateData, setUpdateData] = React.useState(true);
+  const [clipList, setClipList] = React.useState([]);
 
   const history = useHistory();
   const location = useLocation();
@@ -83,6 +87,14 @@ const Panels = () => {
   React.useEffect(() => {
     setSearch("");
   }, []);
+
+  const handleCheckboxChange = (video_id) => {
+    let newArray = [...clipList, video_id];
+    if (clipList.includes(video_id)) {
+      newArray = newArray.filter((day) => day !== video_id);
+    }
+    setClipList(newArray);
+  };
 
   const convertSecondsToTime = (seconds) => {
     return new Date(seconds * 1000).toISOString().substr(11, 8);
@@ -867,8 +879,25 @@ const Panels = () => {
                           {videoClips.map((videoClip) => {
                             return (
                               <Card className="card-plain">
-                                <Col></Col>
                                 <CardHeader role="tab">
+                                  <td>
+                                    <FormGroup check>
+                                      <Label check>
+                                        <Input
+                                          type="checkbox"
+                                          style={{
+                                            position: "absolute",
+                                            marginTop: "0",
+                                            marginLeft: 0,
+                                          }}
+                                          onClick={(e) => {
+                                            handleCheckboxChange(videoClip.id);
+                                          }}
+                                        />
+                                        <span className="form-check-sign" />
+                                      </Label>
+                                    </FormGroup>
+                                  </td>
                                   <td className="text-right">
                                     <Button
                                       className="btn-link btn-icon"
@@ -1016,6 +1045,26 @@ const Panels = () => {
                             );
                           })}
                         </div>
+                        {clipList.length > 0 && (
+                          <CardFooter>
+                            <Form className="form-horizontal">
+                              <Button
+                                className="btn-fill"
+                                color="primary"
+                                type="submit"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  history.replace("/admin/creer-summary", {
+                                    video_id: videoId,
+                                    clip_list: clipList,
+                                  });
+                                }}
+                              >
+                                Créer le résumé
+                              </Button>
+                            </Form>
+                          </CardFooter>
+                        )}
                       </Card>
                     </TabPane>
                   </TabContent>

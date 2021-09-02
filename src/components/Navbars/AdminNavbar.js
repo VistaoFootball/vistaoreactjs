@@ -220,6 +220,7 @@ const AdminNavbar = (props) => {
                       className="nav-item"
                       onClick={() => {
                         logout(user.auth_token);
+                        window.localStorage.removeItem("auth_token");
                         setUser(null);
                       }}
                     >

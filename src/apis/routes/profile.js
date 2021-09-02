@@ -72,6 +72,19 @@ export const getUserScreenSettings = async (auth_token) => {
   return response.data;
 };
 
+export const getPlayerCommonCharacteristic = async (auth_token) => {
+  const response = await api.get(`${url}/player-common-characteristic`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const setPlayerCommonCharacteristic = async (auth_token, data) => {
+  await api.put(`${url}/player-common-characteristic`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const emailVerification = async () => {
@@ -80,14 +93,6 @@ export const getUserScreenSettings = async (auth_token) => {
 
 // export const getResetPassword = async () => {
 //   await api.get(`${url}/reset-password`, {});
-// };
-
-// export const getPlayerCommonCharacteristic = async () => {
-//   await api.get(`${url}/player-common-characteristic`, {});
-// };
-
-// export const setPlayerCommonCharacteristic = async () => {
-//   await api.put(`${url}/player-common-characteristic`, {});
 // };
 
 // export const getPlanTypes = async () => {

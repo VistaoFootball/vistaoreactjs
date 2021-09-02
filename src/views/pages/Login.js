@@ -41,6 +41,14 @@ const Login = () => {
   const history = useHistory();
 
   React.useEffect(() => {
+    const auth_token = window.localStorage.getItem("auth_token");
+    if (auth_token) {
+      setUser({ auth_token });
+      history.replace("/admin/videos");
+    }
+  }, []);
+
+  React.useEffect(() => {
     document.body.classList.toggle("login-page");
     return function cleanup() {
       document.body.classList.toggle("login-page");
@@ -108,6 +116,10 @@ const Login = () => {
                   e.preventDefault();
                   const response = await login(email, password);
                   setUser(response);
+                  window.localStorage.setItem(
+                    "auth_token",
+                    response.auth_token
+                  );
                   history.replace("/admin");
                 }}
                 size="lg"

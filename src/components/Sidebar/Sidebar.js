@@ -91,7 +91,12 @@ const Sidebar = (props) => {
       }
       if (user) {
         if (
-          ["S'inscrire", "Login", "Mot de passe oublié"].includes(prop.name)
+          [
+            "S'inscrire",
+            "Login",
+            "Mot de passe oublié",
+            "Créer le résumé",
+          ].includes(prop.name)
         ) {
           return <></>;
         }
