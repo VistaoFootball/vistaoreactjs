@@ -15,18 +15,22 @@
 
 */
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import { Card, CardBody, CardFooter, Container, Row, Col } from "reactstrap";
 import { PrivateButton } from "views/components/PrivateButton";
 
 const Pricing = () => {
+  const history = useHistory();
+
   React.useEffect(() => {
     document.body.classList.toggle("pricing-page");
     return function cleanup() {
       document.body.classList.toggle("pricing-page");
     };
   });
+
   return (
     <>
       <div className="content">
@@ -34,7 +38,6 @@ const Pricing = () => {
           <Row>
             <Col className="ml-auto mr-auto text-center" md="6">
               <h1 className="title">Les abonnements</h1>
-              <h4 className="description"></h4>
             </Col>
           </Row>
           <Row>
@@ -104,7 +107,12 @@ const Pricing = () => {
                       "margin-left": "15%",
                     }}
                     color="primary"
-                    href="https://buy.stripe.com/aEUbLb5mV4JK7N628g"
+                    onClick={() => {
+                      history.replace("/admin/payment", {
+                        price_id: "",
+                        price: 0,
+                      });
+                    }}
                   >
                     Commencer
                   </PrivateButton>
@@ -124,7 +132,12 @@ const Pricing = () => {
                       "margin-left": "15%",
                     }}
                     color="primary"
-                    href="https://buy.stripe.com/fZe02t7v3foo4AU5kt"
+                    onClick={() => {
+                      history.replace("/admin/payment", {
+                        price_id: "",
+                        price: 0,
+                      });
+                    }}
                   >
                     Commencer
                   </PrivateButton>
@@ -196,7 +209,12 @@ const Pricing = () => {
                       "margin-left": "15%",
                     }}
                     color="primary"
-                    href="https://buy.stripe.com/5kAcPf3eNccc4AU4gh"
+                    onClick={() => {
+                      history.replace("/admin/payment", {
+                        price_id: "",
+                        price: 0,
+                      });
+                    }}
                   >
                     Commencer
                   </PrivateButton>
@@ -216,7 +234,12 @@ const Pricing = () => {
                       "margin-left": "15%",
                     }}
                     color="primary"
-                    href="https://buy.stripe.com/bIY16xdTrgss1oI9AA"
+                    onClick={() => {
+                      history.replace("/admin/payment", {
+                        price_id: "",
+                        price: 0,
+                      });
+                    }}
                   >
                     Commencer
                   </PrivateButton>
@@ -290,7 +313,12 @@ const Pricing = () => {
                       "margin-left": "15%",
                     }}
                     color="primary"
-                    href="https://buy.stripe.com/28o9D34iRgss9Ve005"
+                    onClick={() => {
+                      history.replace("/admin/payment", {
+                        price_id: "price_1JVCF5KhB8NUmIiInIMxTlNr",
+                        price: 55.99,
+                      });
+                    }}
                   >
                     Commencer
                   </PrivateButton>
@@ -310,7 +338,12 @@ const Pricing = () => {
                       "margin-left": "15%",
                     }}
                     color="primary"
-                    href="https://buy.stripe.com/aEUcPf6qZgss6J200b"
+                    onClick={() => {
+                      history.replace("/admin/payment", {
+                        price_id: "price_1JVCF5KhB8NUmIiIpnuKC9gY",
+                        price: 537.99,
+                      });
+                    }}
                   >
                     Commencer
                   </PrivateButton>
@@ -382,7 +415,12 @@ const Pricing = () => {
                       "margin-left": "15%",
                     }}
                     color="primary"
-                    href="https://buy.stripe.com/6oE3eF4iRfoo4AUeV1"
+                    onClick={() => {
+                      history.replace("/admin/payment", {
+                        price_id: "price_1JVCE8KhB8NUmIiI043wh52C",
+                        price: 71.99,
+                      });
+                    }}
                   >
                     Commencer
                   </PrivateButton>
@@ -402,7 +440,12 @@ const Pricing = () => {
                       "margin-left": "15%",
                     }}
                     color="primary"
-                    href="https://buy.stripe.com/cN2eXndTrb882sM5ku"
+                    onClick={() => {
+                      history.replace("/admin/payment", {
+                        price_id: "price_1JVCE8KhB8NUmIiI9obIFaP7",
+                        price: 689.99,
+                      });
+                    }}
                   >
                     Commencer
                   </PrivateButton>

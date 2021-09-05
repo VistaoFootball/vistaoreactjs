@@ -120,7 +120,8 @@ const Login = () => {
                     "auth_token",
                     response.auth_token
                   );
-                  history.replace("/admin");
+
+                  history.replace("/admin/videos");
                 }}
                 size="lg"
               >

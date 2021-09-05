@@ -129,18 +129,22 @@ function Dashboard(props) {
                           <i className="tim-icons icon-settings-gear-63" />
                         </DropdownToggle>
                         <DropdownMenu right>
-                          <DropdownItem
-                            href={video_files[0].video_link}
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Télécharger en HD
-                          </DropdownItem>
-                          <DropdownItem
-                            href={video_files[1].video_link}
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Télécharger en SD
-                          </DropdownItem>
+                          {video_files.length > 0 && (
+                            <>
+                              <DropdownItem
+                                href={video_files[0].video_link}
+                                onClick={(e) => e.preventDefault()}
+                              >
+                                Télécharger en HD
+                              </DropdownItem>
+                              <DropdownItem
+                                href={video_files[1].video_link}
+                                onClick={(e) => e.preventDefault()}
+                              >
+                                Télécharger en SD
+                              </DropdownItem>
+                            </>
+                          )}
                           <DropdownItem
                             href="#pablo"
                             onClick={async (e) => {

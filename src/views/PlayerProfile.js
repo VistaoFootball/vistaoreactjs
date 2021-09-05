@@ -208,7 +208,6 @@ function Profile() {
       player_common_characteristic[1].post_category
     );
     setSecondaryPostSubCategoryOptions(secondaryPostSubCategories);
-    console.log(primaryPostSubCategories, secondaryPostSubCategories);
 
     setPrimaryPostCategory(
       postCategories.find(

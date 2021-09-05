@@ -43,6 +43,7 @@ import PlayerProfile from "views/PlayerProfile.js";
 import CoachProfile from "views/CoachProfile.js";
 import PasseOublie from "views/pages/PasseOublie.js";
 import EmailPasseOublie from "views/pages/EmailPasseOublie.js";
+import { StripePayment } from "views/StripePayement";
 
 const routes = [
   {
@@ -286,6 +287,16 @@ const routes = [
         mini: "U",
         rtlMini: "صع",
         component: CreateSummary,
+        layout: "/admin",
+      },
+      {
+        path: "/payment",
+        name: "Payment",
+        icon: "tim-icons icon-simple-add",
+        rtlName: "",
+        mini: "U",
+        rtlMini: "",
+        component: StripePayment,
         layout: "/admin",
       },
     ],

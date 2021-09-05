@@ -96,6 +96,7 @@ const Sidebar = (props) => {
             "Login",
             "Mot de passe oublié",
             "Créer le résumé",
+            "Payment",
           ].includes(prop.name)
         ) {
           return <></>;
