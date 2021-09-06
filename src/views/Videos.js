@@ -119,7 +119,12 @@ function Dashboard(props) {
                       height="200"
                       alt="Thumbnail"
                       onClick={() => {
-                        history.replace("/admin/studio", { video_id: id });
+                        history.replace("/admin/studio", {
+                          video_id: id,
+                          ...(video_files.length > 0 && {
+                            video_link: video_files[1].video_link,
+                          }),
+                        });
                       }}
                     />
                   </Row>

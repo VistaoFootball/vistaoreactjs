@@ -90,7 +90,7 @@ const CheckoutForm = () => {
   const elements = useElements();
   const [error, setError] = useState(null);
   const [cardComplete, setCardComplete] = useState(false);
-  const [processing, setProcessing] = useState(false);
+
   const [startTransaction, setStartTransaction] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [email, setEmail] = useState("");
@@ -114,11 +114,6 @@ const CheckoutForm = () => {
     }
     if (!user) {
       history.replace("/auth/login");
-    }
-    if (!stripe || !elements) {
-      setProcessing(true);
-    } else {
-      setProcessing(false);
     }
   });
 
@@ -222,9 +217,9 @@ const CheckoutForm = () => {
       )}
 
       <SubmitButton
-        processing={startTransaction && processing}
+        processing={startTransaction}
         error={error}
-        disabled={!stripe}
+        disabled={!stripe || !elements}
       >
         S'abonner - € {price}
       </SubmitButton>

@@ -87,6 +87,7 @@ const Panels = () => {
   const [singleSelectAxis, setsingleSelectAxis] = React.useState(null);
 
   const [videoId, setVideoId] = React.useState(null);
+  const [videoLink, setVideoLink] = React.useState(null);
   const [videoClips, setVideoClips] = React.useState([]);
   const [updateClip, setUpdateClip] = React.useState(null);
   const [tagList, setTagList] = React.useState([]);
@@ -98,6 +99,7 @@ const Panels = () => {
 
   const history = useHistory();
   const location = useLocation();
+
   const { user } = React.useContext(UserContext);
   const { search, setSearch } = React.useContext(SearchContext);
 
@@ -372,8 +374,9 @@ const Panels = () => {
     } else if (!location.state) {
       history.replace("/admin/videos");
     } else {
-      const { video_id } = location.state;
+      const { video_id, video_link } = location.state;
       getData(video_id);
+      setVideoLink(video_link);
     }
   }, []);
 
@@ -554,7 +557,7 @@ const Panels = () => {
                       ref={playerRef}
                       width="100%"
                       height="100%"
-                      url="https://vistao.co/hub/clips/Van_temps_forts.mp4"
+                      url={videoLink}
                       pip={pip}
                       playing={playing}
                       controls={false}
@@ -1146,17 +1149,24 @@ const Panels = () => {
                                   size="sm"
                                   onClick={async (e) => {
                                     e.preventDefault();
-                                    await createVideoClip(user.auth_token, {
-                                      video_id: videoId,
-                                      start_time: 6,
-                                      tag_list: multipleSelectTag.map(
-                                        (element) => element.value
-                                      ),
-                                      zone_id: singleSelectZone.value,
-                                      player_id: singleSelectPlayer.value,
-                                      axis_id: singleSelectAxis.value,
-                                    });
-                                    setUpdateData(!updateData);
+                                    if (
+                                      multipleSelectTag &&
+                                      singleSelectZone &&
+                                      singleSelectPlayer &&
+                                      singleSelectAxis
+                                    ) {
+                                      await createVideoClip(user.auth_token, {
+                                        video_id: videoId,
+                                        start_time: 6,
+                                        tag_list: multipleSelectTag.map(
+                                          (element) => element.value
+                                        ),
+                                        zone_id: singleSelectZone.value,
+                                        player_id: singleSelectPlayer.value,
+                                        axis_id: singleSelectAxis.value,
+                                      });
+                                      setUpdateData(!updateData);
+                                    }
                                   }}
                                 >
                                   <i className="tim-icons icon-simple-add" />
