@@ -85,6 +85,27 @@ export const setPlayerCommonCharacteristic = async (auth_token, data) => {
   });
 };
 
+export const createSubscriptionPlan = async (auth_token, data) => {
+  const response = await api.post(`${url}/create-subscription-plan`, data, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const getSubscriptionStatus = async (auth_token) => {
+  const response = await api.get(`${url}/get-subscription-status `, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
+export const getPlanTypes = async (auth_token) => {
+  const response = await api.get(`${url}/get-plan-types`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const emailVerification = async () => {
@@ -93,14 +114,6 @@ export const setPlayerCommonCharacteristic = async (auth_token, data) => {
 
 // export const getResetPassword = async () => {
 //   await api.get(`${url}/reset-password`, {});
-// };
-
-// export const getPlanTypes = async () => {
-//   await api.get(`${url}/get-plan-types`, {});
-// };
-
-// export const createSubscriptionPlan = async () => {
-//   await api.put(`${url}/create-subscription-plan`, {});
 // };
 
 // export const updateSubscriptionPlan = async () => {

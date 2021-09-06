@@ -86,6 +86,13 @@ export const deleteSummary = async (auth_token, id) => {
   });
 };
 
+export const getVideoClipStatistics = async (auth_token) => {
+  const response = await api.get(`${url}/get-video-clip-statistics`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const updateVideoProfile = async () => {
@@ -94,10 +101,6 @@ export const deleteSummary = async (auth_token, id) => {
 
 // export const searchVideoClip = async () => {
 //   await api.post(`${url}/search-video-clip`, {});
-// };
-
-// export const getVideoClipStatistics = async () => {
-//   await api.get(`${url}/get-video-clip-statistics`, {});
 // };
 
 // export const setSummary = async () => {
