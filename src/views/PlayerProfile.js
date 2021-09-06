@@ -57,6 +57,7 @@ import { getPostCategories } from "apis/routes/common";
 import { getPostSubCategories } from "apis/routes/common";
 import { getPlayerCommonCharacteristic } from "apis/routes/profile";
 import { setPlayerCommonCharacteristic } from "apis/routes/profile";
+import { getSubscriptionStatus } from "apis/routes/profile";
 
 function Profile() {
   const [horizontalTabs, sethorizontalTabs] = React.useState("Général");
@@ -107,6 +108,7 @@ function Profile() {
 
   const { user } = React.useContext(UserContext);
   const history = useHistory();
+  const [userPlan, setUserPlan] = React.useState({});
 
   const placementOptions = [
     { value: 5, label: "Gauche" },
@@ -244,6 +246,9 @@ function Profile() {
   React.useEffect(() => {
     if (user) {
       getData();
+      getSubscriptionStatus(user.auth_token).then(({ plan_type }) => {
+        setUserPlan(plan_type);
+      });
     }
   }, [user]);
 
@@ -620,6 +625,7 @@ function Profile() {
                               onChange={(e) => {
                                 setNewClubName(e.target.value);
                               }}
+                              disabled={userPlan.user_type !== 1}
                               placeholder=""
                               type="texte"
                             />
@@ -865,11 +871,15 @@ function Profile() {
                           var bodyFormData = new FormData();
                           bodyFormData.append("first_name", firstName);
                           bodyFormData.append("last_name", lastName);
-                          bodyFormData.append("birth_date", birthDate);
-                          bodyFormData.append(
-                            "gender",
-                            singleSelectGender.value
-                          );
+                          if (birthDate) {
+                            bodyFormData.append("birth_date", birthDate);
+                          }
+                          if (singleSelectGender) {
+                            bodyFormData.append(
+                              "gender",
+                              singleSelectGender.value
+                            );
+                          }
                           bodyFormData.append("nick_name", nickName);
                           bodyFormData.append("email", emailId);
                           multipleSelectNationality.forEach((element, index) =>
@@ -878,12 +888,12 @@ function Profile() {
                               element.value
                             )
                           );
-
                           bodyFormData.append("mobile_num", mobileNumber);
-                          await setProfileDetails(
-                            user.auth_token,
-                            bodyFormData
-                          );
+                          if (multipleSelectNationality.length > 0)
+                            await setProfileDetails(
+                              user.auth_token,
+                              bodyFormData
+                            );
                         } else if (horizontalTabs === "Équipe") {
                           if (newClubName) {
                             await createClub(user.auth_token, newClubName);
@@ -895,10 +905,16 @@ function Profile() {
                                 await setPlayerTeamInfo(user.auth_token, {
                                   id: playerTeamId,
                                   club: element.value,
-                                  section: singleSelectTeamSection.value,
-                                  age_category: singleSelectCategory.value,
+                                  ...(singleSelectTeamSection && {
+                                    section: singleSelectTeamSection.value,
+                                  }),
+                                  ...(singleSelectCategory && {
+                                    age_category: singleSelectCategory.value,
+                                  }),
                                   team_number: teamNumber,
-                                  country: singleSelectCountry.value,
+                                  ...(singleSelectCountry && {
+                                    country: singleSelectCountry.value,
+                                  }),
                                   city,
                                   zipcode,
                                 });
@@ -908,17 +924,33 @@ function Profile() {
                           } else {
                             await setPlayerTeamInfo(user.auth_token, {
                               id: playerTeamId,
-                              club: singleSelectClub.value,
-                              section: singleSelectTeamSection.value,
-                              age_category: singleSelectCategory.value,
+                              ...(singleSelectClub && {
+                                club: singleSelectClub.value,
+                              }),
+                              ...(singleSelectTeamSection && {
+                                section: singleSelectTeamSection.value,
+                              }),
+                              ...(singleSelectCategory && {
+                                age_category: singleSelectCategory.value,
+                              }),
                               team_number: teamNumber,
-                              country: singleSelectCountry.value,
+                              ...(singleSelectCountry && {
+                                country: singleSelectCountry.value,
+                              }),
                               city,
                               zipcode,
                             });
                           }
                         } else if (horizontalTabs === "Spécifique") {
-                          if (playerCommonId) {
+                          if (
+                            playerCommonId &&
+                            primaryPostCategory &&
+                            primaryPostSubCategory &&
+                            primaryPlacement &&
+                            secondaryPostCategory &&
+                            secondaryPostSubCategory &&
+                            secondaryPlacement
+                          ) {
                             await setPlayerCommonCharacteristic(
                               user.auth_token,
                               [

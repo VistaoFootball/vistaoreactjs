@@ -583,44 +583,6 @@ function CreerVideo() {
                                 />
                               </FormGroup>
                             </Card>
-                            <Row>
-                              <Col md="12">
-                                <Card>
-                                  <Dropzone
-                                    onDrop={(acceptedFiles) =>
-                                      console.log(acceptedFiles)
-                                    }
-                                  >
-                                    {({ getRootProps, getInputProps }) => (
-                                      <section>
-                                        <div {...getRootProps()}>
-                                          <input {...getInputProps()} />
-
-                                          <br></br>
-                                          <p
-                                            style={{
-                                              display: "flex",
-                                              justifyContent: "center",
-                                            }}
-                                          >
-                                            Uploader une miniature
-                                          </p>
-                                          <i
-                                            className="tim-icons icon-cloud-upload-94"
-                                            style={{
-                                              display: "flex",
-                                              justifyContent: "center",
-                                              color: "white",
-                                            }}
-                                          />
-                                          <br></br>
-                                        </div>
-                                      </section>
-                                    )}
-                                  </Dropzone>
-                                </Card>
-                              </Col>
-                            </Row>
                           </TabPane>
 
                           <TabPane tabId="tactique">

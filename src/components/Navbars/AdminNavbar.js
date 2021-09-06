@@ -41,6 +41,7 @@ import { UserContext } from "providers/UserProvider";
 import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { SearchContext } from "providers/SearchProvider";
+import { getProfileDetails } from "apis/routes/profile";
 
 const AdminNavbar = (props) => {
   const [collapseOpen, setCollapseOpen] = React.useState(false);
@@ -49,6 +50,15 @@ const AdminNavbar = (props) => {
   const { user, setUser } = useContext(UserContext);
   const { search, setSearch } = useContext(SearchContext);
   const history = useHistory();
+  const [avatar, setAvatar] = React.useState("");
+
+  React.useEffect(() => {
+    if (user)
+      getProfileDetails(user.auth_token).then(({ profile_details }) => {
+        const { avatar } = profile_details;
+        setAvatar(avatar);
+      });
+  });
 
   React.useEffect(() => {
     window.addEventListener("resize", updateColor);
@@ -191,7 +201,7 @@ const AdminNavbar = (props) => {
                   <div className="photo">
                     <img
                       alt="..."
-                      src={require("assets/img/mike.jpg").default}
+                      src={avatar || require("assets/img/emilyz.jpg").default}
                     />
                   </div>
                   <b className="caret d-none d-lg-block d-xl-block" />

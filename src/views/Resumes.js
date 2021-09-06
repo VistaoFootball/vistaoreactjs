@@ -34,6 +34,7 @@ import { useHistory } from "react-router-dom";
 import { getGallerySummary } from "apis/routes/videos";
 import { deleteSummary } from "apis/routes/videos";
 import { SearchContext } from "providers/SearchProvider";
+import { getSubscriptionStatus } from "apis/routes/profile";
 
 function Dashboard(props) {
   const [summaries, setSummaries] = React.useState([]);
@@ -41,9 +42,15 @@ function Dashboard(props) {
   const { user } = React.useContext(UserContext);
   const history = useHistory();
   const { search, setSearch } = React.useContext(SearchContext);
+  const [userPlan, setUserPlan] = React.useState({});
 
   React.useEffect(() => {
     setSearch("");
+    if (user) {
+      getSubscriptionStatus(user.auth_token).then(({ plan_type }) => {
+        setUserPlan(plan_type);
+      });
+    }
   }, []);
 
   const summaryTitle = ["", "Résumé temps forts", "Résumé tactique"];
@@ -108,6 +115,7 @@ function Dashboard(props) {
               is_private,
               home_team,
               away_team,
+              video_files,
             } = video_details;
             return (
               <Col lg="3" key={id}>
@@ -128,18 +136,23 @@ function Dashboard(props) {
                           <i className="tim-icons icon-settings-gear-63" />
                         </DropdownToggle>
                         <DropdownMenu right>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Télécharger en HD
-                          </DropdownItem>
-                          <DropdownItem
-                            href="#pablo"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            Télécharger en SD
-                          </DropdownItem>
+                          {video_files.length > 0 &&
+                            userPlan.plan_type === "elite" && (
+                              <>
+                                <DropdownItem
+                                  href="#pablo"
+                                  onClick={(e) => e.preventDefault()}
+                                >
+                                  Télécharger en HD
+                                </DropdownItem>
+                                <DropdownItem
+                                  href="#pablo"
+                                  onClick={(e) => e.preventDefault()}
+                                >
+                                  Télécharger en SD
+                                </DropdownItem>
+                              </>
+                            )}
                           <DropdownItem
                             href="#pablo"
                             onClick={async (e) => {

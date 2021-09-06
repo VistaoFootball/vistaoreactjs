@@ -91,6 +91,7 @@ const CheckoutForm = () => {
   const [error, setError] = useState(null);
   const [cardComplete, setCardComplete] = useState(false);
   const [processing, setProcessing] = useState(false);
+  const [startTransaction, setStartTransaction] = useState(false);
   const [paymentComplete, setPaymentComplete] = useState(false);
   const [email, setEmail] = useState("");
 
@@ -130,8 +131,10 @@ const CheckoutForm = () => {
       elements.getElement("card").focus();
       return;
     }
-    if (cardComplete) setProcessing(true);
+    if (cardComplete) setStartTransaction(true);
+  };
 
+  const payment = async () => {
     const payload = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
@@ -178,8 +181,12 @@ const CheckoutForm = () => {
         }
       }
     }
-    setProcessing(false);
+    setStartTransaction(false);
   };
+
+  if (startTransaction) {
+    payment();
+  }
 
   return paymentComplete ? (
     <div className="Result">
@@ -214,7 +221,11 @@ const CheckoutForm = () => {
         </Alert>
       )}
 
-      <SubmitButton processing={processing} error={error} disabled={!stripe}>
+      <SubmitButton
+        processing={startTransaction && processing}
+        error={error}
+        disabled={!stripe}
+      >
         S'abonner - € {price}
       </SubmitButton>
     </form>

@@ -39,7 +39,6 @@ import {
 import { getCategories } from "apis/routes/common";
 import { getSubCategories } from "apis/routes/common";
 import { register } from "apis/routes/profile";
-import { UserRegister } from "Models/UserRegister";
 import { useHistory } from "react-router-dom";
 
 const Register = () => {
@@ -250,15 +249,13 @@ const Register = () => {
                         singleSelectUserType &&
                         singleSelectUserCategory
                       ) {
-                        await register(
-                          new UserRegister(
-                            email,
-                            password,
-                            psuedoName,
-                            singleSelectUserCategory.value,
-                            singleSelectUserType.value
-                          )
-                        );
+                        await register({
+                          email,
+                          password,
+                          pseudo_name: psuedoName,
+                          category_id: singleSelectUserCategory.value,
+                          sub_category_id: singleSelectUserType.value,
+                        });
                         history.replace("/auth/login");
                       }
                     }}
