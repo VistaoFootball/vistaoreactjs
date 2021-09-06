@@ -115,13 +115,14 @@ const Login = () => {
                 onClick={async (e) => {
                   e.preventDefault();
                   const response = await login(email, password);
-                  setUser(response);
-                  window.localStorage.setItem(
-                    "auth_token",
-                    response.auth_token
-                  );
-
-                  history.replace("/admin/videos");
+                  if (response && response.auth_token) {
+                    setUser(response);
+                    window.localStorage.setItem(
+                      "auth_token",
+                      response.auth_token
+                    );
+                    history.replace("/admin/videos");
+                  }
                 }}
                 size="lg"
               >

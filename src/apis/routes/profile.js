@@ -99,6 +99,13 @@ export const getSubscriptionStatus = async (auth_token) => {
   return response.data;
 };
 
+export const getPlanTypes = async (auth_token) => {
+  const response = await api.get(`${url}/get-plan-types`, {
+    headers: { Authorization: `Token ${auth_token}` },
+  });
+  return response.data;
+};
+
 // Set Function Paramaters and Pass it to API Call
 
 // export const emailVerification = async () => {
@@ -107,10 +114,6 @@ export const getSubscriptionStatus = async (auth_token) => {
 
 // export const getResetPassword = async () => {
 //   await api.get(`${url}/reset-password`, {});
-// };
-
-// export const getPlanTypes = async () => {
-//   await api.get(`${url}/get-plan-types`, {});
 // };
 
 // export const updateSubscriptionPlan = async () => {
