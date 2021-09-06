@@ -186,7 +186,7 @@ const CheckoutForm = () => {
   return paymentComplete ? (
     <div className="Result">
       <div className="ResultTitle" role="alert">
-        aiement réussi
+        Paiement réussi
       </div>
     </div>
   ) : (
