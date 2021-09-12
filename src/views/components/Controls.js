@@ -1,4 +1,4 @@
-import React, { forwardRef, useState} from "react";
+import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -9,7 +9,6 @@ import FastForwardIcon from "@material-ui/icons/FastForward";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import CircleIcon from "@material-ui/icons/Lens";
-import CanvasIcon from "@material-ui/icons/AddCircleSharp";
 import TextureIcon from '@material-ui/icons/Texture';
 import Slider from "@material-ui/core/Slider";
 import Tooltip from "@material-ui/core/Tooltip";
@@ -173,7 +172,6 @@ const Controls = forwardRef(
             direction="row"
             alignItems="center"
             justify="space-between"
-            style
             style={{ padding: 16 }}
           >
             <Grid item>
@@ -383,7 +381,7 @@ const Controls = forwardRef(
                     <DropdownItem
                       onClick={(e) => e.preventDefault()}
                       style={{"padding":"0.5rem 0.5rem"}}
-                      href="javascript:void(0);" class='tool' id="tool-dashed"
+                      class='tool' id="tool-dashed"
                     >
                      <MoreVertIcon style={{"fill":"white"}}></MoreVertIcon>
                     </DropdownItem>

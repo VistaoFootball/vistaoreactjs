@@ -16,7 +16,7 @@
 */
 import React from "react";
 // react plugin used to create charts
-import { Line, Bar, Pie, Bubble } from "react-chartjs-2";
+import { Line, Bar, Pie, Bubble, } from "react-chartjs-2";
 // reactstrap components
 import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
 

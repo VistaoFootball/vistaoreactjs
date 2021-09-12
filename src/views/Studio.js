@@ -15,28 +15,16 @@
 
 */
 
-import { findDOMNode } from "react-dom";
-
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-
-import Slider from "@material-ui/core/Slider";
-import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import VolumeUp from "@material-ui/icons/VolumeUp";
-import VolumeDown from "@material-ui/icons/VolumeDown";
-import VolumeMute from "@material-ui/icons/VolumeOff";
-import FullScreen from "@material-ui/icons/Fullscreen";
-import Popover from "@material-ui/core/Popover";
 import screenful from "screenfull";
 import Controls from "./components/Controls";
 import ReactPlayer from 'react-player'
 // Render a YouTube video player
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 // react plugin used to create DropdownMenu for selecting items
 import Select from "react-select";
 // reactstrap components
@@ -164,44 +152,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PrettoSlider = withStyles({
-  root: {
-    height: 8,
-  },
-  thumb: {
-    height: 24,
-    width: 24,
-    backgroundColor: "#fff",
-    border: "2px solid currentColor",
-    marginTop: -8,
-    marginLeft: -12,
-    "&:focus, &:hover, &$active": {
-      boxShadow: "inherit",
-    },
-  },
-  active: {},
-  valueLabel: {
-    left: "calc(-50% + 4px)",
-  },
-  track: {
-    height: 8,
-    borderRadius: 4,
-  },
-  rail: {
-    height: 8,
-    borderRadius: 4,
-  },
-})(Slider);
 
-function ValueLabelComponent(props) {
-  const { children, open, value } = props;
-
-  return (
-    <Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
-      {children}
-    </Tooltip>
-  );
-}
 
 const format = (seconds) => {
   if (isNaN(seconds)) {
@@ -220,9 +171,7 @@ const format = (seconds) => {
 let count = 0;
 
 const classes = useStyles();
-const [showControls, setShowControls] = useState(false);
 // const [count, setCount] = useState(0);
-const [anchorEl, setAnchorEl] = React.useState(null);
 const [timeDisplayFormat, setTimeDisplayFormat] = React.useState("normal");
 const [bookmarks, setBookmarks] = useState([]);
 const [state, setState] = useState({
@@ -246,15 +195,12 @@ const controlsRef = useRef(null);
 const canvasRef = useRef(null);
 const {
   playing,
-  controls,
   light,
-
   muted,
   loop,
   playbackRate,
   pip,
   played,
-  seeking,
   volume,
 } = state;
 
@@ -275,7 +221,7 @@ const handleProgress = (changeState) => {
     controlsRef.current.style.visibility = "hidden";
     count = 0;
   }
-  if (controlsRef.current.style.visibility == "visible") {
+  if (controlsRef.current.style.visibility === "visible") {
     count += 1;
   }
   if (!state.seeking) {
@@ -332,7 +278,7 @@ const hanldeMouseLeave = () => {
 
 const handleDisplayFormat = () => {
   setTimeDisplayFormat(
-    timeDisplayFormat == "normal" ? "remaining" : "normal"
+    timeDisplayFormat === "normal" ? "remaining" : "normal"
   );
 };
 
@@ -377,7 +323,7 @@ const currentTime =
 const duration =
   playerRef && playerRef.current ? playerRef.current.getDuration() : "00:00";
 const elapsedTime =
-  timeDisplayFormat == "normal"
+  timeDisplayFormat === "normal"
     ? format(currentTime)
     : `-${format(duration - currentTime)}`;
 
@@ -482,7 +428,6 @@ const totalDuration = format(duration);
                 }}
                 elevation={3}
               >
-                <img crossOrigin="anonymous" src={bookmark.image} />
                 <Typography variant="body2" align="center">
                   bookmark at {bookmark.display}
                 </Typography>
