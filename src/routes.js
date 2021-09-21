@@ -23,7 +23,7 @@ import AnalyseVideo from "views/AnalyseVideo.js";
 import AnalyseSuivi from "views/AnalyseSuivi.js";
 import CreateAnalysis from "views/CreateAnalysis.js";
 import CreateMonitoring from "views/CreateMonitoring.js";
-import DashboardSuivi from "views/DashboardSuivi.js";
+import DashboardMonitoring from "views/DashboardMonitoring.js";
 import VideoGameSheet from "views/VideoGameSheet.js";
 import CreateSummary from "views/CreateSummary.js";
 import PlaySummary from "views/PlaySummary.js";
@@ -407,7 +407,7 @@ const routes = [
           name: "Dashboard de suivi",
           rtlName: "تسجيل",
           mini: "DS",
-          component: DashboardSuivi,
+          component: DashboardMonitoring,
           layout: "/admin",
         }, 
         {
