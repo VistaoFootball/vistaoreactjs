@@ -62,7 +62,10 @@ function H2HDashboard() {
       case "horizontalTabsH2HIndividual":
           sethorizontalTabsH2HIndividual(tabName);
           break;
-      default:
+        case "verticalTabsIcons":
+            setverticalTabsIcons(tabName);
+            break;
+            default:
         break;
     }
   };

@@ -35,10 +35,7 @@ import MonitoringTeamDashboard from "./MonitoringDashboard/MonitoringDashboardTe
 import MonitoringOpponentDashboard from "./MonitoringDashboard/MonitoringDashboardOpponent";
 
 function DashboardSuivi() {
-
   const [verticalTabsIcons, setverticalTabsIcons] = React.useState("MyTeam");
-
-
   const changeActiveTab = (e, tabState, tabName) => {
     e.preventDefault();
     

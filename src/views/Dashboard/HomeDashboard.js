@@ -58,7 +58,10 @@ import GaugeChart from "react-gauge-chart/dist/GaugeChart";
         case "horizontalTabsHomeIndividual":
             sethorizontalTabsHomeIndividual(tabName);
             break;
-        default:
+        case "verticalTabsIcons":
+            setverticalTabsIcons(tabName);
+            break;
+            default:
           break;
       }
     };

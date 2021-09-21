@@ -58,6 +58,10 @@ function AwayDashboard() {
         case "horizontalTabsAwayIndividual":
             sethorizontalTabsAwayIndividual(tabName);
             break;
+        case "verticalTabsIcons":
+            setverticalTabsIcons(tabName);
+            break;
+            default:
       }
     };
 
