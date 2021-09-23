@@ -910,7 +910,7 @@ const Dashboard = () => {
                         <div className="photo">
                           <img
                             alt="..."
-                            src={require("assets/img/emilyz.jpg").default}
+                            src={require("assets/img/default-avatar.png").default}
                           />
                         </div>
                       </td>

@@ -47,7 +47,7 @@ const Lock = () => {
           <Col className="ml-auto mr-auto" lg="4" md="6">
             <Card className="card-lock card-white text-center">
               <CardHeader>
-                <img alt="..." src={require("assets/img/emilyz.jpg").default} />
+                <img alt="..." src={require("assets/img/default-avatar.png").default} />
               </CardHeader>
               <CardBody>
                 <CardTitle tag="h4">Joe Gardner</CardTitle>

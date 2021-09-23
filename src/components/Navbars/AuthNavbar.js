@@ -83,16 +83,12 @@ const AuthNavbar = (props) => {
                 <i className="tim-icons icon-single-02" /> Login
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink to="/auth/pricing" className="nav-link">
-                <i className="tim-icons icon-coins" /> Pricing
-              </NavLink>
-            </NavItem>
+            {/*
             <NavItem>
               <NavLink to="/auth/lock-screen" className="nav-link">
                 <i className="tim-icons icon-lock-circle" /> Vérouiller
               </NavLink>
-            </NavItem>
+            </NavItem>*/}
           </Nav>
         </Collapse>
       </Container>

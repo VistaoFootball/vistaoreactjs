@@ -150,7 +150,7 @@ const User = () => {
                     <img
                       alt="..."
                       className="avatar"
-                      src={require("assets/img/emilyz.jpg").default}
+                      src={require("assets/img/default-avatar.png").default}
                     />
                     <h5 className="title">Mike Andrew</h5>
                   </a>
