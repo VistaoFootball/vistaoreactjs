@@ -15,11 +15,13 @@
 
 */
 import React from "react";
-import classNames from "classnames";
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import Dropzone from "react-dropzone";
 import Select from "react-select";
 import ReactDatetime from "react-datetime";
+import BootstrapTable from 'react-bootstrap-table-next';
+import cellEditFactory from 'react-bootstrap-table2-editor';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 
 import {
   Card,
@@ -41,11 +43,6 @@ import {
   Input,
 
 } from "reactstrap";
-
-import ReactTable from "components/ReactTable/ReactTable.js";
-const dataTable = [
-  ["Airi Satou", "Accountant", "Tokyo", "33"],
-];
 
 function CreerVideo() {
   const [horizontalTabsC, sethorizontalTabsC] = React.useState("Équipe"); 
@@ -72,88 +69,6 @@ function CreerVideo() {
         break;
     }
   };
-
-  const [data, setData] = React.useState(
-    dataTable.map((prop, key) => {
-      return {
-        id: key,
-        name: prop[0],
-        position: prop[1],
-        office: prop[2],
-        age: prop[3],
-        actions: (
-          // we've added some custom button actions
-          <div className="actions-right">
-            <FormGroup check>
-            <Label check>
-            <Input type="checkbox" />
-            <span className="form-check-sign" />
-            </Label>
-            </FormGroup>
-            <br></br>
-            <Button
-              onClick={() => {
-                let obj = data.find((o) => o.id === key);
-                alert(
-                  "You've clicked EDIT button on \n{ \nName: " +
-                    obj.name +
-                    ", \nposition: " +
-                    obj.position +
-                    ", \noffice: " +
-                    obj.office +
-                    ", \nage: " +
-                    obj.age +
-                    "\n}."
-                );
-              }}
-              color="warning"
-              size="sm"
-              className={classNames("btn-icon btn-link like", {
-                "btn-neutral": key < 5,
-              })}
-            >
-
-            </Button>{" "}
-          </div>
-        ),
-        ReconnaissanceIndividuelle: (
-          // we've added some custom button actions
-          <div className="actions-right">
-            <FormGroup check>
-            <Label check>
-            <Input type="checkbox" />
-            <span className="form-check-sign" />
-            </Label>
-            </FormGroup>
-            <br></br>
-            <Button
-              onClick={() => {
-                let obj = data.find((o) => o.id === key);
-                alert(
-                  "You've clicked EDIT button on \n{ \nName: " +
-                    obj.name +
-                    ", \nposition: " +
-                    obj.position +
-                    ", \noffice: " +
-                    obj.office +
-                    ", \nage: " +
-                    obj.age +
-                    "\n}."
-                );
-              }}
-              color="warning"
-              size="sm"
-              className={classNames("btn-icon btn-link like", {
-                "btn-neutral": key < 5,
-              })}
-            >
-
-            </Button>{" "}
-          </div>
-        ),
-      };
-    })
-  )
 
   const [alert, setAlert] = React.useState(null);
   // Parameters alerts. to stop the warning of calling setState of unmounted component
@@ -200,6 +115,45 @@ function CreerVideo() {
       </ReactBSAlert>
     );
   };
+
+  const columns = [{
+    dataField: 'id',
+    text: 'id'
+  }, 
+    {
+    dataField: 'FirstName',
+    text: 'Nom',
+    sort: true 
+  }, {
+    dataField: 'LastName',
+    text: 'Prénom',
+    sort: true 
+  }, {
+    dataField: 'Team',
+    text: 'Équipe',
+    sort: true 
+  }, {
+    dataField: 'AgeCategory',
+    text: 'Catégorie',
+    sort: true 
+  }, {
+    dataField: 'JerseyNumber',
+    text: 'Maillot',
+    sort: true 
+  },
+];
+
+  const homeplayers = [
+    {id:1, FirstName: "Jean", LastName: "Dubois", Team: "1", AgeCategory: "U19", JerseyNumber:"5" },
+    {id:2, FirstName: "Pierre", LastName: "Dupont", Team: "1", AgeCategory: "U19", JerseyNumber:"6" },
+  ];
+
+  const awayplayers = [
+    {id:1, FirstName: "Jean", LastName: "Dubois", Team: "1", AgeCategory: "U19", JerseyNumber:"5" },
+    {id:2, FirstName: "Pierre", LastName: "Dupont", Team: "1", AgeCategory: "U19", JerseyNumber:"6" },
+  ];
+
+  const { SearchBar } = Search;
 
   const hideAlert = () => {
     setAlert(null);
@@ -959,49 +913,31 @@ function CreerVideo() {
                         <div className="content" style={{"margin-top": '-30px'}}>
                         <Row className="mt-5">
                         <Col xs={12} md={12}>
-                        <ReactTable
-                        data={data}
-                        filterable
-                        resizable={false}
-                        columns={[
-                          {
-                            Header: "Nom",
-                            accessor: "1",
-                          },
-                          {
-                            Header: "Prénom",
-                            accessor: "2",
-                          },
-                          {
-                            Header: "N° équipe",
-                            accessor: "3",
-                          },
-                          {
-                            Header: "Catégorie",
-                            accessor: "4",
-                          },
-                          {
-                            Header: "N° Maillot",
-                            accessor: "5",
-                          },
-                          {
-                            Header: "Convoqué",
-                            accessor: "actions",
-                            sortable: false,
-                            filterable: false,
-                          },
-                          {
-                            Header: "Ind.R",
-                            accessor: "ReconnaissanceIndividuelle",
-                            sortable: false,
-                            filterable: false,
-                          },
-                        ]}
-                        defaultPageSize={10}
-                        showPaginationTop
-                        showPaginationBottom={false}
-                        className="-striped -highlight"
+                        <ToolkitProvider
+                        keyField="id"
+                        data={ homeplayers }
+                        columns={ columns }
+                        search
+                      >
+                        {
+                          props => (
+                            <div>
+                              <SearchBar { ...props.searchProps } placeholder="Recherche"/>
+                              <hr />
+                              <BootstrapTable
+                                striped
+                                hover
+                                bordered={ false }
+                                { ...props.baseProps }
+                                cellEdit={ cellEditFactory({
+                                  mode: 'click',
+                                  blurToSave: true
+                                }) }
                               />
+                            </div>
+                          )
+                        }
+                      </ToolkitProvider>
                         </Col>
                         </Row>
                         </div>
@@ -1062,67 +998,7 @@ function CreerVideo() {
                         <div className="content" style={{"margin-top": '-30px'}}>
                         <Row className="mt-5">
                         <Col xs={12} md={12}>
-                        <ReactTable
-                        data={data}
-                        filterable
-                        resizable={false}
-                        columns={[
-                          {
-                            Header: "champ",
-                            accessor: "1",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "2",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "3",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "4",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "5",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "6",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "7",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "8",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "9",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "10",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "",
-                          },
-                          {
-                            Header: "Actions",
-                            accessor: "actions",
-                            sortable: false,
-                            filterable: false,
-                          },
-                        ]}
-                        defaultPageSize={10}
-                        showPaginationTop
-                        showPaginationBottom={false}
-                        className="-striped -highlight"
-                              />
+
                         </Col>
                         </Row>
                         </div>
@@ -1373,49 +1249,31 @@ function CreerVideo() {
                         <div className="content" style={{"margin-top": '-30px'}}>
                         <Row className="mt-5">
                         <Col xs={12} md={12}>
-                        <ReactTable
-                        data={data}
-                        filterable
-                        resizable={true}
-                        columns={[
-                          {
-                            Header: "Nom",
-                            accessor: "1",
-                          },
-                          {
-                            Header: "Prénom",
-                            accessor: "2",
-                          },
-                          {
-                            Header: "N° équipe",
-                            accessor: "3",
-                          },
-                          {
-                            Header: "Catégorie",
-                            accessor: "4",
-                          },
-                          {
-                            Header: "N° Maillot",
-                            accessor: "5",
-                          },
-                          {
-                            Header: "Convoqué",
-                            accessor: "actions",
-                            sortable: false,
-                            filterable: false,
-                          },
-                          {
-                            Header: "Ind.R",
-                            accessor: "ReconnaissanceIndividuelle",
-                            sortable: false,
-                            filterable: false,
-                          },
-                        ]}
-                        defaultPageSize={10}
-                        showPaginationTop
-                        showPaginationBottom={false}
-                        className="-striped -highlight"
+                        <ToolkitProvider
+                        keyField="id"
+                        data={ homeplayers }
+                        columns={ columns }
+                        search
+                      >
+                        {
+                          props => (
+                            <div>
+                              <SearchBar { ...props.searchProps } placeholder="Recherche"/>
+                              <hr />
+                              <BootstrapTable
+                                striped
+                                hover
+                                bordered={ false }
+                                { ...props.baseProps }
+                                cellEdit={ cellEditFactory({
+                                  mode: 'click',
+                                  blurToSave: true
+                                }) }
                               />
+                            </div>
+                          )
+                        }
+                      </ToolkitProvider>
                         </Col>
                         </Row>
                         </div>
@@ -1476,49 +1334,7 @@ function CreerVideo() {
                         <div className="content" style={{"margin-top": '-30px'}}>
                         <Row className="mt-5">
                         <Col xs={12} md={12}>
-                        <ReactTable
-                        data={data}
-                        filterable
-                        resizable={false}
-                        columns={[
-                            {
-                              Header: "Nom",
-                              accessor: "1",
-                            },
-                            {
-                              Header: "Prénom",
-                              accessor: "2",
-                            },
-                            {
-                              Header: "N° équipe",
-                              accessor: "3",
-                            },
-                            {
-                              Header: "Catégorie",
-                              accessor: "4",
-                            },
-                            {
-                              Header: "N° Maillot",
-                              accessor: "5",
-                            },
-                            {
-                              Header: "Convoqué",
-                              accessor: "actions",
-                              sortable: false,
-                              filterable: false,
-                            },
-                            {
-                              Header: "Ind.R",
-                              accessor: "ReconnaissanceIndividuelle",
-                              sortable: false,
-                              filterable: false,
-                            },
-                          ]}
-                        defaultPageSize={10}
-                        showPaginationTop
-                        showPaginationBottom={false}
-                        className="-striped -highlight"
-                              />
+
                         </Col>
                         </Row>
                         </div>
