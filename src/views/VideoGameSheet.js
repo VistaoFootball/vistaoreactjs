@@ -15,7 +15,6 @@
 
 */
 import React from "react";
-import ReactBSAlert from "react-bootstrap-sweetalert";
 import Dropzone from "react-dropzone";
 import Select from "react-select";
 import ReactDatetime from "react-datetime";
@@ -34,12 +33,7 @@ import {
   Row,
   Col,
   Button,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
   FormGroup,
-  Label,
   Input,
 
 } from "reactstrap";
@@ -70,51 +64,6 @@ function CreerVideo() {
     }
   };
 
-  const [alert, setAlert] = React.useState(null);
-  // Parameters alerts. to stop the warning of calling setState of unmounted component
-  React.useEffect(() => {
-    return function cleanup() {
-      var id = window.setTimeout(null, 0);
-      while (id--) {
-        window.clearTimeout(id);
-      }
-    };
-  });
-
-  const warningWithConfirmMessage = () => {
-    setAlert(
-      <ReactBSAlert
-        warning
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Effacer la sélection ?"
-        onConfirm={() => successDelete()}
-        onCancel={() => hideAlert()}
-        confirmBtnBsStyle="success"
-        cancelBtnBsStyle="danger"
-        confirmBtnText="Confirmer"
-        cancelBtnText="Annuler"
-        showCancel
-        btnSize=""
-      >
-      
-      </ReactBSAlert>
-    );
-  };
-
-  const successDelete = () => {
-    setAlert(
-      <ReactBSAlert
-        success
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Confirmé"
-        onConfirm={() => hideAlert()}
-        onCancel={() => hideAlert()}
-        confirmBtnBsStyle="success"
-        btnSize=""
-      >
-      </ReactBSAlert>
-    );
-  };
 
   const columns = [{
     dataField: 'id',
@@ -153,11 +102,11 @@ function CreerVideo() {
     {id:2, FirstName: "Pierre", LastName: "Dupont", Team: "1", AgeCategory: "U19", JerseyNumber:"6" },
   ];
 
-  const { SearchBar } = Search;
+  
+  
+const { SearchBar } = Search;
 
-  const hideAlert = () => {
-    setAlert(null);
-  };
+
   const [singleSelectContext, setsingleSelectContext] = React.useState(null);
   const [singleSelectClipDuration, setsingleSelectClipDuration] = React.useState(null);
   const [singleSelectPitchGround, setsingleSelectPitchGround] = React.useState(null);
@@ -865,79 +814,34 @@ function CreerVideo() {
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            caret
-                            className="btn-link btn-icon"
-                            color="default"
-                            data-toggle="dropdown"
-                            type="button"
-                          >
-                            <i className="tim-icons icon-settings-gear-63" />
-                          </DropdownToggle>
-                          <DropdownMenu right>
-                          <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Créer un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Inviter un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Télécharger la liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Importer une liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              className="text-danger"
-                              onClick={warningWithConfirmMessage}
-                            >
-                              Effacer
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
                         </div>
                         <div className="content" style={{"margin-top": '-30px'}}>
                         <Row className="mt-5">
                         <Col xs={12} md={12}>
                         <ToolkitProvider
+                          keyField="id"
+                          search
+                        >
+                          {
+                            props => (
+                        <div style={{"overflow-x":"scroll"}}>
+                        <SearchBar { ...props.searchProps } placeholder="Recherche" />
+                        <BootstrapTable 
+                        { ...props.baseProps }
                         keyField="id"
                         data={ homeplayers }
                         columns={ columns }
-                        search
-                      >
-                        {
-                          props => (
-                            <div>
-                              <SearchBar { ...props.searchProps } placeholder="Recherche"/>
-                              <hr />
-                              <BootstrapTable
-                                striped
-                                hover
-                                bordered={ false }
-                                { ...props.baseProps }
-                                cellEdit={ cellEditFactory({
-                                  mode: 'click',
-                                  blurToSave: true
-                                }) }
-                              />
-                            </div>
-                          )
-                        }
-                      </ToolkitProvider>
+                        bordered={ false }
+                        cellEdit={ cellEditFactory({
+                          mode: 'click',
+                          blurToSave: true
+                        }) }
+                      />
+                        </div>
+                      )
+                    }
+                    </ToolkitProvider>
+
                         </Col>
                         </Row>
                         </div>
@@ -946,64 +850,6 @@ function CreerVideo() {
                     </TabPane>   
 
                     <TabPane tabId="Adversaires">
-                        {/* reactable begin*/}
-                        <>
-                        {alert}
-                        <div style={{display: 'flex', justifyContent: 'right'}}>
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            caret
-                            className="btn-link btn-icon"
-                            color="default"
-                            data-toggle="dropdown"
-                            type="button"
-                          >
-                            <i className="tim-icons icon-settings-gear-63" />
-                          </DropdownToggle>
-                          <DropdownMenu right>
-                          <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Créer un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Inviter un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Télécharger la liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Importer une liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              className="text-danger"
-                              onClick={warningWithConfirmMessage}
-                            >
-                              Effacer
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                        </div>
-                        <div className="content" style={{"margin-top": '-30px'}}>
-                        <Row className="mt-5">
-                        <Col xs={12} md={12}>
-
-                        </Col>
-                        </Row>
-                        </div>
-                        </>
-                        {/* reactable ending*/}  
                     </TabPane>  
                   </TabContent>
                   </Card>
@@ -1201,79 +1047,34 @@ function CreerVideo() {
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            caret
-                            className="btn-link btn-icon"
-                            color="default"
-                            data-toggle="dropdown"
-                            type="button"
-                          >
-                            <i className="tim-icons icon-settings-gear-63" />
-                          </DropdownToggle>
-                          <DropdownMenu right>
-                          <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Créer un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Inviter un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Télécharger la liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Importer une liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              className="text-danger"
-                              onClick={warningWithConfirmMessage}
-                            >
-                              Effacer
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
                         </div>
                         <div className="content" style={{"margin-top": '-30px'}}>
                         <Row className="mt-5">
                         <Col xs={12} md={12}>
                         <ToolkitProvider
+                          keyField="id"
+                          search
+                        >
+                          {
+                            props => (
+                        <div style={{"overflow-x":"scroll"}}>
+                        <SearchBar { ...props.searchProps } placeholder="Recherche"/>
+                        <BootstrapTable
+                        { ...props.baseProps }
                         keyField="id"
-                        data={ homeplayers }
+                        data={ awayplayers }
                         columns={ columns }
-                        search
-                      >
-                        {
-                          props => (
-                            <div>
-                              <SearchBar { ...props.searchProps } placeholder="Recherche"/>
-                              <hr />
-                              <BootstrapTable
-                                striped
-                                hover
-                                bordered={ false }
-                                { ...props.baseProps }
-                                cellEdit={ cellEditFactory({
-                                  mode: 'click',
-                                  blurToSave: true
-                                }) }
-                              />
-                            </div>
-                          )
-                        }
-                      </ToolkitProvider>
+                        bordered={ false }
+                        cellEdit={ cellEditFactory({
+                          mode: 'click',
+                          blurToSave: true
+                        }) }
+                      />
+                        </div>
+                      )
+                    }
+                    </ToolkitProvider>
+
                         </Col>
                         </Row>
                         </div>
@@ -1283,53 +1084,7 @@ function CreerVideo() {
 
                     <TabPane tabId="Adversaires">
                         {/* reactable begin*/}
-                        <>
-                        {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            caret
-                            className="btn-link btn-icon"
-                            color="default"
-                            data-toggle="dropdown"
-                            type="button"
-                          >
-                            <i className="tim-icons icon-settings-gear-63" />
-                          </DropdownToggle>
-                          <DropdownMenu right>
-                          <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Créer un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Inviter un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Télécharger la liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Importer une liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              className="text-danger"
-                              onClick={warningWithConfirmMessage}
-                            >
-                              Effacer
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
                         </div>
                         <div className="content" style={{"margin-top": '-30px'}}>
                         <Row className="mt-5">
@@ -1338,7 +1093,6 @@ function CreerVideo() {
                         </Col>
                         </Row>
                         </div>
-                        </>
                         {/* reactable ending*/}  
                     </TabPane>  
                   </TabContent>
