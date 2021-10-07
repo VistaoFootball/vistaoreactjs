@@ -48,7 +48,9 @@ import {
   Table,
 } from "reactstrap";
 
-const Panels = () => {
+
+
+const Studio = () => {
   const [singleSelect, setsingleSelect] = React.useState(null);
   const [multipleSelect, setmultipleSelect] = React.useState(null);
   const [horizontalTabsVideo, sethorizontalTabsVideo] = React.useState("Actions");
@@ -74,6 +76,249 @@ const Panels = () => {
         break;
     }
   };
+
+  const Action = () => {
+    return <div
+      aria-multiselectable={false}
+      className="card-collapse"
+      id="accordion"
+      role="tablist"
+    >
+      <Card className="card-plain">
+      <CardHeader role="tab">
+      <td className="text-right">
+              <Button
+                className="btn-link btn-icon"
+                color="success"
+                id="tooltip324367706"
+                size="sm"
+              >
+                <i className="tim-icons icon-triangle-right-17" />
+              </Button>
+              <UncontrolledTooltip
+                delay={0}
+                target="tooltip324367706"
+              >
+                Visionner
+              </UncontrolledTooltip>
+              <Button
+                className="btn-link"
+                color="success"
+                id="tooltip974171201"
+                size="sm"
+              >
+                <i className="tim-icons icon-simple-add" />
+              </Button>
+              <UncontrolledTooltip
+                delay={0}
+                target="tooltip974171201"
+              >
+                Envoyer vers sélection
+              </UncontrolledTooltip>
+            </td>
+        <td>
+          <a 
+            href="#pablo"
+            data-parent="#accordion"
+            data-toggle="collapse"
+            onClick={(e) => {
+              e.preventDefault();
+              setopenedCollapseSix(!openedCollapseSix);
+            }}
+          >
+            Joueur - hh:mm:ss  {" "}
+          </a>
+          </td>
+        </CardHeader>
+        <Collapse role="tabpanel" isOpen={true}>
+        <CardBody>
+        <FormGroup>
+        <Select
+          className="react-select info"
+          classNamePrefix="react-select"
+          name="identifiedPlayer"
+          equipe={singleSelect}
+          onChange={(equipe) => setsingleSelect(equipe)}
+          options={[
+            { value: "1", label: "Joueur 1" },
+            { value: "2", label: "Joueur 2" },
+          ]}
+          placeholder="Joueur"
+        />
+        </FormGroup>
+        <FormGroup>
+          <Select
+            className="react-select info"
+            classNamePrefix="react-select"
+            placeholder="Tag(s)"
+            name="multipleSelect"
+            closeMenuOnSelect={false}
+            isMulti
+            Tagsmatch={multipleSelect}
+            onChange={(Tagsmatchs) => setmultipleSelect(Tagsmatchs)}
+            options={[
+              {
+                value: "",
+                label: "Aspect défensif",
+                isDisabled: true,
+              },
+              { value: "2", label: "Arrêt" },
+              { value: "8", label: "Intervention" },
+              { value: "3", label: "Sauvetage" },
+              { value: "4", label: "Interception" },
+              { value: "5", label: "Tacle réussi" },
+              { value: "6", label: "Tacle échoué" },
+              { value: "7", label: "Duel aérien gagné" },
+              { value: "8", label: "Duel aérien perdu" },
+              { value: "8", label: "Dégagement" },
+              {
+                value: "",
+                label: "Discipline",
+                isDisabled: true,
+              },
+              { value: "9", label: "Faute commise" },
+              { value: "10", label: "Faute subie" },
+              { value: "23", label: "Avertissement verbale" },
+              { value: "23", label: "Carton jaune" },
+              { value: "22", label: "Carton rouge" },
+              { value: "23", label: "Jeu arrêté" },
+              { value: "23", label: "Blessure" },
+              { value: "22", label: "Altercation" },
+
+              {
+                value: "",
+                label: "Maîtrise du jeu",
+                isDisabled: true,
+              },
+              { value: "11", label: "Passe courte réussie" },
+              { value: "12", label: "Passe courte échouée" },
+              { value: "13", label: "Passe longue réussie" },
+              { value: "14", label: "Passe longue échouée" },
+              { value: "15", label: "Passe filtrée" },
+              { value: "8", label: "Passe cassant une ligne" },
+              { value: "8", label: "Passe clé" },
+              { value: "16", label: "Passe intervalle" },
+              { value: "16", label: "Centre réussi" },
+              { value: "16", label: "Centre échoué" },
+              { value: "19", label: "Perte" },
+              { value: "19", label: "Mauvais contrôle" },
+              { value: "19", label: "Bon contrôle" },
+              { value: "16", label: "Jeu à deux" },
+              { value: "16", label: "Jeu à trois" },
+              { value: "17", label: "Renversement" },
+              { value: "17", label: "Tranversale" },
+              { value: "18", label: "Dribble réussi" },
+              { value: "19", label: "Dribble échoué" },
+              { value: "19", label: "Percussion" },
+
+              {
+                value: "",
+                label: "Animation offensive",
+                isDisabled: true,
+              },
+              { value: "20", label: "Tir" },
+              { value: "21", label: "Tir cadré" },
+              { value: "22", label: "Tir non-cadré" },
+              { value: "23", label: "Poteau droit" },
+              { value: "22", label: "Poteau gauche" },
+              { value: "23", label: "Barre transversale" },
+              { value: "24", label: "But" },
+              {
+                value: "",
+                label: "Remise en jeu et CPA",
+                isDisabled: true,
+              },
+              { value: "25", label: "Touche" },
+              { value: "26", label: "Corner" },
+              { value: "26", label: "Corner obtenu" },
+              { value: "26", label: "Corner cédé" },
+              { value: "27", label: "Hors-jeu" },
+              { value: "28", label: "Relance au 5m50" },
+              { value: "29", label: "Coup franc direct" },
+              { value: "30", label: "Coup franc indirect" },
+              { value: "22", label: "Penalty" },
+              { value: "26", label: "Penalty obtenu" },
+              { value: "26", label: "Penalty provoqué" },
+              
+              {
+                value: "",
+                label: "Orientations du jeu",
+                isDisabled: true,
+              },
+              { value: "11", label: "Vers l'avant" },
+              { value: "12", label: "Vers l'arrière" },
+              { value: "13", label: "Vers la gauche" },
+              { value: "14", label: "Vers la droite" },
+              {
+                value: "",
+                label: "Appréciation",
+                isDisabled: true,
+              },
+              { value: "25", label: "Positif" },
+              { value: "26", label: "Négatif" },
+            ]}
+            
+          />
+        </FormGroup>
+        <FormGroup>
+          <Select
+            className="react-select info"
+            classNamePrefix="react-select"
+            placeholder="Zone"
+            name="multipleSelect"
+            closeMenuOnSelect={false}
+            hideSelectedOptions={false}
+            isMulti={true}
+            Tagsmatch={multipleSelect}
+            onChange={(Tagsmatchs) => setmultipleSelect(Tagsmatchs)}
+            options={[
+              {
+                value: "",
+                label: "Zones identifiées",
+                isDisabled: true,
+              },
+              { value: "1", label: "Basse couloir droit" },
+              { value: "2", label: "Basse axe droit" },
+              { value: "3", label: "Basse axiale" },
+              { value: "4", label: "Basse axe gauche" },
+              { value: "5", label: "Basse couloir gauche" },
+              { value: "6", label: "Médiane basse couloir droit" },
+              { value: "7", label: "Médiane basse axe droit" },
+              { value: "8", label: "Médiane basse axiale" },
+              { value: "9", label: "Médiane basse axe gauche" },
+              { value: "10", label: "Médiane basse couloir gauche" },
+              { value: "11", label: "Médiane basse couloir droit" },
+              { value: "12", label: "Médiane haute couloir droit" },
+              { value: "13", label: "Médiane haute axe droit" },
+              { value: "14", label: "Médiane haute axiale" },
+              { value: "15", label: "Médiane haute axe gauche" },
+              { value: "16", label: "Médiane haute couloir gauche" },
+              { value: "17", label: "Haute couloir droit" },                           
+              { value: "18", label: "Haute axe droit" },
+              { value: "19", label: "Haute axiale" },
+              { value: "20", label: "Haute axe gauche" },
+              { value: "21", label: "Haute couloir gauche" },
+              { value: "22", label: "Surface équipe axe gauche" },
+              { value: "23", label: "Surface équipe axial" },
+              { value: "24", label: "Surface équipe axe droit" },
+              { value: "25", label: "Surface adverse axe gauche" },
+              { value: "26", label: "Surface adverse axiale" },
+              { value: "27", label: "Surface adverse axe droit" },
+            ]}
+          />
+          </FormGroup>
+      </CardBody>
+        </Collapse>
+      </Card>
+
+    </div>;
+  };
+  
+  const [ActionList, setActionList] = useState([]);
+  
+   const onAddBtnClick = event => {
+      setActionList(ActionList.concat(<Action key={ActionList.length} />));
+    };
 
 const useStyles = makeStyles((theme) => ({
   playerWrapper: {
@@ -413,7 +658,9 @@ const totalDuration = format(duration);
             onBookmark={addBookmark}
           />
         </div>
-
+        <div>
+      <Button onClick={onAddBtnClick}>Créer un clip</Button>
+    </div>
         <Grid container style={{ marginTop: 20 }} spacing={3}>
           {bookmarks.map((bookmark, index) => (
             <Grid key={index} item>
@@ -919,243 +1166,7 @@ const totalDuration = format(duration);
               </Card>
               </div>
             </Card>
-            <Card>
-              <div
-                aria-multiselectable={false}
-                className="card-collapse"
-                id="accordion"
-                role="tablist"
-              >
-                <Card className="card-plain">
-                <CardHeader role="tab">
-                <td className="text-right">
-                        <Button
-                          className="btn-link btn-icon"
-                          color="success"
-                          id="tooltip324367706"
-                          size="sm"
-                        >
-                          <i className="tim-icons icon-triangle-right-17" />
-                        </Button>
-                        <UncontrolledTooltip
-                          delay={0}
-                          target="tooltip324367706"
-                        >
-                          Visionner
-                        </UncontrolledTooltip>
-                        <Button
-                          className="btn-link"
-                          color="success"
-                          id="tooltip974171201"
-                          size="sm"
-                        >
-                          <i className="tim-icons icon-simple-add" />
-                        </Button>
-                        <UncontrolledTooltip
-                          delay={0}
-                          target="tooltip974171201"
-                        >
-                          Envoyer vers sélection
-                        </UncontrolledTooltip>
-                      </td>
-                  <td>
-                    <a 
-                      aria-expanded={openedCollapseSix}
-                      href="#pablo"
-                      data-parent="#accordion"
-                      data-toggle="collapse"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        setopenedCollapseSix(!openedCollapseSix);
-                      }}
-                    >
-                      Joueur - hh:mm:ss  {" "}
-                    </a>
-                    </td>
-                  </CardHeader>
-                  <Collapse role="tabpanel" isOpen={openedCollapseSix}>
-                  <CardBody>
-                  <FormGroup>
-                  <Select
-                    className="react-select info"
-                    classNamePrefix="react-select"
-                    name="identifiedPlayer"
-                    equipe={singleSelect}
-                    onChange={(equipe) => setsingleSelect(equipe)}
-                    options={[
-                      { value: "1", label: "Joueur 1" },
-                      { value: "2", label: "Joueur 2" },
-                    ]}
-                    placeholder="Joueur"
-                  />
-                  </FormGroup>
-                  <FormGroup>
-                    <Select
-                      className="react-select info"
-                      classNamePrefix="react-select"
-                      placeholder="Tag(s)"
-                      name="multipleSelect"
-                      closeMenuOnSelect={false}
-                      isMulti
-                      Tagsmatch={multipleSelect}
-                      onChange={(Tagsmatchs) => setmultipleSelect(Tagsmatchs)}
-                      options={[
-                        {
-                          value: "",
-                          label: "Aspect défensif",
-                          isDisabled: true,
-                        },
-                        { value: "2", label: "Arrêt" },
-                        { value: "8", label: "Intervention" },
-                        { value: "3", label: "Sauvetage" },
-                        { value: "4", label: "Interception" },
-                        { value: "5", label: "Tacle réussi" },
-                        { value: "6", label: "Tacle échoué" },
-                        { value: "7", label: "Duel aérien gagné" },
-                        { value: "8", label: "Duel aérien perdu" },
-                        { value: "8", label: "Dégagement" },
-                        {
-                          value: "",
-                          label: "Discipline",
-                          isDisabled: true,
-                        },
-                        { value: "9", label: "Faute commise" },
-                        { value: "10", label: "Faute subie" },
-                        { value: "23", label: "Avertissement verbale" },
-                        { value: "23", label: "Carton jaune" },
-                        { value: "22", label: "Carton rouge" },
-                        { value: "23", label: "Jeu arrêté" },
-                        { value: "23", label: "Blessure" },
-                        { value: "22", label: "Altercation" },
-
-                        {
-                          value: "",
-                          label: "Maîtrise du jeu",
-                          isDisabled: true,
-                        },
-                        { value: "11", label: "Passe courte réussie" },
-                        { value: "12", label: "Passe courte échouée" },
-                        { value: "13", label: "Passe longue réussie" },
-                        { value: "14", label: "Passe longue échouée" },
-                        { value: "15", label: "Passe filtrée" },
-                        { value: "8", label: "Passe cassant une ligne" },
-                        { value: "8", label: "Passe clé" },
-                        { value: "16", label: "Passe intervalle" },
-                        { value: "16", label: "Centre réussi" },
-                        { value: "16", label: "Centre échoué" },
-                        { value: "19", label: "Perte" },
-                        { value: "19", label: "Mauvais contrôle" },
-                        { value: "19", label: "Bon contrôle" },
-                        { value: "16", label: "Jeu à deux" },
-                        { value: "16", label: "Jeu à trois" },
-                        { value: "17", label: "Renversement" },
-                        { value: "17", label: "Tranversale" },
-                        { value: "18", label: "Dribble réussi" },
-                        { value: "19", label: "Dribble échoué" },
-                        { value: "19", label: "Percussion" },
-
-                        {
-                          value: "",
-                          label: "Animation offensive",
-                          isDisabled: true,
-                        },
-                        { value: "20", label: "Tir" },
-                        { value: "21", label: "Tir cadré" },
-                        { value: "22", label: "Tir non-cadré" },
-                        { value: "23", label: "Poteau droit" },
-                        { value: "22", label: "Poteau gauche" },
-                        { value: "23", label: "Barre transversale" },
-                        { value: "24", label: "But" },
-                        {
-                          value: "",
-                          label: "Remise en jeu et CPA",
-                          isDisabled: true,
-                        },
-                        { value: "25", label: "Touche" },
-                        { value: "26", label: "Corner" },
-                        { value: "26", label: "Corner obtenu" },
-                        { value: "26", label: "Corner cédé" },
-                        { value: "27", label: "Hors-jeu" },
-                        { value: "28", label: "Relance au 5m50" },
-                        { value: "29", label: "Coup franc direct" },
-                        { value: "30", label: "Coup franc indirect" },
-                        { value: "22", label: "Penalty" },
-                        { value: "26", label: "Penalty obtenu" },
-                        { value: "26", label: "Penalty provoqué" },
-                        
-                        {
-                          value: "",
-                          label: "Orientations du jeu",
-                          isDisabled: true,
-                        },
-                        { value: "11", label: "Vers l'avant" },
-                        { value: "12", label: "Vers l'arrière" },
-                        { value: "13", label: "Vers la gauche" },
-                        { value: "14", label: "Vers la droite" },
-                        {
-                          value: "",
-                          label: "Appréciation",
-                          isDisabled: true,
-                        },
-                        { value: "25", label: "Positif" },
-                        { value: "26", label: "Négatif" },
-                      ]}
-                      
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Select
-                      className="react-select info"
-                      classNamePrefix="react-select"
-                      placeholder="Zone"
-                      name="multipleSelect"
-                      closeMenuOnSelect={false}
-                      hideSelectedOptions={false}
-                      isMulti={true}
-                      Tagsmatch={multipleSelect}
-                      onChange={(Tagsmatchs) => setmultipleSelect(Tagsmatchs)}
-                      options={[
-                        {
-                          value: "",
-                          label: "Zones identifiées",
-                          isDisabled: true,
-                        },
-                        { value: "1", label: "Basse couloir droit" },
-                        { value: "2", label: "Basse axe droit" },
-                        { value: "3", label: "Basse axiale" },
-                        { value: "4", label: "Basse axe gauche" },
-                        { value: "5", label: "Basse couloir gauche" },
-                        { value: "6", label: "Médiane basse couloir droit" },
-                        { value: "7", label: "Médiane basse axe droit" },
-                        { value: "8", label: "Médiane basse axiale" },
-                        { value: "9", label: "Médiane basse axe gauche" },
-                        { value: "10", label: "Médiane basse couloir gauche" },
-                        { value: "11", label: "Médiane basse couloir droit" },
-                        { value: "12", label: "Médiane haute couloir droit" },
-                        { value: "13", label: "Médiane haute axe droit" },
-                        { value: "14", label: "Médiane haute axiale" },
-                        { value: "15", label: "Médiane haute axe gauche" },
-                        { value: "16", label: "Médiane haute couloir gauche" },
-                        { value: "17", label: "Haute couloir droit" },                           
-                        { value: "18", label: "Haute axe droit" },
-                        { value: "19", label: "Haute axiale" },
-                        { value: "20", label: "Haute axe gauche" },
-                        { value: "21", label: "Haute couloir gauche" },
-                        { value: "22", label: "Surface équipe axe gauche" },
-                        { value: "23", label: "Surface équipe axial" },
-                        { value: "24", label: "Surface équipe axe droit" },
-                        { value: "25", label: "Surface adverse axe gauche" },
-                        { value: "26", label: "Surface adverse axiale" },
-                        { value: "27", label: "Surface adverse axe droit" },
-                      ]}
-                    />
-                    </FormGroup>
-                </CardBody>
-                  </Collapse>
-                </Card>
-  
-              </div>
-            </Card>
+            {ActionList}
                   </TabPane>
                   <TabPane tabId="Sélection">
                   <Card>
@@ -1510,4 +1521,4 @@ const totalDuration = format(duration);
   );
 };
 
-export default Panels;
+export default Studio;
