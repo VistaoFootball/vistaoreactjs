@@ -19,6 +19,7 @@ import React from "react";
 // react plugin used to create datetimepicker
 import ReactDatetime from "react-datetime";
 import Select from "react-select";
+import Dropzone from "react-dropzone";
 
 // reactstrap components
 import {
@@ -114,18 +115,27 @@ function Profile() {
                     </NavItem>
                   </Nav>
                 <Col>
-            <Card className="card-user">
+                <Card className="card-user">
                 <div className="author">
                   <div className="block block-one" />
                   <div className="block block-two" />
                   <div className="block block-three" />
                   <div className="block block-four" />
                   <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                  <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                    {({getRootProps, getInputProps}) => (
+                   <section>
+                    <div {...getRootProps()}>
+                   <input {...getInputProps()} />
                     <img
                       alt="..."
                       className="avatar"
                       src={require("assets/img/default-avatar.png").default}
                     />
+                    </div>
+                    </section>
+                    )}
+                    </Dropzone>
                     <h5 className="title">Nickname</h5>
                   </a>
                 </div>
