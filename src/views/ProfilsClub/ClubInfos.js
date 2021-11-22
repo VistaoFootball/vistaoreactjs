@@ -1811,22 +1811,9 @@ class RenderplayersTable extends Component {
     },
     ];
 
-    function customConfirm(next, dropRowKeys) {
-      const dropRowKeysStr = dropRowKeys.join(',');
-      if (customConfirm(`(It's a custom confirm)Are you sure you want to delete ${dropRowKeysStr}?`)) {
-        // If the confirmation is true, call the function that
-        // continues the deletion of the record.
-        next();
-      }
-    }
-    
-    const options = {
-      handleConfirmDeleteRow: customConfirm
-    };
-
     const selectRow = {
       mode: 'checkbox',
-      clickToSelect: true
+      clickToSelect: false
     };
 
     return (
@@ -1851,19 +1838,11 @@ class RenderplayersTable extends Component {
                 >
                 Nouveau
                 </Button>
-                <Button
-                  color="success"
-                  onClick={options}
-                >
-                Nouveau
-                </Button>
-
                 <ExportCSVButton
                 {...props.csvProps}
                 >
                   <span>Export CSV</span>
                 </ExportCSVButton>
-
               </div>
               <div style={{"overflow-x":"scroll"}}>
               <SearchBar { ...props.searchProps } placeholder="Recherche"/>
@@ -1872,11 +1851,8 @@ class RenderplayersTable extends Component {
                 keyField="id"
                 data={tableData}
                 columns={columns}
-
                 selectRow={ selectRow }
                 deleteRow={ true } 
-                options = {options}
-                
                 bordered={ false }
                 cellEdit={cellEditFactory({
                   mode: "click",
