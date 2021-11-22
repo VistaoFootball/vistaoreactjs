@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/vistaoreactjs/static/css/main.2bb59377.chunk.css",
-    "main.js": "/vistaoreactjs/static/js/main.702f0ee9.chunk.js",
-    "main.js.map": "/vistaoreactjs/static/js/main.702f0ee9.chunk.js.map",
+    "main.js": "/vistaoreactjs/static/js/main.f40ff2a8.chunk.js",
+    "main.js.map": "/vistaoreactjs/static/js/main.f40ff2a8.chunk.js.map",
     "runtime-main.js": "/vistaoreactjs/static/js/runtime-main.a6f1f5b5.js",
     "runtime-main.js.map": "/vistaoreactjs/static/js/runtime-main.a6f1f5b5.js.map",
     "static/css/2.f4cb9c36.chunk.css": "/vistaoreactjs/static/css/2.f4cb9c36.chunk.css",
@@ -12,7 +12,7 @@
     "static/css/2.f4cb9c36.chunk.css.map": "/vistaoreactjs/static/css/2.f4cb9c36.chunk.css.map",
     "static/css/main.2bb59377.chunk.css.map": "/vistaoreactjs/static/css/main.2bb59377.chunk.css.map",
     "static/js/2.84d4b8be.chunk.js.LICENSE.txt": "/vistaoreactjs/static/js/2.84d4b8be.chunk.js.LICENSE.txt",
-    "static/js/main.702f0ee9.chunk.js.LICENSE.txt": "/vistaoreactjs/static/js/main.702f0ee9.chunk.js.LICENSE.txt",
+    "static/js/main.f40ff2a8.chunk.js.LICENSE.txt": "/vistaoreactjs/static/js/main.f40ff2a8.chunk.js.LICENSE.txt",
     "static/media/Play.1e31aabe.png": "/vistaoreactjs/static/media/Play.1e31aabe.png",
     "static/media/mike.jpg": "/vistaoreactjs/static/media/mike.da320cd2.jpg",
     "static/media/nucleo-icons.css": "/vistaoreactjs/static/media/nucleo.bd5cce8b.eot"
@@ -22,6 +22,6 @@
     "static/css/2.f4cb9c36.chunk.css",
     "static/js/2.84d4b8be.chunk.js",
     "static/css/main.2bb59377.chunk.css",
-    "static/js/main.702f0ee9.chunk.js"
+    "static/js/main.f40ff2a8.chunk.js"
   ]
 }
