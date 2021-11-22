@@ -101,6 +101,7 @@ function Profile() {
                         Équipe
                       </NavLink>
                     </NavItem>
+                  {/*
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
@@ -113,6 +114,7 @@ function Profile() {
                         Carrière
                       </NavLink>
                     </NavItem>
+                  */}
                   </Nav>
                 <Col>
                 <Card className="card-user">

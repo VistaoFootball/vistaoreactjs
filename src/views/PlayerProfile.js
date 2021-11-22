@@ -105,6 +105,7 @@ function Profile() {
                         Spécifique
                       </NavLink>
                     </NavItem>
+                    {/*
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
@@ -129,6 +130,7 @@ function Profile() {
                         Carrière
                       </NavLink>
                     </NavItem>
+                    */}
                   </Nav>
                 <Col>
             <Card className="card-user">
@@ -634,6 +636,7 @@ function Profile() {
                       </FormGroup>
                     </Col>
                   </Row>
+                {/*
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
@@ -783,8 +786,10 @@ function Profile() {
                       </FormGroup>
                     </Col>
                   </Row>
+                  */}
                     </TabPane>
                     </TabContent>
+                     {/*
                     <TabContent activeTab={horizontalTabs}>
                     <TabPane tabId="Équipe">
                     <Row>
@@ -1147,9 +1152,9 @@ function Profile() {
                       </FormGroup>
                     </Col>
                     </Row>
-
                     </TabPane>
                     </TabContent>
+                    */}
                     <TabContent activeTab={horizontalTabs}>
                     <TabPane tabId="Carrière">
                     <Card>

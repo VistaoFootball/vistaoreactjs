@@ -166,6 +166,17 @@ const routes = [
   },
 
   {
+    path: "/informations-club",
+    name: "Club",
+    rtlName: "تيالجدول الزمني",
+    icon: "tim-icons icon-trophy",
+    mini: "FCA",
+    rtlMini: "تي",
+    component: ClubInfos,
+    layout: "/admin",
+  },
+/*!
+  {
     collapse: true,
     name: "Communauté",
     rtlName: "صفحات",
@@ -215,6 +226,7 @@ const routes = [
   },
 
 
+
       {
         collapse: true,
         name: "Joueurs",
@@ -255,11 +267,10 @@ const routes = [
       },
     ],
   },
-
-
   ],
-  
   },
+  */
+ 
   { 
       collapse: true,
       name: "vidéos",
