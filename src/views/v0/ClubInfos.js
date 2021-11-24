@@ -1897,6 +1897,31 @@ class RendercoachsTable extends Component {
       text: 'e-mail',
       sort: true 
     },
+    {
+      dataField: "databasePkey",
+      text: "",
+      editable: false,
+      formatter: (cell, row) => {
+        if (row)
+          return (
+            <button
+              className="btn btn-danger btn-xs border-secondary rounded"
+              onClick={() => {
+                this.setState(this.state.data, () => {
+                  this.props.prices({
+                    actionType: "deleteRow",
+                    row: row.id,
+                    fruit: row.fruit
+                  });
+                });
+              }}
+            >
+              Retirer
+            </button>
+          );
+        return null;
+      }
+    }
     ];
 
     return (
@@ -1911,24 +1936,16 @@ class RendercoachsTable extends Component {
           {props => (
             <div>
               <div>
-                <ExportCSVButton
-                  className="text-light btn bg-success border-secondary rounded"
-                  {...props.csvProps}
-                >
-                  <span>Export CSV</span>
-                </ExportCSVButton>
-
-                <button
-                  className="btn bg-success text-light rounded"
+              <Button
+                  color="success"
                   onClick={() =>
                     this.setState(tableData, () => {
                       this.props.prices({ actionType: "addRow" });
                     })
                   }
                 >
-                  Nouveau joueur
-                </button>
-                
+                Nouveau
+                </Button>
               </div>
               <div style={{"overflow-x":"scroll"}}>
               <SearchBar { ...props.searchProps } placeholder="Recherche"/>
