@@ -28,7 +28,6 @@ import AddIcon from '@material-ui/icons/Add';
 import Mouse from '@material-ui/icons/Mouse';
 import Colorize from '@material-ui/icons/Colorize';
 import ArrowForward  from "@material-ui/icons/ArrowForward";
-import DeleteForeverRounded from "@material-ui/icons/DeleteForeverRounded";
 import ArrowBack from "@material-ui/icons/ArrowBack";
 
 
@@ -38,14 +37,8 @@ import getStroke from "perfect-freehand";
 
           //Import du dropdown canvas
 import {
-  DropdownToggle,
-  DropdownMenu,
   DropdownItem,
-  UncontrolledDropdown,
   Collapse, 
-  CardHeader,
-  CardBody,
-  Card
 } from "reactstrap";
 
           //Style du bloc contenant les contrôles de la vidéo

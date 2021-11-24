@@ -31,14 +31,9 @@ import Studio from "views/Studio.js";
 import Dashboard from "views/Dashboard.js";
 import Plans from "views/pages/Plans.js";
 import Register from "views/pages/Register.js";
-import RegisterClub from "views/pages/RegisterClub.js";
 import Timeline from "views/pages/Timeline.js";
-import NouveauMembre from "views/NouveauMembre.js";
-import JoindreCommunaute from "views/JoindreCommunaute.js";
 import ClubInfos from "views/ProfilsClub/ClubInfos.js";
-import JoueurInfos from "views/ProfilsJoueur/JoueurInfos.js";
 import Login from "views/pages/Login.js";
-import Lock from "views/pages/Lock.js";
 import PlayerProfile from "views/PlayerProfile.js";
 import CoachProfile from "views/CoachProfile.js";
 import PasseOublie from "views/pages/PasseOublie.js";
@@ -52,6 +47,24 @@ const routes = [
     icon: "tim-icons icon-single-02",
     state: "pagesCollapse",
     views: [
+      {
+        path: "/profil-joueur",
+        name: "Profil joueur",
+        rtlName: "التقويم",
+        icon: "tim-icons icon-single-02",
+        mini: "P",
+        component: PlayerProfile,
+        layout: "/admin",
+      },
+      {
+        path: "/profil-coach",
+        name: "Profil coach",
+        rtlName: "التقويم",
+        icon: "tim-icons icon-single-02",
+        mini: "P",
+        component: CoachProfile,
+        layout: "/admin",
+      },
       {
         path: "/timeline",
         name: "Didacticiel",
@@ -81,6 +94,7 @@ const routes = [
             component: Register,
             layout: "/auth",
           },
+          /*
           {
             path: "/register-club",
             name: "S'inscrire vers club",
@@ -91,6 +105,7 @@ const routes = [
             component: RegisterClub,
             layout: "/auth",
           },
+        */
           {
             path: "/login",
             name: "Login",
@@ -121,24 +136,7 @@ const routes = [
             component: PasseOublie,
             layout: "/auth",
           },
-          {
-            path: "/profil-joueur",
-            name: "Profil joueur",
-            rtlName: "التقويم",
-            icon: "tim-icons icon-single-02",
-            mini: "P",
-            component: PlayerProfile,
-            layout: "/admin",
-          },
-          {
-            path: "/profil-coach",
-            name: "Profil coach",
-            rtlName: "التقويم",
-            icon: "tim-icons icon-single-02",
-            mini: "P",
-            component: CoachProfile,
-            layout: "/admin",
-          },
+          /*
           {
             path: "/lock-screen",
             name: "Vérouiller l'écran",
@@ -149,6 +147,7 @@ const routes = [
             component: Lock,
             layout: "/auth",
           },
+          */
 
         ],
       },
@@ -353,6 +352,7 @@ const routes = [
       },
     ],
   },
+  /*
   {
     collapse: true,
     name: "Statistiques",
@@ -474,6 +474,7 @@ const routes = [
   }
     ],
   },
+  */
 ];
 
 export default routes;

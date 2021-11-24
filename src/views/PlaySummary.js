@@ -21,7 +21,6 @@ import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Select from "react-select";
 import screenful from "screenfull";
 import Controls from "./components/Controls";
 import ReactPlayer from 'react-player';
@@ -32,24 +31,12 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 // reactstrap components
 import {
   Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Collapse,
-  NavItem,
-  NavLink,
-  Nav,
-  TabContent,
-  TabPane,
   Row,
   Col,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
 } from "reactstrap";
 
 const Panels = () => {
+  /*
   const [singleSelect, setsingleSelect] = React.useState(null);
   const [multipleSelect, setmultipleSelect] = React.useState(null);
   const [horizontalTabsNav, sethorizontalTabsNav] = React.useState("Summary");
@@ -57,7 +44,9 @@ const Panels = () => {
   const [openedCollapseTacticalsys, setopenedCollapseTacticalsys] = React.useState(false);
   const [openedCollapseInfrastructures, setopenedCollapseInfrastructures] = React.useState(false);
   const [openedCollapseThree, setopenedCollapseThree] = React.useState(false);
+  */
 
+  /*
   // with this function we change the active tab for all the tabs in this page
   const changeActiveTab = (e, tabState, tabName) => {
     e.preventDefault();
@@ -69,6 +58,7 @@ const Panels = () => {
           break;
     }
   };
+  */
 
 
    // Fonctions des contrôles de la vidéo

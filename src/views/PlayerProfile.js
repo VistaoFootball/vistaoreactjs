@@ -52,10 +52,12 @@ function Profile() {
   const [horizontalTabs, sethorizontalTabs] = React.useState("Général");
   // with this function we change the active tab for all the tabs in this page
   const [singleSelectStrongFoot, setsingleSelectStrongFoot] = React.useState(null);
+  /*
   const [singleSelectMBTI, setsingleSelectMBTI] = React.useState(null);
   const [singleSelectCategory, setsingleSelectCategory] = React.useState(null);
   const [singleSelectCountry, setsingleSelectCountry] = React.useState(null);
   const [singleSelectTeamSection, setsingleSelectTeamSection] = React.useState(null);
+  */
   const [singleSelectGender, setsingleSelectGender] = React.useState(null);
   const [multipleSelectNationality, setmultipleSelectNationality] = React.useState(null);
   const [multipleSelectPost, setmultipleSelectPost] = React.useState(null);

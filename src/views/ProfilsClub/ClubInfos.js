@@ -16,8 +16,6 @@
 */
 import React from "react";
 import {Component} from "react"
-import classNames from "classnames";
-import ReactBSAlert from "react-bootstrap-sweetalert";
 import ToolkitProvider, { CSVExport, Search } from "react-bootstrap-table2-toolkit";
 import BootstrapTable from "react-bootstrap-table-next";
 import cellEditFactory from "react-bootstrap-table2-editor";
@@ -33,14 +31,6 @@ import {
   Row,
   Col,
   Button,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  FormGroup,
-  Label,
-  Input,
-
 } from "reactstrap";
 
 
@@ -68,11 +58,14 @@ const { SearchBar } = Search;
 
 function CommunauteClub() {
   const [horizontalTabsA, sethorizontalTabsA] = React.useState("Joueurs");
+  /*
   const [horizontalTabsB, sethorizontalTabsB] = React.useState("Global"); 
   const [horizontalTabsC, sethorizontalTabsC] = React.useState("Vidéos"); 
   const [horizontalTabsD, sethorizontalTabsD] = React.useState("Joueurs");  
   const [horizontalTabsE, sethorizontalTabsE] = React.useState("Joueurs");  
   const [verticalTabsIcons, setverticalTabsIcons] = React.useState("Vidéos");
+  */
+
   // with this function we change the active tab for all the tabs in this page
   const changeActiveTab = (e, tabState, tabName) => {
     e.preventDefault();
@@ -80,6 +73,8 @@ function CommunauteClub() {
       case "horizontalTabsA":
         sethorizontalTabsA(tabName);
         break;
+              default:
+      /*
       case "horizontalTabsB":
         sethorizontalTabsB(tabName);
         break;
@@ -94,13 +89,13 @@ function CommunauteClub() {
           break;
       case "verticalTabsIcons":
         setverticalTabsIcons(tabName);
+          break;
         break;
-      default:
-        break;
+      */
     }
   };
 
-  const [alert, setAlert] = React.useState(null);
+ 
   // Parameters alerts. to stop the warning of calling setState of unmounted component
   React.useEffect(() => {
     return function cleanup() {
@@ -111,44 +106,6 @@ function CommunauteClub() {
     };
   });
 
-  const warningWithConfirmMessage = () => {
-    setAlert(
-      <ReactBSAlert
-        warning
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Effacer la sélection ?"
-        onConfirm={() => successDelete()}
-        onCancel={() => hideAlert()}
-        confirmBtnBsStyle="success"
-        cancelBtnBsStyle="danger"
-        confirmBtnText="Confirmer"
-        cancelBtnText="Annuler"
-        showCancel
-        btnSize=""
-      >
-      
-      </ReactBSAlert>
-    );
-  };
-
-  const successDelete = () => {
-    setAlert(
-      <ReactBSAlert
-        success
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Confirmé"
-        onConfirm={() => hideAlert()}
-        onCancel={() => hideAlert()}
-        confirmBtnBsStyle="success"
-        btnSize=""
-      >
-      </ReactBSAlert>
-    );
-  };
-
-  const hideAlert = () => {
-    setAlert(null);
-  };
     return (
       
    <div class="content">
@@ -1811,10 +1768,24 @@ class RenderplayersTable extends Component {
     },
     ];
 
-    const selectRow = {
-      mode: 'checkbox',
-      clickToSelect: false
+    
+    function customConfirm(next, dropRowKeys) {
+      const dropRowKeysStr = dropRowKeys.join(',');
+      if (window.confirm(`(It's a custom confirm)Are you sure you want to delete ${dropRowKeysStr}?`)) {
+        // If the confirmation is true, call the function that
+        // continues the deletion of the record.
+        next();
+      }
+    }
+
+    const options = {
+      handleConfirmDeleteRow: customConfirm
     };
+
+    const selectRowProp = {
+      mode: 'checkbox'
+    };
+    
 
     return (
       <div xs={12} className="col form">
@@ -1836,12 +1807,20 @@ class RenderplayersTable extends Component {
                     })
                   }
                 >
-                Nouveau
+                Ajouter
                 </Button>
+                <Button
+                  color="danger"
+                  onClick={customConfirm}
+                >
+                Retirer
+                </Button>
+
+
                 <ExportCSVButton
                 {...props.csvProps}
                 >
-                  <span>Export CSV</span>
+                  <span>CSV</span>
                 </ExportCSVButton>
               </div>
               <div style={{"overflow-x":"scroll"}}>
@@ -1851,8 +1830,9 @@ class RenderplayersTable extends Component {
                 keyField="id"
                 data={tableData}
                 columns={columns}
-                selectRow={ selectRow }
-                deleteRow={ true } 
+                selectRow={ selectRowProp }
+                deleteRow={ true }
+                options={ options } 
                 bordered={ false }
                 cellEdit={cellEditFactory({
                   mode: "click",
@@ -2219,5 +2199,7 @@ class RenderMembersTable extends Component {
     );
   }
 }
+
+
 
 export default CommunauteClub;

@@ -27,9 +27,11 @@ import ReactPlayer from 'react-player';
 // Import du zoomIn et zoomOut
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
+/*
 // Ajout des boutons zoomIn et zoomOut
 import ZoomIn from "@material-ui/icons/ZoomIn";
 import ZoomOut from "@material-ui/icons/ZoomOut";
+*/
 
 // Pour rendu de vidéo
 import React, { useState, useRef} from "react";
