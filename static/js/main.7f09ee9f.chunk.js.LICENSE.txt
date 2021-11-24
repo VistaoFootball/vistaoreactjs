@@ -1,0 +1,130 @@
+/*!
+
+=========================================================
+* Black Dashboard PRO React - v1.2.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
+* Copyright 2020 vistao.co (https://www.creative-tim.com)
+
+* Coded by vistao.co
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+
+/*!
+
+=========================================================
+* Black Dashboard React v1.2.0
+=========================================================
+
+* Product Page: https://www.creative-tim.com/product/black-dashboard-react
+* Copyright 2020 Vistao.co (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
+
+* Coded by Vistao.co
+
+=========================================================
+
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+*/
+
+/*!
+  {
+    collapse: true,
+    name: "Communauté",
+    rtlName: "صفحات",
+    icon: "tim-icons icon-world",
+    state: "CommunauteCollapse",
+    views: [
+
+      {
+        collapse: true,
+        name: "Club",
+        rtlName: "انهيار متعدد المستويات",
+        icon: "tim-icons icon-trophy",
+        rtlMini: "ر",
+        state: "Club",
+        views: [
+      {
+        path: "/informations-club",
+        name: "Panel",
+        rtlName: "تيالجدول الزمني",
+        icon: "tim-icons icon-single-02",
+        mini: "FCA",
+        rtlMini: "تي",
+        component: ClubInfos,
+        layout: "/admin",
+      },
+      {
+        path: "/ajouter-membre",
+        name: "Ajouter un membre",
+        rtlName: "تيالجدول الزمني",
+        icon: "tim-icons icon-simple-add",
+        mini: "AP",
+        rtlMini: "تي",
+        component: NouveauMembre,
+        layout: "/admin",
+      },
+      {
+        path: "/joindre-communaute",
+        name: "Joindre une communauté",
+        rtlName: "تيالجدول الزمني",
+        icon: "tim-icons icon-double-right",
+        mini: "AP",
+        rtlMini: "تي",
+        component: JoindreCommunaute,
+        layout: "/admin",
+      },
+    ],
+  },
+
+
+
+      {
+        collapse: true,
+        name: "Joueurs",
+        rtlName: "انهيار متعدد المستويات",
+        icon: "tim-icons icon-user-run",
+        rtlMini: "ر",
+        state: "Joueurs",
+        views: [
+      {
+        path: "/informations-joueur",
+        name: "Panel",
+        rtlName: "تيالجدول الزمني",
+        icon: "tim-icons icon-single-02",
+        mini: "JA",
+        rtlMini: "تي",
+        component: JoueurInfos,
+        layout: "/admin",
+      },
+      {
+        path: "/ajouter-membre",
+        name: "Ajouter un membre",
+        rtlName: "تيالجدول الزمني",
+        icon: "tim-icons icon-simple-add",
+        mini: "AP",
+        rtlMini: "تي",
+        component: NouveauMembre,
+        layout: "/admin",
+      },
+      {
+        path: "/joindre-communaute",
+        name: "Joindre une communauté",
+        rtlName: "تيالجدول الزمني",
+        icon: "tim-icons icon-double-right",
+        mini: "AP",
+        rtlMini: "تي",
+        component: JoindreCommunaute,
+        layout: "/admin",
+      },
+    ],
+  },
+  ],
+  },
+  */
