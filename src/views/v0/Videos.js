@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-import logo from '../Play.png';
+import logo from '../../Play.png';
 // reactstrap components
 import {
   Card,
@@ -34,12 +34,12 @@ function Dashboard(props) {
   return (
     <>
 
-      <div className="content">
+<div className="content">
         <Row>
           <Col lg="3">
             <Card className="card-chart">
               <Row>
-              <img src={logo} width="350" height="200" alt="thumbnail"/>
+              <img src={logo} width="350" height="200" alt="Thumbnail" />
               </Row>
               <CardBody>
               <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -70,21 +70,21 @@ function Dashboard(props) {
                               href="#pablo"
                               onClick={(e) => e.preventDefault()}
                             >
-                              Supprimer le résumé
+                              Supprimer la vidéo
                             </DropdownItem>
                           </DropdownMenu>
                         </UncontrolledDropdown>
                         </div>
               <Col>
               <CardTitle tag="h4">
-                  <i className="tim-icons icon-triangle-right-17" /> HomeTeam v AwayTeam
+                  <i className="tim-icons icon-video-66" /> HomeTeam v AwayTeam
                 </CardTitle>
                 <div class="galleryItem">
 		              <div class="vistao-thumbnail">
                   </div>
-                    <span><i className="tim-icons icon-check-2"/> Summary title - type</span>
+                    <span><i className="tim-icons icon-double-right"/> Video Context</span>
                     <br></br>
-                    <span><i className="tim-icons icon-check-2"/> Video Context</span>
+                    <span><i className="tim-icons icon-check-2"/> Result - MatchOverType</span>
                     <br></br>
                     <span><i className="tim-icons icon-pin"/> HomeScore - AwayScore</span>
                     <br></br>

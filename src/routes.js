@@ -14,30 +14,21 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Videos from "views/Videos.js";
-import Resumes from "views/Resumes.js";
-import MesDashboards from "views/MesDashboards.js";
-import Suivis from "views/Suivis.js";
-import Analyses from "views/Analyses.js";
-import AnalyseVideo from "views/AnalyseVideo.js";
-import AnalyseSuivi from "views/AnalyseSuivi.js";
-import CreateAnalysis from "views/CreateAnalysis.js";
-import CreateMonitoring from "views/CreateMonitoring.js";
-import DashboardMonitoring from "views/DashboardMonitoring.js";
-import VideoGameSheet from "views/VideoGameSheet.js";
-import CreateSummary from "views/CreateSummary.js";
-import PlaySummary from "views/PlaySummary.js";
-import Studio from "views/Studio.js";
-import Dashboard from "views/Dashboard.js";
-import Plans from "views/pages/Plans.js";
-import Register from "views/pages/Register.js";
-import Timeline from "views/pages/Timeline.js";
-import ClubInfos from "views/ProfilsClub/ClubInfos.js";
-import Login from "views/pages/Login.js";
-import PlayerProfile from "views/PlayerProfile.js";
-import CoachProfile from "views/CoachProfile.js";
-import PasseOublie from "views/pages/PasseOublie.js";
-import EmailPasseOublie from "views/pages/EmailPasseOublie.js";
+import Videos from "views/v0/Videos.js";
+import Resumes from "views/v0/Resumes.js";
+import VideoGameSheet from "views/v0/VideoGameSheet.js";
+import CreateSummary from "views/v0/CreateSummary.js";
+import PlaySummary from "views/v0/PlaySummary.js";
+import Studio from "views/v0/Studio.js";
+import Plans from "views/v0/pages/Plans.js";
+import Register from "views/v0/pages/Register.js";
+import Timeline from "views/v0/pages/Timeline.js";
+import ClubInfos from "views/v0/ClubInfos.js";
+import Login from "views/v0/pages/Login.js";
+import PlayerProfile from "views/v0/PlayerProfile.js";
+import CoachProfile from "views/v0/CoachProfile.js";
+import PasseOublie from "views/v0/pages/PasseOublie.js";
+import EmailPasseOublie from "views/v0/pages/EmailPasseOublie.js";
 
 const routes = [
   {

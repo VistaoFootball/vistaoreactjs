@@ -15,14 +15,14 @@
 
 */
 import React from "react";
-import classNames from "classnames";
-import ReactBSAlert from "react-bootstrap-sweetalert";
+import {Component} from "react"
+import ToolkitProvider, { CSVExport, Search } from "react-bootstrap-table2-toolkit";
+import BootstrapTable from "react-bootstrap-table-next";
+import cellEditFactory from "react-bootstrap-table2-editor";
 
 import {
   Card,
   CardBody,
-  CardHeader,
-  CardTitle,
   Nav,
   NavLink,
   NavItem,
@@ -31,34 +31,41 @@ import {
   Row,
   Col,
   Button,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  FormGroup,
-  Form, 
-  Label,
-  Input,
-
 } from "reactstrap";
 
-import ReactTable from "components/ReactTable/ReactTable.js";
-const dataTable = [
-  ["Airi Satou", "Accountant", "Tokyo", "33"],
+
+const { ExportCSVButton } = CSVExport;
+const players = [
+  {id:1, FirstName: "Jean", LastName: "Dubois", Team: "1", AgeCategory: "U19", JerseyNumber:"5" },
+  {id:2, FirstName: "Pierre", LastName: "Dupont", Team: "1", AgeCategory: "U19", JerseyNumber:"6" },
 ];
 
-function CommunauteAgent() {
-  const [horizontalTabsA, sethorizontalTabsA] = React.useState("Membres");
+const coachs = [
+  {id:1, FirstName: "Jean", LastName: "Lapierre", Team: "1", AgeCategory: "U19", JerseyNumber:"5" },
+  {id:2, FirstName: "Pierre", LastName: "Dupont", Team: "1", AgeCategory: "U19", JerseyNumber:"6" },
+];
+
+const staffs = [
+  {id:1, FirstName: "Jean", LastName: "Lapierre", Team: "1", AgeCategory: "U19", JerseyNumber:"5" },
+  {id:2, FirstName: "Pierre", LastName: "Dupont", Team: "1", AgeCategory: "U19", JerseyNumber:"6" },
+];
+
+const members = [
+  {id:1, FirstName: "Jean", LastName: "Lapierre", Team: "1", AgeCategory: "U19", JerseyNumber:"5" },
+  {id:2, FirstName: "Pierre", LastName: "Dupont", Team: "1", AgeCategory: "U19", JerseyNumber:"6" },
+];
+const { SearchBar } = Search;
+
+function CommunauteClub() {
+  const [horizontalTabsA, sethorizontalTabsA] = React.useState("Joueurs");
+  /*
   const [horizontalTabsB, sethorizontalTabsB] = React.useState("Global"); 
-  const [horizontalTabsC, sethorizontalTabsC] = React.useState("Joueur"); 
-  const [horizontalTabsD, sethorizontalTabsD] = React.useState("Joueur");  
-  const [horizontalTabsE, sethorizontalTabsE] = React.useState("Joueur");  
-  const [verticalTabs, setverticalTabs] = React.useState("Membres");
+  const [horizontalTabsC, sethorizontalTabsC] = React.useState("Vidéos"); 
+  const [horizontalTabsD, sethorizontalTabsD] = React.useState("Joueurs");  
+  const [horizontalTabsE, sethorizontalTabsE] = React.useState("Joueurs");  
   const [verticalTabsIcons, setverticalTabsIcons] = React.useState("Vidéos");
-  const [pageTabs, setpageTabs] = React.useState("home");
-  const [openedCollapseOne, setopenedCollapseOne] = React.useState(true);
-  const [openedCollapseTwo, setopenedCollapseTwo] = React.useState(false);
-  const [openedCollapseThree, setopenedCollapseThree] = React.useState(false);
+  */
+
   // with this function we change the active tab for all the tabs in this page
   const changeActiveTab = (e, tabState, tabName) => {
     e.preventDefault();
@@ -66,6 +73,8 @@ function CommunauteAgent() {
       case "horizontalTabsA":
         sethorizontalTabsA(tabName);
         break;
+              default:
+      /*
       case "horizontalTabsB":
         sethorizontalTabsB(tabName);
         break;
@@ -80,66 +89,13 @@ function CommunauteAgent() {
           break;
       case "verticalTabsIcons":
         setverticalTabsIcons(tabName);
+          break;
         break;
-      case "pageTabs":
-        setpageTabs(tabName);
-        break;
-      case "verticalTabs":
-        setverticalTabs(tabName);
-        break;
-      default:
-        break;
+      */
     }
   };
 
-  const [data, setData] = React.useState(
-    dataTable.map((prop, key) => {
-      return {
-        id: key,
-        name: prop[0],
-        position: prop[1],
-        office: prop[2],
-        age: prop[3],
-        actions: (
-          // we've added some custom button actions
-          <div className="actions-right">
-            <FormGroup check>
-            <Label check>
-            <Input type="checkbox" />
-            <span className="form-check-sign" />
-            </Label>
-            </FormGroup>
-            <br></br>
-            <Button
-              onClick={() => {
-                let obj = data.find((o) => o.id === key);
-                alert(
-                  "You've clicked EDIT button on \n{ \nName: " +
-                    obj.name +
-                    ", \nposition: " +
-                    obj.position +
-                    ", \noffice: " +
-                    obj.office +
-                    ", \nage: " +
-                    obj.age +
-                    "\n}."
-                );
-              }}
-              color="warning"
-              size="sm"
-              className={classNames("btn-icon btn-link like", {
-                "btn-neutral": key < 5,
-              })}
-            >
-              <i className="tim-icons icon-pencil" />
-            </Button>{" "}
-          </div>
-        ),
-      };
-    })
-  )
-
-  const [alert, setAlert] = React.useState(null);
+ 
   // Parameters alerts. to stop the warning of calling setState of unmounted component
   React.useEffect(() => {
     return function cleanup() {
@@ -150,44 +106,6 @@ function CommunauteAgent() {
     };
   });
 
-  const warningWithConfirmMessage = () => {
-    setAlert(
-      <ReactBSAlert
-        warning
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Effacer la sélection ?"
-        onConfirm={() => successDelete()}
-        onCancel={() => hideAlert()}
-        confirmBtnBsStyle="success"
-        cancelBtnBsStyle="danger"
-        confirmBtnText="Confirmer"
-        cancelBtnText="Annuler"
-        showCancel
-        btnSize=""
-      >
-      
-      </ReactBSAlert>
-    );
-  };
-
-  const successDelete = () => {
-    setAlert(
-      <ReactBSAlert
-        success
-        style={{ display: "block", marginTop: "-100px" }}
-        title="Confirmé"
-        onConfirm={() => hideAlert()}
-        onCancel={() => hideAlert()}
-        confirmBtnBsStyle="success"
-        btnSize=""
-      >
-      </ReactBSAlert>
-    );
-  };
-
-  const hideAlert = () => {
-    setAlert(null);
-  };
     return (
       
    <div class="content">
@@ -196,10 +114,99 @@ function CommunauteAgent() {
           <Col>
             <Card>
               <CardBody>
-                {/* Vertical tabs begin*/}
                 <Row>
-                  <Col lg="2">
+                  <Col lg="12">
                     {/* color-classes: "nav-pills-primary", "nav-pills-info", "nav-pills-success", "nav-pills-warning","nav-pills-danger" */}
+                    <Card>
+                    <Nav className="nav-pills-info" pills>
+                    <NavItem>
+                      <NavLink
+                        data-toggle="tab"
+                        href="#pablo"
+                        className={horizontalTabsA === "Joueurs" ? "active" : ""}
+                        onClick={(e) =>
+                          changeActiveTab(e, "horizontalTabsA", "Joueurs")
+                        }
+                      >
+                        Joueurs
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink
+                        data-toggle="tab"
+                        href="#pablo"
+                        className={horizontalTabsA === "Coachs" ? "active" : ""}
+                        onClick={(e) =>
+                          changeActiveTab(e, "horizontalTabsA", "Coachs")
+                        }
+                      >
+                        Coachs
+                      </NavLink>
+                    </NavItem>
+                    {/*
+                    <NavItem>
+                      <NavLink
+                        data-toggle="tab"
+                        href="#pablo"
+                        className={horizontalTabsA === "Staffs" ? "active" : ""}
+                        onClick={(e) =>
+                          changeActiveTab(e, "horizontalTabsA", "Staffs")
+                        }
+                      >
+                        Staffs
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink
+                        data-toggle="tab"
+                        href="#pablo"
+                        className={horizontalTabsA === "Membres" ? "active" : ""}
+                        onClick={(e) =>
+                          changeActiveTab(e, "horizontalTabsA", "Membres")
+                        }
+                      >
+                        Membres
+                      </NavLink>
+                    </NavItem>
+                      */}
+                  </Nav>
+                  <TabContent className="tab-space" activeTab={horizontalTabsA}>
+                    <TabPane tabId="Joueurs">
+                        <>
+                    <div>
+                    <PlayersTable></PlayersTable>
+                    </div>
+                        </>                    
+                    </TabPane> 
+
+                    <TabPane tabId="Coachs">
+                        <>
+                    <div>
+                    <CoachsTable></CoachsTable>
+                    </div>
+                        </>                    
+                    </TabPane> 
+
+                    <TabPane tabId="Staffs">
+                        <>
+                    <div>
+                    <StaffsTable></StaffsTable>
+                    </div>
+                        </>                    
+                    </TabPane> 
+
+                    <TabPane tabId="Membres">
+                        <>
+                    <div>
+                    <MembersTable></MembersTable>
+                    </div>
+                        </>                    
+                    </TabPane> 
+
+                  </TabContent>
+                  </Card>
+                    
+                      {/*
                     <Nav
                       className="nav-pills-info nav-pills-icons flex-column"
                       pills
@@ -254,14 +261,14 @@ function CommunauteAgent() {
                           data-toggle="tab"
                           href="#pablo"
                           className={
-                            verticalTabsIcons === "Réseau" ? "active" : ""
+                            verticalTabsIcons === "Licenciés" ? "active" : ""
                           }
                           onClick={(e) =>
-                            changeActiveTab(e, "verticalTabsIcons", "Réseau")
+                            changeActiveTab(e, "verticalTabsIcons", "Licenciés")
                           }
                         >
-                          <i className="tim-icons icon-molecule-40" />
-                          Réseau
+                          <i className="tim-icons icon-single-02" />
+                          Licenciés
                         </NavLink>
                       </NavItem>
                       <NavItem>
@@ -269,49 +276,49 @@ function CommunauteAgent() {
                           data-toggle="tab"
                           href="#pablo"
                           className={
-                            verticalTabsIcons === "Profil" ? "active" : ""
+                            verticalTabsIcons === "Club" ? "active" : ""
                           }
                           onClick={(e) =>
-                            changeActiveTab(e, "verticalTabsIcons", "Profil")
+                            changeActiveTab(e, "verticalTabsIcons", "Club")
                           }
                         >
-                          <i className="tim-icons icon-single-02" />
-                        Profil  
+                          <i className="tim-icons icon-square-pin" />
+                          Club
                         </NavLink>
                       </NavItem>
                     </Nav>
+                    */}
                   </Col>
 
-                  <Col>
-                  
 
+                  <Col>
+                  {/*
                     <TabContent activeTab={verticalTabsIcons}>
                       <TabPane tabId="Vidéos">
-                   {/* subcategories begin*/}
                    <Card>
                     <Nav className="nav-pills-info" pills>
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
                         href="#pablo"
-                        className={horizontalTabsE === "Joueur" ? "active" : ""}
+                        className={horizontalTabsE === "Joueurs" ? "active" : ""}
                         onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsE", "Joueur")
+                          changeActiveTab(e, "horizontalTabsE", "Joueurs")
                         }
                       >
-                        Joueur
+                        Joueurs
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
                         href="#pablo"
-                        className={horizontalTabsE === "Équipe" ? "active" : ""}
+                        className={horizontalTabsE === "Équipes" ? "active" : ""}
                         onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsE", "Équipe")
+                          changeActiveTab(e, "horizontalTabsE", "Équipes")
                         }
                       >
-                        Équipe
+                        Équipes
                       </NavLink>
                     </NavItem>
                     <NavItem>
@@ -328,8 +335,7 @@ function CommunauteAgent() {
                     </NavItem>
                   </Nav>
                   <TabContent className="tab-space" activeTab={horizontalTabsE}>
-                    <TabPane tabId="Joueur">
-                        {/* reactable begin*/}
+                    <TabPane tabId="Joueurs">
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -446,11 +452,10 @@ function CommunauteAgent() {
                         </Row>
                         </div>
                         </>
-                        {/* reactable ending*/}                      
+                  
                     </TabPane>  
 
-                    <TabPane tabId="Équipe">
-                        {/* reactable begin*/}
+                    <TabPane tabId="Équipes">
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -567,11 +572,9 @@ function CommunauteAgent() {
                         </Row>
                         </div>
                         </>
-                        {/* reactable ending*/}  
                     </TabPane>   
 
                     <TabPane tabId="Adversaires">
-                        {/* reactable begin*/}
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -687,43 +690,39 @@ function CommunauteAgent() {
                         </Col>
                         </Row>
                         </div>
-                        </>
-                        {/* reactable ending*/}  
+                        </>  
                     </TabPane>  
                   </TabContent>
                   </Card>
-
-                      {/* subcategories ending*/}
                   </TabPane>
                     </TabContent>
 
                     <TabContent activeTab={verticalTabsIcons}>
                       <TabPane tabId="Résumés">
-                   {/* subcategories begin*/}
                    <Card>
                     <Nav className="nav-pills-info" pills>
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
                         href="#pablo"
-                        className={horizontalTabsD === "Joueur" ? "active" : ""}
+                        className={horizontalTabsD === "Joueurs" ? "active" : ""}
                         onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsD", "Joueur")
+                          changeActiveTab(e, "horizontalTabsD", "Joueurs")
                         }
                       >
-                        Joueur
+                        Joueurs
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
                         href="#pablo"
-                        className={horizontalTabsD === "Équipe" ? "active" : ""}
+                        className={horizontalTabsD === "Équipes" ? "active" : ""}
                         onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsD", "Équipe")
+                          changeActiveTab(e, "horizontalTabsD", "Équipes")
                         }
                       >
-                        Équipe
+                        Équipes
                       </NavLink>
                     </NavItem>
                     <NavItem>
@@ -740,8 +739,7 @@ function CommunauteAgent() {
                     </NavItem>
                   </Nav>
                   <TabContent className="tab-space" activeTab={horizontalTabsD}>
-                    <TabPane tabId="Joueur">
-                        {/* reactable begin*/}
+                    <TabPane tabId="Joueurs">
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -857,12 +855,10 @@ function CommunauteAgent() {
                         </Col>
                         </Row>
                         </div>
-                        </>
-                        {/* reactable ending*/}                      
+                        </>                     
                     </TabPane>  
 
-                    <TabPane tabId="Équipe">
-                        {/* reactable begin*/}
+                    <TabPane tabId="Équipes">
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -978,12 +974,10 @@ function CommunauteAgent() {
                         </Col>
                         </Row>
                         </div>
-                        </>
-                        {/* reactable ending*/}  
+                        </> 
                     </TabPane>   
 
                     <TabPane tabId="Adversaires">
-                        {/* reactable begin*/}
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -1100,60 +1094,43 @@ function CommunauteAgent() {
                         </Row>
                         </div>
                         </>
-                        {/* reactable ending*/}  
                     </TabPane>  
                   </TabContent>
                   </Card>
-
-                      {/* subcategories ending*/}
                   </TabPane>
                     </TabContent>
 
                     <TabContent activeTab={verticalTabsIcons}>
-                      <TabPane tabId="Statistiques">
-                    {/* subcategories begin*/}
+                    <TabPane tabId="Statistiques">
                     <Card>
                     <Nav className="nav-pills-info" pills>
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
                         href="#pablo"
-                        className={horizontalTabsC === "Joueur" ? "active" : ""}
+                        className={horizontalTabsC === "Vidéos" ? "active" : ""}
                         onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsC", "Joueur")
+                          changeActiveTab(e, "horizontalTabsC", "Vidéos")
                         }
                       >
-                        Joueur
+                        Vidéos
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <NavLink
                         data-toggle="tab"
                         href="#pablo"
-                        className={horizontalTabsC === "Équipe" ? "active" : ""}
+                        className={horizontalTabsC === "Monitoring" ? "active" : ""}
                         onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsC", "Équipe")
+                          changeActiveTab(e, "horizontalTabsC", "Monitoring")
                         }
                       >
-                        Équipe
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        data-toggle="tab"
-                        href="#pablo"
-                        className={horizontalTabsC === "Adversaires" ? "active" : ""}
-                        onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsC", "Adversaires")
-                        }
-                      >
-                        Adversaires
+                        Monitoring
                       </NavLink>
                     </NavItem>
                   </Nav>
                   <TabContent className="tab-space" activeTab={horizontalTabsC}>
-                    <TabPane tabId="Joueur">
-                        {/* reactable begin*/}
+                    <TabPane tabId="Vidéos">
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -1269,12 +1246,10 @@ function CommunauteAgent() {
                         </Col>
                         </Row>
                         </div>
-                        </>
-                        {/* reactable ending*/}                      
+                        </>                    
                     </TabPane>  
 
-                    <TabPane tabId="Équipe">
-                        {/* reactable begin*/}
+                    <TabPane tabId="Monitoring">
                         <>
                         {alert}
                         <div style={{display: 'flex', justifyContent: 'right'}}>
@@ -1391,423 +1366,14 @@ function CommunauteAgent() {
                         </Row>
                         </div>
                         </>
-                        {/* reactable ending*/}  
                     </TabPane>   
-
-                    <TabPane tabId="Adversaires">
-                        {/* reactable begin*/}
-                        <>
-                        {alert}
-                        <div style={{display: 'flex', justifyContent: 'right'}}>
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            caret
-                            className="btn-link btn-icon"
-                            color="default"
-                            data-toggle="dropdown"
-                            type="button"
-                          >
-                            <i className="tim-icons icon-settings-gear-63" />
-                          </DropdownToggle>
-                          <DropdownMenu right>
-                          <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Créer un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Inviter un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Télécharger la liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Importer une liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              className="text-danger"
-                              onClick={warningWithConfirmMessage}
-                            >
-                              Effacer
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                        </div>
-                        <div className="content" style={{"margin-top": '-30px'}}>
-                        <Row className="mt-5">
-                        <Col xs={12} md={12}>
-                        <ReactTable
-                        data={data}
-                        filterable
-                        resizable={false}
-                        columns={[
-                          {
-                            Header: "champ",
-                            accessor: "1",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "2",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "3",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "4",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "5",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "6",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "7",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "8",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "9",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "10",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "",
-                          },
-                          {
-                            Header: "Actions",
-                            accessor: "actions",
-                            sortable: false,
-                            filterable: false,
-                          },
-                        ]}
-                        defaultPageSize={10}
-                        showPaginationTop
-                        showPaginationBottom={false}
-                        className="-striped -highlight"
-                              />
-                        </Col>
-                        </Row>
-                        </div>
-                        </>
-                        {/* reactable ending*/}  
-                    </TabPane>  
                   </TabContent>
                   </Card>
-
-                      {/* subcategories ending*/}
                   </TabPane>
                     </TabContent>
 
                     <TabContent activeTab={verticalTabsIcons}>
-                      <TabPane tabId="Réseau">
-                    {/* subcategories begin*/}
-                    <Card>
-                    <Nav className="nav-pills-info" pills>
-                    <NavItem>
-                      <NavLink
-                        data-toggle="tab"
-                        href="#pablo"
-                        className={horizontalTabsA === "Membres" ? "active" : ""}
-                        onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsA", "Membres")
-                        }
-                      >
-                        Membres
-                      </NavLink>
-                    </NavItem>
-                    <NavItem>
-                      <NavLink
-                        data-toggle="tab"
-                        href="#pablo"
-                        className={horizontalTabsA === "Coachs" ? "active" : ""}
-                        onClick={(e) =>
-                          changeActiveTab(e, "horizontalTabsA", "Coachs")
-                        }
-                      >
-                        Coachs
-                      </NavLink>
-                    </NavItem>
-                  </Nav>
-                  <TabContent className="tab-space" activeTab={horizontalTabsA}>
-                    <TabPane tabId="Joueur">                   
-                    </TabPane>  
-                    <TabPane tabId="Membres">
-                    </TabPane>   
-
-                    <TabPane tabId="Coachs">
-                        {/* reactable begin*/}
-                        <>
-                        {alert}
-                        <div style={{display: 'flex', justifyContent: 'right'}}>
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            caret
-                            className="btn-link btn-icon"
-                            color="default"
-                            data-toggle="dropdown"
-                            type="button"
-                          >
-                            <i className="tim-icons icon-settings-gear-63" />
-                          </DropdownToggle>
-                          <DropdownMenu right>
-                          <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Créer un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Inviter un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Télécharger la liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Importer une liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              className="text-danger"
-                              onClick={warningWithConfirmMessage}
-                            >
-                              Effacer
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                        </div>
-                        <div className="content" style={{"margin-top": '-30px'}}>
-                        <Row className="mt-5">
-                        <Col xs={12} md={12}>
-                        <ReactTable
-                        data={data}
-                        filterable
-                        resizable={false}
-                        columns={[
-                          {
-                            Header: "champ",
-                            accessor: "1",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "2",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "3",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "4",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "5",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "6",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "7",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "8",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "9",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "10",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "",
-                          },
-                          {
-                            Header: "Actions",
-                            accessor: "actions",
-                            sortable: false,
-                            filterable: false,
-                          },
-                        ]}
-                        defaultPageSize={10}
-                        showPaginationTop
-                        showPaginationBottom={false}
-                        className="-striped -highlight"
-                              />
-                        </Col>
-                        </Row>
-                        </div>
-                        </>
-                        {/* reactable ending*/}  
-                    </TabPane>  
-
-                    <TabPane tabId="Membres">
-                        {/* reactable begin*/}
-                        <>
-                        {alert}
-                        <div style={{display: 'flex', justifyContent: 'right'}}>
-                        <UncontrolledDropdown>
-                          <DropdownToggle
-                            caret
-                            className="btn-link btn-icon"
-                            color="default"
-                            data-toggle="dropdown"
-                            type="button"
-                          >
-                            <i className="tim-icons icon-settings-gear-63" />
-                          </DropdownToggle>
-                          <DropdownMenu right>
-                          <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Créer un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Inviter un membre
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}                       
-                            >
-                              Télécharger la liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              onClick={(e) => e.preventDefault()}
-                            >
-                              Importer une liste
-                            </DropdownItem>
-                            <DropdownItem
-                              href="#pablo"
-                              className="text-danger"
-                              onClick={warningWithConfirmMessage}
-                            >
-                              Effacer
-                            </DropdownItem>
-                          </DropdownMenu>
-                        </UncontrolledDropdown>
-                        </div>
-                        <div className="content" style={{"margin-top": '-30px'}}>
-                        <Row className="mt-5">
-                        <Col xs={12} md={12}>
-                        <ReactTable
-                        data={data}
-                        filterable
-                        resizable={false}
-                        columns={[
-                          {
-                            Header: "champ",
-                            accessor: "1",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "2",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "3",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "4",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "5",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "6",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "7",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "8",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "9",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "10",
-                          },
-                          {
-                            Header: "champ",
-                            accessor: "",
-                          },
-                          {
-                            Header: "Actions",
-                            accessor: "actions",
-                            sortable: false,
-                            filterable: false,
-                          },
-                        ]}
-                        defaultPageSize={10}
-                        showPaginationTop
-                        showPaginationBottom={false}
-                        className="-striped -highlight"
-                              />
-                        </Col>
-                        </Row>
-                        </div>
-                        </>
-                        {/* reactable ending*/}  
-                    </TabPane>
-                  </TabContent>
-                  </Card>
-
-                      {/* subcategories ending*/}
-                      
-                  </TabPane>
-                    </TabContent>
-
-                    <TabContent activeTab={verticalTabsIcons}>
-                      <TabPane tabId="Profil">
+                      <TabPane tabId="Club">
                       <Nav className="nav-pills-info" pills>
                     <NavItem>
                       <NavLink
@@ -1950,7 +1516,7 @@ function CommunauteAgent() {
 
                   </TabPane>
                     </TabContent>
-
+                  */}
                   </Col>
                 </Row>
                 {/*Vertical tab ending*/}
@@ -1963,4 +1529,668 @@ function CommunauteAgent() {
     );
 };
 
-export default CommunauteAgent;
+class PlayersTable extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [...players]
+    };
+    this.prices = this.prices.bind(this);
+  }
+  prices = action => {
+    if (!action) {
+      return this.state.data;
+    } else {
+      switch (action.actionType) {
+        case "addRow":
+          let newRow = {};
+          newRow.id = this.state.data.length + 1;
+          newRow.FirstName = " ";
+          newRow.LastName = " ";
+          newRow.Team = " ";
+          newRow.AgeCategory = " ";
+          newRow.JerseyNumber = " ";
+          this.setState({ data: [...this.state.data, newRow] });
+
+          return this.state.data;
+        case "deleteRow":
+          //this delets different rows only
+          let new_state = this.state.data.filter(
+            row => row.id !== action.row || row.fruit !== action.fruit
+          );
+
+          this.setState({ data: [...new_state] });
+          return this.state.data;
+        default:
+          return this.state.data;
+      }
+    }
+  };
+  render() {
+
+    return (
+      <div className="App">
+        <RenderplayersTable data={this.state.data} prices={this.prices} />
+      </div>
+    );
+  }
+}
+
+class CoachsTable extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [...coachs]
+    };
+    this.prices = this.prices.bind(this);
+  }
+  prices = action => {
+    if (!action) {
+      return this.state.data;
+    } else {
+      switch (action.actionType) {
+        case "addRow":
+          let newRow = {};
+          newRow.id = this.state.data.length + 1;
+          newRow.FirstName = " ";
+          newRow.LastName = " ";
+          newRow.Team = " ";
+          newRow.AgeCategory = " ";
+          newRow.JerseyNumber = " ";
+          this.setState({ data: [...this.state.data, newRow] });
+
+          return this.state.data;
+        case "deleteRow":
+          //this delets different rows only
+          let new_state = this.state.data.filter(
+            row => row.id !== action.row || row.fruit !== action.fruit
+          );
+
+          this.setState({ data: [...new_state] });
+          return this.state.data;
+        default:
+          return this.state.data;
+      }
+    }
+  };
+  render() {
+
+    return (
+      <div className="App">
+        <RendercoachsTable data={this.state.data} prices={this.prices} />
+      </div>
+    );
+  }
+}
+
+class StaffsTable extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [...staffs]
+    };
+    this.prices = this.prices.bind(this);
+  }
+  prices = action => {
+    if (!action) {
+      return this.state.data;
+    } else {
+      switch (action.actionType) {
+        case "addRow":
+          let newRow = {};
+          newRow.id = this.state.data.length + 1;
+          newRow.FirstName = " ";
+          newRow.LastName = " ";
+          newRow.Team = " ";
+          newRow.AgeCategory = " ";
+          newRow.JerseyNumber = " ";
+          this.setState({ data: [...this.state.data, newRow] });
+
+          return this.state.data;
+        case "deleteRow":
+          //this delets different rows only
+          let new_state = this.state.data.filter(
+            row => row.id !== action.row || row.fruit !== action.fruit
+          );
+
+          this.setState({ data: [...new_state] });
+          return this.state.data;
+        default:
+          return this.state.data;
+      }
+    }
+  };
+  render() {
+
+    return (
+      <div className="App">
+        <RenderStaffsTable data={this.state.data} prices={this.prices} />
+      </div>
+    );
+  }
+}
+
+class MembersTable extends Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [...members]
+    };
+    this.prices = this.prices.bind(this);
+  }
+  prices = action => {
+    if (!action) {
+      return this.state.data;
+    } else {
+      switch (action.actionType) {
+        case "addRow":
+          let newRow = {};
+          newRow.id = this.state.data.length + 1;
+          newRow.FirstName = " ";
+          newRow.LastName = " ";
+          newRow.Team = " ";
+          newRow.AgeCategory = " ";
+          newRow.JerseyNumber = " ";
+          this.setState({ data: [...this.state.data, newRow] });
+
+          return this.state.data;
+        case "deleteRow":
+          //this delets different rows only
+          let new_state = this.state.data.filter(
+            row => row.id !== action.row || row.fruit !== action.fruit
+          );
+
+          this.setState({ data: [...new_state] });
+          return this.state.data;
+        default:
+          return this.state.data;
+      }
+    }
+  };
+  render() {
+
+    return (
+      <div className="App">
+        <RenderMembersTable data={this.state.data} prices={this.prices} />
+      </div>
+    );
+  }
+}
+
+class RenderplayersTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: [...this.props.data] };
+  }
+  componentWillMount() {
+    if (!this.state.data.length) {
+      this.setState({ data: [...this.props.prices({ action: "data" })] });
+    }
+  }
+
+  render() {
+    let tableData = this.state.data;
+    if (JSON.stringify(this.props.data) === JSON.stringify(tableData)) {
+      console.log("in rendered table components the new data is: updated ");
+    } else {
+      console.log("in rendered table components the new data is: not updated ");
+      tableData = this.props.data;
+    }
+    
+    const columns = [{
+      dataField: 'id',
+      text: 'id'
+    }, 
+      {
+      dataField: 'FirstName',
+      text: 'Nom',
+      sort: true 
+    }, {
+      dataField: 'LastName',
+      text: 'Prénom',
+      sort: true 
+    }, {
+      dataField: 'Team',
+      text: 'Équipe',
+      sort: true 
+    }, {
+      dataField: 'AgeCategory',
+      text: 'Catégorie',
+      sort: true 
+    }, {
+      dataField: 'JerseyNumber',
+      text: 'e-mail',
+      sort: true 
+    },
+    {
+      dataField: "databasePkey",
+      text: "",
+      editable: false,
+      formatter: (cell, row) => {
+        if (row)
+          return (
+            <button
+              className="btn btn-danger btn-xs border-secondary rounded"
+              onClick={() => {
+                this.setState(this.state.data, () => {
+                  this.props.prices({
+                    actionType: "deleteRow",
+                    row: row.id,
+                    fruit: row.fruit
+                  });
+                });
+              }}
+            >
+              Retirer
+            </button>
+          );
+        return null;
+      }
+    }
+    ];
+
+    return (
+      <div xs={12} className="col form">
+        <ToolkitProvider
+          keyField="id"
+          data={players}
+          columns={columns}
+          exportCSV
+          search
+        >
+          {props => (
+            <div>
+              <div>
+              <Button
+                  color="success"
+                  onClick={() =>
+                    this.setState(tableData, () => {
+                      this.props.prices({ actionType: "addRow" });
+                    })
+                  }
+                >
+                Nouveau
+                </Button>
+              </div>
+              <div style={{"overflow-x":"scroll"}}>
+              <SearchBar { ...props.searchProps } placeholder="Recherche"/>
+              <BootstrapTable
+                {...props.baseProps}
+                keyField="id"
+                data={tableData}
+                columns={columns}
+                deleteRow={ true }
+                bordered={ false }
+                cellEdit={cellEditFactory({
+                  mode: "click",
+                  onStartEdit: (row, column, rowIndex, columnIndex) => {},
+                  beforeSaveCell: (oldValue, newValue, row, column) => {
+                    if (column.dataField === "price") {
+                      if (isNaN(Number(newValue))) {
+                        alert(
+                          "You entered " +
+                            newValue +
+                            " Please Enter numbers Only!!"
+                        );
+                      }
+                    }
+                  },
+                  afterSaveCell: (oldValue, newValue, row, column) => {}
+                })}
+              />
+            </div>
+            </div>
+          )}
+        </ToolkitProvider>
+      </div>
+      
+    );
+  }
+}
+
+class RendercoachsTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: [...this.props.data] };
+  }
+  componentWillMount() {
+    if (!this.state.data.length) {
+      this.setState({ data: [...this.props.prices({ action: "data" })] });
+    }
+  }
+
+  render() {
+    let tableData = this.state.data;
+    if (JSON.stringify(this.props.data) === JSON.stringify(tableData)) {
+      console.log("in rendered table components the new data is: updated ");
+    } else {
+      console.log("in rendered table components the new data is: not updated ");
+      tableData = this.props.data;
+    }
+    
+    const columns = [{
+      dataField: 'id',
+      text: 'id'
+    }, 
+      {
+      dataField: 'FirstName',
+      text: 'Nom',
+      sort: true 
+    }, {
+      dataField: 'LastName',
+      text: 'Prénom',
+      sort: true 
+    }, {
+      dataField: 'Team',
+      text: 'Équipe',
+      sort: true 
+    }, {
+      dataField: 'AgeCategory',
+      text: 'Catégorie',
+      sort: true 
+    }, {
+      dataField: 'JerseyNumber',
+      text: 'e-mail',
+      sort: true 
+    },
+    ];
+
+    return (
+      <div xs={12} className="col form">
+        <ToolkitProvider
+          keyField="id"
+          data={coachs}
+          columns={columns}
+          exportCSV
+          search
+        >
+          {props => (
+            <div>
+              <div>
+                <ExportCSVButton
+                  className="text-light btn bg-success border-secondary rounded"
+                  {...props.csvProps}
+                >
+                  <span>Export CSV</span>
+                </ExportCSVButton>
+
+                <button
+                  className="btn bg-success text-light rounded"
+                  onClick={() =>
+                    this.setState(tableData, () => {
+                      this.props.prices({ actionType: "addRow" });
+                    })
+                  }
+                >
+                  Nouveau joueur
+                </button>
+                
+              </div>
+              <div style={{"overflow-x":"scroll"}}>
+              <SearchBar { ...props.searchProps } placeholder="Recherche"/>
+              <BootstrapTable
+                {...props.baseProps}
+                keyField="id"
+                data={tableData}
+                columns={columns}
+                bordered={ false }
+                cellEdit={cellEditFactory({
+                  mode: "click",
+                  onStartEdit: (row, column, rowIndex, columnIndex) => {},
+                  beforeSaveCell: (oldValue, newValue, row, column) => {
+                    if (column.dataField === "price") {
+                      if (isNaN(Number(newValue))) {
+                        alert(
+                          "You entered " +
+                            newValue +
+                            " Please Enter numbers Only!!"
+                        );
+                      }
+                    }
+                  },
+                  afterSaveCell: (oldValue, newValue, row, column) => {}
+                })}
+              />
+            </div>
+            </div>
+          )}
+        </ToolkitProvider>
+      </div>
+      
+    );
+  }
+}
+
+class RenderStaffsTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: [...this.props.data] };
+  }
+  componentWillMount() {
+    if (!this.state.data.length) {
+      this.setState({ data: [...this.props.prices({ action: "data" })] });
+    }
+  }
+
+  render() {
+    let tableData = this.state.data;
+    if (JSON.stringify(this.props.data) === JSON.stringify(tableData)) {
+      console.log("in rendered table components the new data is: updated ");
+    } else {
+      console.log("in rendered table components the new data is: not updated ");
+      tableData = this.props.data;
+    }
+    
+    const columns = [{
+      dataField: 'id',
+      text: 'id'
+    }, 
+      {
+      dataField: 'FirstName',
+      text: 'Nom',
+      sort: true 
+    }, {
+      dataField: 'LastName',
+      text: 'Prénom',
+      sort: true 
+    }, {
+      dataField: 'Team',
+      text: 'Équipe',
+      sort: true 
+    }, {
+      dataField: 'AgeCategory',
+      text: 'Catégorie',
+      sort: true 
+    }, {
+      dataField: 'JerseyNumber',
+      text: 'e-mail',
+      sort: true 
+    },
+    ];
+
+    return (
+      <div xs={12} className="col form">
+        <ToolkitProvider
+          keyField="id"
+          data={staffs}
+          columns={columns}
+          exportCSV
+          search
+        >
+          {props => (
+            <div>
+              <div>
+                <ExportCSVButton
+                  className="text-light btn bg-success border-secondary rounded"
+                  {...props.csvProps}
+                >
+                  <span>Export CSV</span>
+                </ExportCSVButton>
+
+                <button
+                  className="btn bg-success text-light rounded"
+                  onClick={() =>
+                    this.setState(tableData, () => {
+                      this.props.prices({ actionType: "addRow" });
+                    })
+                  }
+                >
+                  Nouveau joueur
+                </button>
+                
+              </div>
+              <div style={{"overflow-x":"scroll"}}>
+              <SearchBar { ...props.searchProps } placeholder="Recherche"/>
+              <BootstrapTable
+                {...props.baseProps}
+                keyField="id"
+                data={tableData}
+                columns={columns}
+                bordered={ false }
+                cellEdit={cellEditFactory({
+                  mode: "click",
+                  onStartEdit: (row, column, rowIndex, columnIndex) => {},
+                  beforeSaveCell: (oldValue, newValue, row, column) => {
+                    if (column.dataField === "price") {
+                      if (isNaN(Number(newValue))) {
+                        alert(
+                          "You entered " +
+                            newValue +
+                            " Please Enter numbers Only!!"
+                        );
+                      }
+                    }
+                  },
+                  afterSaveCell: (oldValue, newValue, row, column) => {}
+                })}
+              />
+            </div>
+            </div>
+          )}
+        </ToolkitProvider>
+      </div>
+      
+    );
+  }
+}
+
+class RenderMembersTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { data: [...this.props.data] };
+  }
+  componentWillMount() {
+    if (!this.state.data.length) {
+      this.setState({ data: [...this.props.prices({ action: "data" })] });
+    }
+  }
+
+  render() {
+    let tableData = this.state.data;
+    if (JSON.stringify(this.props.data) === JSON.stringify(tableData)) {
+      console.log("in rendered table components the new data is: updated ");
+    } else {
+      console.log("in rendered table components the new data is: not updated ");
+      tableData = this.props.data;
+    }
+
+    const columns = [{
+      dataField: 'id',
+      text: 'id'
+    }, 
+      {
+      dataField: 'FirstName',
+      text: 'Nom',
+      sort: true 
+    }, {
+      dataField: 'LastName',
+      text: 'Prénom',
+      sort: true 
+    }, {
+      dataField: 'Team',
+      text: 'Équipe',
+      sort: true 
+    }, {
+      dataField: 'AgeCategory',
+      text: 'Catégorie',
+      sort: true 
+    }, {
+      dataField: 'JerseyNumber',
+      text: 'e-mail',
+      sort: true 
+    },
+    ];
+
+    return (
+      <div xs={12} className="col form">
+        <ToolkitProvider
+          keyField="id"
+          data={members}
+          columns={columns}
+          exportCSV
+          search
+        >
+          {props => (
+            <div>
+              <div>
+                <ExportCSVButton
+                  className="text-light btn bg-success border-secondary rounded"
+                  {...props.csvProps}
+                >
+                  <span>Export CSV</span>
+                </ExportCSVButton>
+
+                <button
+                  className="btn bg-success text-light rounded"
+                  onClick={() =>
+                    this.setState(tableData, () => {
+                      this.props.prices({ actionType: "addRow" });
+                    })
+                  }
+                >
+                  Nouveau joueur
+                </button>
+                
+              </div>
+              <div style={{"overflow-x":"scroll"}}>
+              <SearchBar { ...props.searchProps } placeholder="Recherche"/>
+              <BootstrapTable
+                {...props.baseProps}
+                keyField="id"
+                data={tableData}
+                columns={columns}
+                bordered={ false }
+                cellEdit={cellEditFactory({
+                  mode: "click",
+                  onStartEdit: (row, column, rowIndex, columnIndex) => {},
+                  beforeSaveCell: (oldValue, newValue, row, column) => {
+                    if (column.dataField === "price") {
+                      if (isNaN(Number(newValue))) {
+                        alert(
+                          "You entered " +
+                            newValue +
+                            " Please Enter numbers Only!!"
+                        );
+                      }
+                    }
+                  },
+                  afterSaveCell: (oldValue, newValue, row, column) => {}
+                })}
+              />
+            </div>
+            </div>
+          )}
+        </ToolkitProvider>
+      </div>
+      
+    );
+  }
+}
+
+
+
+export default CommunauteClub;

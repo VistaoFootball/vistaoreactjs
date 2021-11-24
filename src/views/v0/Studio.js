@@ -21,7 +21,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import screenful from "screenfull";
-import Controls from "./components/Controls";
+import Controls from "../components/Controls";
 import ReactPlayer from 'react-player';
 
 // Import du zoomIn et zoomOut
