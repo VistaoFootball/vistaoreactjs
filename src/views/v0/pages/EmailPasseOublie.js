@@ -29,7 +29,7 @@ import {
   Container,
   Col,
 } from "reactstrap";
-import { forgotPasswordLink } from "../../apis/routes/profile";
+import { forgotPasswordLink } from "../../../apis/routes/profile";
 
 const Login = () => {
   const [state, setState] = React.useState({});

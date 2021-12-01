@@ -21,7 +21,7 @@ import { UserContext } from "providers/UserProvider";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Button, CustomInput } from "reactstrap";
+import { CustomInput } from "reactstrap";
 
 const FixedPlugin = (props) => {
   const [classes, setClasses] = React.useState("dropdown");

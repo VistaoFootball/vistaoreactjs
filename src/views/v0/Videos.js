@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-import logo from "../Play.png";
+import logo from '../../Play.png';
 // reactstrap components
 import {
   Card,
@@ -30,18 +30,18 @@ import {
   Col,
 } from "reactstrap";
 import { UserContext } from "providers/UserProvider";
+import { getVideoGallery } from "apis/routes/videos";
+import { deleteVideoProfile } from "apis/routes/videos";
 import { useHistory } from "react-router-dom";
-import { getGallerySummary } from "apis/routes/videos";
-import { deleteSummary } from "apis/routes/videos";
 import { SearchContext } from "providers/SearchProvider";
 import { getSubscriptionStatus } from "apis/routes/profile";
 
 function Dashboard(props) {
-  const [summaries, setSummaries] = React.useState([]);
-  const [updateData, setUpdateData] = React.useState(true);
   const { user } = React.useContext(UserContext);
-  const history = useHistory();
   const { search, setSearch } = React.useContext(SearchContext);
+  const history = useHistory();
+  const [videos, setVideos] = React.useState([]);
+  const [updateGallery, setUpdateGallery] = React.useState(true);
   const [userPlan, setUserPlan] = React.useState({});
 
   React.useEffect(() => {
@@ -53,8 +53,6 @@ function Dashboard(props) {
     }
   }, []);
 
-  const summaryTitle = ["", "Résumé temps forts", "Résumé tactique"];
-  const summaryType = ["", "Joueur", "Équipe", "Équipe adverse"];
   const videoContextType = {
     1: "Opposition à l'entrainement",
     2: "Match amical",
@@ -62,12 +60,14 @@ function Dashboard(props) {
     4: "Match de coupe",
     5: "Match de tournoi",
   };
+
   const videoDuration = {
     1: "7 secondes",
     2: "10 secondes",
     3: "15 secondes",
     4: "20 secondes",
   };
+
   const pitchGroundType = {
     1: "Surface naturelle",
     2: "Surface synthétique",
@@ -75,53 +75,58 @@ function Dashboard(props) {
     4: "Surface stabilisée",
   };
 
-  const getData = async () => {
-    const { summary_gallery } = await getGallerySummary(user.auth_token);
-    if (search) {
-      const filteredResults = summary_gallery.filter((summary) => {
-        const { video_details } = summary;
-        const { home_team, away_team } = video_details;
-
-        return (
-          home_team.club_name.toLowerCase().includes(search.toLowerCase()) ||
-          away_team.club_name.toLowerCase().includes(search.toLowerCase())
-        );
-      });
-      setSummaries(filteredResults);
-    } else setSummaries(summary_gallery);
-  };
-
   React.useEffect(() => {
-    if (!user) {
-      history.replace("/auth/login");
-    } else {
-      getData();
+    if (user) {
+      getVideoGallery(user.auth_token).then((result) => {
+        if (search) {
+          const filteredResults = result.filter((video) => {
+            const { home_team, away_team } = video;
+            return (
+              home_team.club_name
+                .toLowerCase()
+                .includes(search.toLowerCase()) ||
+              away_team.club_name.toLowerCase().includes(search.toLowerCase())
+            );
+          });
+          setVideos(filteredResults);
+        } else setVideos(result);
+      });
     }
-  }, [user, updateData, search]);
-
-  if (!user) return <></>;
+  }, [user, updateGallery, search]);
 
   return (
     <>
       <div className="content">
         <Row>
-          {summaries.map((summary) => {
-            const { id, summary_title_id, summary_type_id, video_details } =
-              summary;
+          {videos.map((video) => {
             const {
+              id,
+              video_files,
               context_type,
               clip_duration,
               pitch_ground,
               is_private,
               home_team,
               away_team,
-              video_files,
-            } = video_details;
+            } = video;
             return (
               <Col lg="3" key={id}>
                 <Card className="card-chart">
                   <Row>
-                    <img src={logo} width="350" height="200" alt="thumbnail" />
+                    <img
+                      src={logo}
+                      width="350"
+                      height="200"
+                      alt="Thumbnail"
+                      onClick={() => {
+                        history.replace("/admin/studio", {
+                          video_id: id,
+                          ...(video_files.length > 0 && {
+                            video_link: video_files[1].video_link,
+                          }),
+                        });
+                      }}
+                    />
                   </Row>
                   <CardBody>
                     <div style={{ display: "flex", justifyContent: "right" }}>
@@ -140,13 +145,13 @@ function Dashboard(props) {
                             userPlan.plan_type === "elite" && (
                               <>
                                 <DropdownItem
-                                  href="#pablo"
+                                  href={video_files[0].video_link}
                                   onClick={(e) => e.preventDefault()}
                                 >
                                   Télécharger en HD
                                 </DropdownItem>
                                 <DropdownItem
-                                  href="#pablo"
+                                  href={video_files[1].video_link}
                                   onClick={(e) => e.preventDefault()}
                                 >
                                   Télécharger en SD
@@ -157,28 +162,22 @@ function Dashboard(props) {
                             href="#pablo"
                             onClick={async (e) => {
                               e.preventDefault();
-                              await deleteSummary(user.auth_token, id);
-                              setUpdateData(!updateData);
+                              await deleteVideoProfile(user.auth_token, id);
+                              setUpdateGallery(!updateGallery);
                             }}
                           >
-                            Supprimer le résumé
+                            Supprimer la vidéo
                           </DropdownItem>
                         </DropdownMenu>
                       </UncontrolledDropdown>
                     </div>
                     <Col>
                       <CardTitle tag="h4">
-                        <i className="tim-icons icon-triangle-right-17" />{" "}
+                        <i className="tim-icons icon-video-66" />{" "}
                         {home_team.club_name} v {away_team.club_name}
                       </CardTitle>
                       <div class="galleryItem">
                         <div class="vistao-thumbnail"></div>
-                        <span>
-                          <i className="tim-icons icon-check-2" />{" "}
-                          {summaryTitle[summary_title_id]} -{" "}
-                          {summaryType[summary_type_id]}
-                        </span>
-                        <br></br>
                         <span>
                           <i className="tim-icons icon-double-right" /> Video
                           Context - {videoContextType[context_type]}

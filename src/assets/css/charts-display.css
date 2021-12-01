@@ -1,0 +1,105 @@
+.card-chart {
+  background-color: transparent;
+}
+
+.pitch-display {
+  background-image:url('https://i2.wp.com/vistao.co/wp-content/uploads/2021/03/map-terrain.png');
+  margin: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.box-display {
+  background-image:url('https://i2.wp.com/vistao.co/wp-content/uploads/2021/03/map-surface.png');
+  margin: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.diagram-display {
+  margin:auto;
+  height:200px;
+  width:300px;
+}
+
+.gauge-display {
+  width:320px !important;
+  margin:auto;
+  font-size:100px;
+}
+
+.ReactApexChart {
+  height: 350px;
+}
+
+.box-col {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.card-col {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.diagram-col {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.gauge-col {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+
+.pitch-bubble {
+  height: 450px;
+  width: 330px;
+  margin: auto;
+  margin-left:-21px;
+}
+
+.pitch-axis {
+  height: 450px;
+  width: 330px;
+  margin: auto;
+  margin-left:-10px;
+}
+
+.pitch-zone {
+  height: 450px;
+  width: 330px;
+  margin: auto;
+  margin-left:-10px;
+}
+
+.box-axis {
+  height: 150px;
+  width: 330px;
+  margin: auto;
+  margin-left:-10px;
+}
+
+.box-zone {
+  height: 150px;
+  width: 330px;
+  margin: auto;
+  margin-left:-10px;
+}
+
+.chart-title {
+  font-size: 20px;
+  text-align: center;
+}
+
+.card-title {
+  font-size:20px;
+  display:block;
+  text-align:center;
+ }
+
+.card-value {
+ font-size:75px;
+ text-align:center;
+}

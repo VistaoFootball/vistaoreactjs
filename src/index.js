@@ -27,7 +27,7 @@ import "react-notification-alert/dist/animate.css";
 import "assets/scss/black-dashboard-pro-react.scss?v=1.2.0";
 import "assets/demo/demo.css";
 import { UserProvider } from "providers/UserProvider";
-import Login from "views/pages/PasseOublie";
+import Login from "views/v0/pages/PasseOublie";
 import { SearchProvider } from "providers/SearchProvider";
 
 ReactDOM.render(

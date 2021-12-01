@@ -26,8 +26,6 @@ import { UserContext } from "providers/UserProvider";
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import { findDOMNode } from "react-dom";
-
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
@@ -38,10 +36,20 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 
 import screenful from "screenfull";
-import Controls from "./components/Controls";
+import Controls from '../components/Controls';
 import ReactPlayer from "react-player";
 // Render a YouTube video player
 import { useState, useRef } from "react";
+
+// Import du zoomIn et zoomOut
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+
+/*
+// Ajout des boutons zoomIn et zoomOut
+import ZoomIn from "@material-ui/icons/ZoomIn";
+import ZoomOut from "@material-ui/icons/ZoomOut";
+*/
+
 // react plugin used to create DropdownMenu for selecting items
 import Select from "react-select";
 // reactstrap components
@@ -73,10 +81,6 @@ const Panels = () => {
   const [multipleSelect, setmultipleSelect] = React.useState(null);
   const [horizontalTabsVideo, sethorizontalTabsVideo] =
     React.useState("Actions");
-  const [horizontalTabsNav, sethorizontalTabsNav] = React.useState("Vidéo");
-  const [openedCollapseOne, setopenedCollapseOne] = React.useState(false);
-  const [openedCollapseTwo, setopenedCollapseTwo] = React.useState(false);
-  const [openedCollapseThree, setopenedCollapseThree] = React.useState(false);
   const [openedCollapseFour, setopenedCollapseFour] = React.useState(false);
   const [openedCollapseFive, setopenedCollapseFive] = React.useState(false);
   const [openedCollapseSix, setopenedCollapseSix] = React.useState(false);
@@ -109,9 +113,6 @@ const Panels = () => {
     switch (tabState) {
       case "horizontalTabsVideo":
         sethorizontalTabsVideo(tabName);
-        break;
-      case "horizontalTabsNav":
-        sethorizontalTabsNav(tabName);
         break;
       default:
         break;
@@ -517,35 +518,7 @@ const Panels = () => {
     <>
       <div className="content">
         <Row>
-          <Col md="8">
-            <Nav className="nav-pills-info" pills>
-              <NavItem>
-                <NavLink
-                  data-toggle="tab"
-                  href="#pablo"
-                  className={horizontalTabsNav === "Vidéo" ? "active" : ""}
-                  onClick={(e) =>
-                    changeActiveTab(e, "horizontalTabsNav", "Vidéo")
-                  }
-                >
-                  Vidéo
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
-                  data-toggle="tab"
-                  href="#pablo"
-                  className={horizontalTabsNav === "Infos" ? "active" : ""}
-                  onClick={(e) =>
-                    changeActiveTab(e, "horizontalTabsNav", "Infos")
-                  }
-                >
-                  Infos
-                </NavLink>
-              </NavItem>
-            </Nav>
-            <TabContent className="tab-space" activeTab={horizontalTabsNav}>
-              <TabPane tabId="Vidéo">
+         <Col md="8" style={{paddingBottom:"330px", paddingRight:"10px", paddingLeft:"10px"}}>
                 <Container>
                   <div
                     onMouseMove={handleMouseMove}
@@ -553,7 +526,11 @@ const Panels = () => {
                     ref={playerContainerRef}
                     className={classes.playerWrapper}
                   >
-                    <ReactPlayer
+                  <TransformWrapper>
+                  {({ zoomIn, zoomOut, resetTransform, ...rest }) => (
+                  <React.Fragment>
+                  <TransformComponent>
+                    <ReactPlayer 
                       ref={playerRef}
                       width="100%"
                       height="100%"
@@ -567,9 +544,12 @@ const Panels = () => {
                       volume={volume}
                       muted={muted}
                       onProgress={handleProgress}
-                      config={{}}
-                    />
-
+                      config={{
+                      }}
+                    >	  		
+                  </ReactPlayer>
+                  </TransformComponent>
+                  <Card>
                     <Controls
                       ref={controlsRef}
                       onSeek={handleSeekChange}
@@ -593,8 +573,12 @@ const Panels = () => {
                       onToggleFullScreen={toggleFullScreen}
                       volume={volume}
                       onBookmark={addBookmark}
-                    />
-                  </div>
+                      /> 
+                      </Card>
+                      </React.Fragment>
+                      )}
+                    </TransformWrapper>
+                      </div> 
 
                   <Grid container style={{ marginTop: 20 }} spacing={3}>
                     {bookmarks.map((bookmark, index) => (
@@ -619,285 +603,9 @@ const Panels = () => {
                     ))}
                   </Grid>
                 </Container>
-              </TabPane>
+              </Col>
 
-              <TabPane tabId="Infos">
-                <Card>
-                  <Card>
-                    <div
-                      aria-multiselectable={false}
-                      className="card-collapse"
-                      id="accordion"
-                      role="tablist"
-                    >
-                      <Card className="card-plain">
-                        <CardHeader role="tab">
-                          <a
-                            aria-expanded={openedCollapseOne}
-                            href="#pablo"
-                            data-parent="#accordion"
-                            data-toggle="collapse"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setopenedCollapseOne(!openedCollapseOne);
-                            }}
-                          >
-                            Systèmes tactiques{" "}
-                            <i className="tim-icons icon-minimal-down" />
-                          </a>
-                        </CardHeader>
-                        <Collapse role="tabpanel" isOpen={openedCollapseOne}>
-                          <CardBody>
-                            <Card>
-                              <label>Système(s) tactique de l'équipe ?</label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                placeholder=""
-                                name="multipleSelect"
-                                closeMenuOnSelect={false}
-                                isMulti
-                                Tagsjoueurs={multipleSelect}
-                                onChange={(Tagsjoueurs) =>
-                                  setmultipleSelect(Tagsjoueurs)
-                                }
-                                options={[
-                                  {
-                                    value: "",
-                                    label: "Mon effectif",
-                                    isDisabled: true,
-                                  },
-                                  { value: "1", label: "4-4-2" },
-                                  { value: "2", label: "4-2-1-2-1" },
-                                  { value: "3", label: "4-3-2-1" },
-                                  { value: "4", label: "4-1-2-2-1" },
-                                  { value: "5", label: "4-1-2-1-2" },
-                                  { value: "6", label: "4-1-2-1-2" },
-                                  { value: "7", label: "4-2-3-1" },
-                                  { value: "8", label: "4-1-4-1" },
-                                  { value: "9", label: "4-2-1-3" },
-                                  { value: "10", label: "4-2-1-3" },
-                                  { value: "11", label: "4-1-2-3" },
-                                  { value: "12", label: "4-1-2-3" },
-                                  { value: "13", label: "3-4-2-1" },
-                                  { value: "14", label: "3-1-4-1-1" },
-                                  { value: "15", label: "5-1-2-1-1" },
-                                  { value: "16", label: "5-1-2-2" },
-                                  { value: "17", label: "5-3-2" },
-                                  { value: "18", label: "5-2-2-1" },
-                                ]}
-                              />
-                              <label>
-                                Système(s) tactique de l'adversaire ?
-                              </label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                placeholder=""
-                                name="multipleSelect"
-                                closeMenuOnSelect={false}
-                                isMulti
-                                Tagsjoueurs={multipleSelect}
-                                onChange={(Tagsjoueurs) =>
-                                  setmultipleSelect(Tagsjoueurs)
-                                }
-                                options={[
-                                  {
-                                    value: "",
-                                    label: "Mon effectif",
-                                    isDisabled: true,
-                                  },
-                                  { value: "1", label: "4-4-2" },
-                                  { value: "2", label: "4-2-1-2-1" },
-                                  { value: "3", label: "4-3-2-1" },
-                                  { value: "4", label: "4-1-2-2-1" },
-                                  { value: "5", label: "4-1-2-1-2" },
-                                  { value: "6", label: "4-1-2-1-2" },
-                                  { value: "7", label: "4-2-3-1" },
-                                  { value: "8", label: "4-1-4-1" },
-                                  { value: "9", label: "4-2-1-3" },
-                                  { value: "10", label: "4-2-1-3" },
-                                  { value: "11", label: "4-1-2-3" },
-                                  { value: "12", label: "4-1-2-3" },
-                                  { value: "13", label: "3-4-2-1" },
-                                  { value: "14", label: "3-1-4-1-1" },
-                                  { value: "15", label: "5-1-2-1-1" },
-                                  { value: "16", label: "5-1-2-2" },
-                                  { value: "17", label: "5-3-2" },
-                                  { value: "18", label: "5-2-2-1" },
-                                ]}
-                              />
-                            </Card>
-                          </CardBody>
-                        </Collapse>
-                      </Card>
-                    </div>
-                    <div
-                      aria-multiselectable={false}
-                      className="card-collapse"
-                      id="accordion"
-                      role="tablist"
-                    >
-                      <Card className="card-plain">
-                        <CardHeader role="tab">
-                          <a
-                            aria-expanded={openedCollapseTwo}
-                            href="#pablo"
-                            data-parent="#accordion"
-                            data-toggle="collapse"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setopenedCollapseTwo(!openedCollapseTwo);
-                            }}
-                          >
-                            Infrastructures{" "}
-                            <i className="tim-icons icon-minimal-down" />
-                          </a>
-                        </CardHeader>
-                        <Collapse role="tabpanel" isOpen={openedCollapseTwo}>
-                          <CardBody>
-                            <Card>
-                              <label>Type de surface ?</label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                name="Choix_équipe"
-                                equipe={singleSelect}
-                                onChange={(equipe) => setsingleSelect(equipe)}
-                                options={[
-                                  { value: "1", label: "Surface naturelle" },
-                                  { value: "2", label: "Surface synthétique" },
-                                  { value: "3", label: "Surface hybride" },
-                                  { value: "4", label: "Surface stabilisée" },
-                                ]}
-                                placeholder=""
-                              />
-                              <label>Vitesse de la surface</label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                name="Choix_équipe"
-                                equipe={singleSelect}
-                                onChange={(equipe) => setsingleSelect(equipe)}
-                                options={[
-                                  { value: "1", label: "Très lente" },
-                                  { value: "2", label: "Lente" },
-                                  { value: "3", label: "Standard" },
-                                  { value: "4", label: "Rapide" },
-                                  { value: "5", label: "Très rapide" },
-                                ]}
-                                placeholder=""
-                              />
-                              <label>Type d'enceinte</label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                name="Choix_équipe"
-                                equipe={singleSelect}
-                                onChange={(equipe) => setsingleSelect(equipe)}
-                                options={[
-                                  { value: "1", label: "Enceinte dégagée" },
-                                  { value: "2", label: "Enceinte semi-close" },
-                                  { value: "3", label: "Piste d'athlétisme" },
-                                  { value: "4", label: "Cuvette" },
-                                ]}
-                                placeholder=""
-                              />
-                              <label>Tribune ?</label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                name="Choix_équipe"
-                                equipe={singleSelect}
-                                onChange={(equipe) => setsingleSelect(equipe)}
-                                options={[
-                                  { value: "1", label: "oui" },
-                                  { value: "2", label: "non" },
-                                ]}
-                                placeholder=""
-                              />
-                              <label>Panneau d'affichage ?</label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                name="Choix_équipe"
-                                equipe={singleSelect}
-                                onChange={(equipe) => setsingleSelect(equipe)}
-                                options={[
-                                  { value: "1", label: "oui" },
-                                  { value: "2", label: "non" },
-                                ]}
-                                placeholder=""
-                              />
-                            </Card>
-                          </CardBody>
-                        </Collapse>
-                      </Card>
-                    </div>
-                    <div
-                      aria-multiselectable={false}
-                      className="card-collapse"
-                      id="accordion"
-                      role="tablist"
-                    >
-                      <Card className="card-plain">
-                        <CardHeader role="tab">
-                          <a
-                            aria-expanded={openedCollapseThree}
-                            href="#pablo"
-                            data-parent="#accordion"
-                            data-toggle="collapse"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setopenedCollapseThree(!openedCollapseThree);
-                            }}
-                          >
-                            Météo <i className="tim-icons icon-minimal-down" />
-                          </a>
-                        </CardHeader>
-                        <Collapse role="tabpanel" isOpen={openedCollapseThree}>
-                          <CardBody>
-                            <Card>
-                              <label>Climat</label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                name="Choix_équipe"
-                                equipe={singleSelect}
-                                onChange={(equipe) => setsingleSelect(equipe)}
-                                options={[
-                                  { value: "1", label: "Ciel dégagé" },
-                                  { value: "2", label: "Averses" },
-                                  { value: "3", label: "Pluie" },
-                                  { value: "4", label: "Pluie intense" },
-                                ]}
-                                placeholder=""
-                              />
-                              <label>Vent</label>
-                              <Select
-                                className="react-select info"
-                                classNamePrefix="react-select"
-                                name="Choix_équipe"
-                                equipe={singleSelect}
-                                onChange={(equipe) => setsingleSelect(equipe)}
-                                options={[
-                                  { value: "1", label: "Aucun" },
-                                  { value: "2", label: "Léger" },
-                                  { value: "3", label: "Fort" },
-                                  { value: "4", label: "Très fort" },
-                                ]}
-                                placeholder=""
-                              />
-                            </Card>
-                          </CardBody>
-                        </Collapse>
-                      </Card>
-                    </div>
-                  </Card>
-                </Card>
-              </TabPane>
-            </TabContent>
-          </Col>
+
           <Col>
             <Card>
               <div style={{ overflowY: "scroll", height: "800px" }}>
